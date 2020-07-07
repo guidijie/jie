@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/front_desk/index.css" rel="stylesheet"/>
+    <link href="../css/front_desk/goods.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+<!-- 内容区域 -->
+<div class="bit_main_content">
+    <div class=" content">
+        <!-- 面包屑 -->
+        <div class="column_inner"></div>
+
+        <!-- 商品信息 -->
+        <div class="a-goods-info" v-if="goods.data" id="goodsInfo" v-cloak>
+            <div>
+                <div class="goods-img"><img :src="goods.data.data.goods.path"></div>
+                <div class="goods-text">
+                    <div class="goods-text-header"><span>{{goods.data.data.goods.name}}</span></div>
+                    <div class="xia"></div>
+                    <div class="price">
+                            <span class="amount">
+                                {{goods.data.data.goods.price == goods.data.data.goods.preferential ?
+                                '' :
+                                '￥'+ goods.data.data.goods.price}}
+                            </span>
+                        {{goods.data.data.goods.preferential ==0 ?
+                        '免费' :
+                        '￥'+ goods.data.data.goods.preferential}}
+                    </div>
+                    <div class="goods-text-info">
+                        <div v-html="goods.data.data.goods.introduction">
+                            {{goods.data.data.goods.introduction}}
+                        </div>
+                    </div>
+                    <div class="buy">
+                        <a href="#" class="shikan">试看</a>
+                        <a href="javascript:;;" class="goumai" @click="addCart">加入购物车</a>
+                    </div>
+                    <div class="goods-groupby">
+                        <span>分类：</span>
+                        <span><a href="#">{{goods.data.data.goods.typeName}}</a></span>
+                        <span><a href="#">{{goods.data.data.goods.grade}}</a></span>
+                    </div>
+                </div>
+            </div>
+            <!-- 商品详细描述 -->
+            <div class="notice">
+                <div>
+                    <div class="jianjie">
+                        <span>课程介绍......</span>
+                    </div>
+                    <div class="xiangqing">
+                        {{goods.data.data.goods.details}}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="jianjie" style="margin: 30px 5px 20px 0;">
+                        <span>课程目录</span>
+                    </div>
+                    <div class="xiangqing" v-html="goods.data.data.goods.directory">
+                        {{goods.data.data.goods.directory}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 视频片段 -->
+<!--            <div class="pianduan  notice">-->
+<!--                <div class="jianjie"><span>课程片段</span></div>-->
+<!--                <div>-->
+<!--                    <div class="pd"></div>-->
+<!--                    <div class="pd"></div>-->
+<!--                    <div class="pd"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+
+        <!-- 商品推荐 -->
+        <div class="goods-recommended notice">
+            <div class="jianjie tui"><span>精品视频推荐</span></div>
+            <div class="tui-info-list">
+                <div>
+                    <div><a href="#"><img src="../images/goodsImage/1_1.jpg"/></a></div>
+                </div>
+                <div class="commodity-info-list-t1">
+                    <div><a href="#">手绘时装插画 [免费]</a></div>
+                </div>
+                <div class="commodity-info-list-t2">
+                    <div>免费</div>
+                </div>
+            </div>
+
+            <div class="tui-info-list">
+                <div>
+                    <div><a href="#"><img src="../images/goodsImage/2_1.jpg"/></a></div>
+                </div>
+                <div class="commodity-info-list-t1">
+                    <div><a href="#">手绘时装插画 [免费]</a></div>
+                </div>
+                <div class="commodity-info-list-t2">
+                    <div>免费</div>
+                </div>
+            </div>
+
+            <div class="tui-info-list">
+                <div>
+                    <div><a href="#"><img src="../images/goodsImage/3_1.jpg"/></a></div>
+                </div>
+                <div class="commodity-info-list-t1">
+                    <div><a href="#">手绘时装插画 [免费]</a></div>
+                </div>
+                <div class="commodity-info-list-t2">
+                    <div>免费</div>
+                </div>
+            </div>
+
+            <div class="tui-info-list">
+                <div>
+                    <div><a href="#"><img src="../images/goodsImage/4_1.jpg"/></a></div>
+                </div>
+                <div class="commodity-info-list-t1">
+                    <div><a href="#">手绘时装插画 [免费]</a></div>
+                </div>
+                <div class="commodity-info-list-t2">
+                    <div>免费</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div id="footer">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#footer"
+    })
+</script>
+<script>
+    let goodsInfo = new Vue({
+        el: "#goodsInfo",
+        data() {
+            return {
+                goods: []
+            }
+        },
+        methods: {
+            getData() {
+                let myURL = location.href.split('=');
+                let id = myURL[1];
+                console.log(id)
+                axios.get('/goods/findGoodsId/' + id
+                ).then(function (response) {
+                    goodsInfo.goods = response
+                    console.log(goodsInfo.goods)
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            },
+            addCart(){
+                console.log(sessionStorage.getItem('uname'))
+                console.log(sessionStorage.getItem('uname') === null )
+                if(sessionStorage.getItem('uname') === null || sessionStorage.getItem('uname') == "null" ){
+                    if(confirm("你还没有登录，请先登录")) {
+                        location.href = '/login.html'
+                    }
+                }else {
+                    let myURL = location.href.split('=');
+                    let goodsId = myURL[1];
+                    let username = sessionStorage.getItem('uname')
+                    console.log(typeof (goodsId))
+                    console.log(typeof(username))
+
+                    console.log(goodsId +'  ' + username)
+                    axios.get('/cart/' + goodsId +'/' + username
+                    ).then(function (response) {
+                        console.log(response.data.data.msg)
+                        if(response.data.code == 200){
+                            alert(response.data.data.msg)
+                        }else if(response.data.code == 400){
+                            alert(response.data.data.msg)
+                        }
+                    }).catch(function (error) {
+                        alert('商品添加失败')
+                    })
+
+                }
+            },
+        },
+        created() {
+            this.getData();
+        }
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/front_desk/index.css"/>
+    <link rel="stylesheet" href="../css/front_desk/me.css"/>
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+</head>
+<body>
+<!--<header id="header"></header>-->
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+<!-- 主题内容 -->
+<div class="bit_main_content">
+    <div class="me-info">
+        <div class="me-info-left">
+            <div class="me">
+                <div class="me-img">
+                    <img :src="info.imagePath"/>
+                </div>
+                <div class="me-xinxi">
+                    <div class="user-name">
+                        <span>昵称：{{info.name}}</span>
+                    </div>
+                    <div><span>余额：<b style="font-size: 10px">￥{{info.money}}.00</b></span></div>
+                </div>
+            </div>
+            <ul class="ul-menu">
+                <li class="ul-menu-item">
+                    <a href="/me.html">修改资料</a>
+                </li>
+                <li class="ul-menu-item  item-bgc">
+                    <a href="/myorder.html">我的订单</a>
+                </li>
+                <li class="ul-menu-item">
+                    <a href="#">我的课程</a>
+                </li>
+                <li class="ul-menu-item">
+                    <a href="/Change-p.html">修改密码</a>
+                </li>
+                <li class="ul-menu-item">
+                    <a href="javascript:;;" onclick="logout()">安全退出</a>
+                </li>
+            </ul>
+        </div>
+        <div class="me-info-right">
+            <div class="me-info-right-header">
+                <span>我的订单</span>
+            </div>
+            <div class="me-info-right-ziliao">
+                <div class="order-nva">
+                    <ul class="order-nva-ul">
+                        <li class="order-nva-item">
+                            <a href="#">全部订单</a>
+                        </li>
+                        <li class="order-nva-item">
+                            <a href="#">待付款</a>
+                        </li>
+                        <li class="order-nva-item">
+                            <a href="#">待收货</a>
+                        </li>
+                        <li class="order-nva-item">
+                            <input type="text"/>
+                            <input type="button" value="搜索"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="order-header">
+                    <div class="order-header-item">
+                        <select>
+                            <option value="volvo">近一周</option>
+                            <option value="saab">近一个月</option>
+                            <option value="opel">近一年</option>
+                        </select>
+                    </div>
+                    <div class="order-header-item dier">
+                        <span>订单详情</span>
+                    </div>
+                    <div class="order-header-item">
+                        <span>金额</span>
+                    </div>
+                    <div class="order-header-item">
+                        <select>
+                            <option value="volvo">全部状态</option>
+                            <option value="saab">待付款</option>
+                            <option value="opel">已完成</option>
+                            <option value="opel">已取消</option>
+                        </select>
+                    </div>
+                    <div class="order-header-item">
+                        <span>操作</span>
+                    </div>
+                </div>
+                <!-- 订单 -->
+                <div class="order-info">
+                    <div class="order-info-cen">
+                        <div class="order-nerrong" v-for="item in orderGoodsList">
+                            <div class="order-info-header">
+                                <div class="shping-time">
+                                    <span>{{item.createTime}}</span>
+                                </div>
+                                <div class="shping-orderNumber">
+                                    <span>订单号：</span>
+                                    <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : '/order/xiangqing.html' + item.id">{{item.id}}</a>
+                                </div>
+                                <div class="state">
+                                    <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : ''">{{item.orderStatus}}</a>
+                                </div>
+                                <div class="shping-delet">
+                                    <a href="#">删除</a>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="order-info-list" v-for="goodsImage in item.goodsAndImagesList">
+                                    <div class="shping-img">
+                                        <a :href="'/goods.html?goodsid=' + goodsImage.id">
+                                            <img :src="goodsImage.path"/>
+                                        </a>
+                                    </div>
+                                    <div class="shping-name">
+                                        <samp>
+                                            <a :href="'/goods.html?goodsid=' + goodsImage.id">{{goodsImage.name}}</a></samp>
+                                        <span>×1</span>
+                                    </div>
+                                    <div class="shping-price">
+                                        <span>￥{{goodsImage.preferential}}.00</span>
+                                    </div>
+<!--                                    <div class="shping-state">-->
+<!--                                        <span>{{item.orderStatus}}</span>-->
+<!--                                    </div>-->
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div id="foot">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#foot"
+    })
+</script>
+<script>
+    let userInfo = new Vue({
+        el: ".me",
+        data() {
+            return {
+                info: [],
+            }
+        },
+        methods: {
+            getData() {
+                axios.get('/user/findByUserInfo/' + sessionStorage.getItem('uname')
+                ).then(function (response) {
+                    if (response.data.code == 200) {
+                        userInfo.info = response.data.data.userInfo
+                    } else {
+                        alert("出现故障了，请重新登录")
+                    }
+
+                }).catch(function (error) {
+                    console.log('请求出错啦')
+                })
+            },
+        },
+        created() {
+            this.getData();
+        }
+    })
+
+    function logout() {
+        if (confirm("确定要注销吗?")) {
+            sessionStorage.setItem('uname', null)
+            this.username = ''
+            location.href = '/logout'
+        }
+    }
+
+
+    let order = new Vue({
+        el: ".order-info-cen",
+        data() {
+            return {
+                orderGoodsList: [],
+                msg: "",
+
+            }
+        },
+        mounted: function () {
+            this.getData();
+        },
+        methods: {
+            getData() {
+                let then = this
+                axios.post('/order/selectOrderAll'
+                ).then(function (response) {
+                    if (response.data.code == 200) {
+                        then.orderGoodsList =  response.data.data.orderGoodsList
+                    } else if (response.data.code == 400) {
+                        alert("发生了错误")
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                })
+
+            },
+
+        }
+    });
+</script>
+</body>
+</html>

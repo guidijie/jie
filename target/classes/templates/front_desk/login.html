@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="../css/front_desk/login-register.css" rel="stylesheet" />
+
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<script type="text/javascript" src="../js/axios.js"></script>
+		<script>Vue.config.productionTip = false;</script>
+
+	</head>
+	<body class="style-3">
+		<div class="row">
+			<div class="col-md-4 col-md-push-8">
+
+				<!-- Start Sign In Form -->
+				<form method="post" id="form" class="fh5co-form animate-box fadeInRight animated-fast" data-animate-effect="fadeInRight">
+					<h2>Login</h2>
+					<div class="form-group">
+						<label  class="sr-only" v-if="success">{{msg}}</label>
+					</div>
+					<div class="form-group">
+						<!-- <label for="username" class="sr-only">Username</label> -->
+						<input type="text" v-model="username" class="form-control" id="username" placeholder="Username" autocomplete="off">
+					</div>
+					<div class="form-group">
+						<!-- <label for="password" class="sr-only">Password</label> -->
+						<input type="password" v-model="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
+					</div>
+					<div class="form-group">
+						<label for="remember"><input type="checkbox" id="remember">记住我</label>
+					</div>
+					<div class="form-group">
+						<p>去注册? <a href="/toRegister">注册</a> | <a href="/toForgotPwd">忘记密码</a></p>
+					</div>
+					<div class="form-group">
+						<input type="button" value="登录" class="btn btn-primary" @click="getData"/>
+					</div>
+				</form>
+				<!-- END Sign In Form -->
+
+				<div class="row" style="padding-top: 60px; clear: both;">
+					<div class="col-md-12 text-center">
+						<p><small>© Silly dog company Rights Reserved</small></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<script>
+		let form = new Vue({
+			el : "#form",
+			data (){
+				return {
+					msg : '',
+					success :false,
+					username: '',
+					password: ''
+				}
+			},
+			methods: {
+				getData(){
+					axios.post('/login' + '?username=' +this.username + '&password=' + this.password
+					).then(function (response) {
+						console.log(response)
+						if(response.data.code == "400"){
+							form.success = true
+							form.msg = response.data.data.error
+							form.username = ''
+							form.password = ''
+						}else if(response.data.code == "200"){
+							form.success = true
+							form.msg = '登录成功，3秒后跳转。。。'
+							sessionStorage.setItem("uname",response.data.data.uname)
+							location.href='/index.html'
+						}
+					}).catch(function (error) {
+						console.log('错误')
+					})
+				}
+			}
+		})
+	</script>
+
+	</body>
+</html>

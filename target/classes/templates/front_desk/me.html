@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/front_desk/index.css"/>
+    <link rel="stylesheet" href="../css/front_desk/me.css"/>
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+</head>
+<body>
+<!--<header id="header"></header>-->
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+<!-- 主题内容 -->
+<div class="bit_main_content">
+    <div class="me-info">
+        <div class="me-info-left">
+            <div class="me">
+                <div class="me-img">
+                    <img :src="info.imagePath"/>
+                </div>
+                <div class="me-xinxi">
+                    <div class="user-name">
+                        <span>昵称：{{info.name}}</span>
+                    </div>
+                    <div><span>余额：<b style="font-size: 10px">￥{{info.money}}.00</b></span></div>
+                </div>
+            </div>
+            <ul class="ul-menu">
+                <li class="ul-menu-item item-bgc">
+                    <a href="/me.html">修改资料</a>
+                </li>
+                <li class="ul-menu-item">
+                    <a href="/myorder.html">我的订单</a>
+                </li>
+                <li class="ul-menu-item">
+                    <a href="#">我的课程</a>
+                </li>
+                <li class="ul-menu-item">
+                    <a href="/Change-p.html">修改密码</a>
+                </li>
+                <li class="ul-menu-item">
+                    <a href="javascript:;;" onclick="logout()">安全退出</a>
+                </li>
+            </ul>
+        </div>
+        <div class="me-info-right" v-cloak>
+            <div class="me-info-right-header">
+                <span>个人资料</span>
+            </div>
+            <div class="me-info-right-ziliao">
+                <form>
+                    <div class="form-item">
+                        <span>昵称：</span>
+                        <input type="text" :placeholder="info.name"/>
+                    </div>
+                    <div class="form-item">
+                        <span>生日：</span>
+                        <input type="text" :placeholder="info.birthday"/>
+                    </div>
+                    <div class="form-item">
+                        <span>邮箱：</span>
+                        <input type="text" :placeholder="info.email"/>
+                    </div>
+                    <div class="form-item">
+                        <span>手机：</span>
+                        <input type="text" :placeholder="info.phone"/>
+                    </div>
+                    <div class="form-item">
+                        <div>
+                            <span>性别</span>
+                        </div>
+                        <div class="xingbie">
+                            <input type="radio" class="six" name="six" v-model="sex" value="1"/>男
+                        </div>
+                        <div class="xingbie">
+                            <input type="radio" class="six" name="six" v-model="sex" value="0"/>女
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <span style="display: block;float: left;">个性签名：</span>
+                        <span style="display: block;float: left;">
+                            <textarea class="" rows="0" cols="0">{{info.individualitySignature}}</textarea>
+                        </span>
+                    </div>
+                    <div class="form-item">
+                        <input type="submit" id="submit" value="保存修改"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div id="foot">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#foot"
+    })
+
+</script>
+<script>
+    let userInfo = new Vue({
+        el: ".bit_main_content",
+        data() {
+            return {
+                info: [],
+                sex:1
+            }
+        },
+        methods: {
+            getData() {
+                axios.get('/user/findByUserInfo/' + sessionStorage.getItem('uname')
+                ).then(function (response) {
+                    if (response.data.code == 200) {
+                        userInfo.info = response.data.data.userInfo
+                        userInfo.sex = response.data.data.userInfo.sex
+                    } else {
+                        alert("出现故障了，请重新登录")
+                    }
+
+                }).catch(function (error) {
+                    console.log('请求出错啦')
+                })
+            },
+        },
+        created () {
+            this.getData();
+        }
+    })
+
+
+    function logout() {
+        if (confirm("确定要注销吗?")) {
+            sessionStorage.setItem('uname', null)
+            this.username = ''
+            location.href = '/logout'
+        }
+    }
+</script>
+</body>
+
+</html>

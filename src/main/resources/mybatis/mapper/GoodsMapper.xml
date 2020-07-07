@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jie.stupiddog.dao.GoodsDao">
+
+    <!--查询所有商品信息-->
+    <select id="findAll" resultType="Goods">
+        SELECT
+	        id,
+	        NAME,
+	        price,
+	        preferential,
+	        introduction
+        FROM
+	        t_goods
+    </select>
+
+    <!-- 按照商品类型id查询商品 -->
+    <select id="findById" resultType="Goods" parameterType="Integer">
+        SELECT
+	        *
+        FROM
+	        t_goods
+	    WHERE
+	        id = #{id}
+    </select>
+
+	<select id="findById2" resultType="GoodsAndImages" parameterType="Integer">
+        SELECT
+	        g.id,g.`name`,g.price,g.preferential,img.path
+        FROM
+	        t_goods g,t_goods_images img
+	    WHERE
+	        g.id = #{id} and g.id = img.goods_id
+    </select>
+
+
+	<select id="selectByListGoodsId" resultType="GoodsAndImages" parameterType="List">
+		select
+			g.id,
+			g.`name`,
+			g.price,
+			g.preferential,
+			g.introduction,
+			img.path
+		 from
+			t_goods g,
+			t_goods_images img
+		where
+		 	g.id in
+		<foreach collection="goods" item="gs" open="(" close=")" separator=",">
+			#{gs.id}
+		</foreach>
+		AND g.id = img.goods_id
+	</select>
+
+	<select id="selectByListGoodsId1" resultType="GoodsAndImages" parameterType="List">
+		select
+		g.id,
+		g.`name`,
+		g.price,
+		g.preferential,
+		g.introduction,
+		img.path
+		from
+		t_goods g,
+		t_goods_images img
+		where
+		g.id in
+		<foreach collection="orderGoodsList" item="orderGoods" open="(" close=")" separator=",">
+			#{orderGoods.goodsId}
+		</foreach>
+		AND g.id = img.goods_id
+	</select>
+
+	<select id="selectByListGoodsId2" resultType="Goods" parameterType="List">
+		SELECT
+			g.id,
+			g.`name`,
+			g.price,
+			g.preferential
+		FROM
+			t_goods g
+		where
+			g.id in
+		<foreach collection="orderGoodsList" item="orderGoods" open="(" close=")" separator=",">
+			#{orderGoods.goodsId}
+		</foreach>
+	</select>
+
+	<!-- 查询难度级别 -->
+	<select id="selectGrade" resultType="Goods">
+		SELECT distinct  grade FROM `t_goods`
+	</select>
+
+
+
+
+</mapper>

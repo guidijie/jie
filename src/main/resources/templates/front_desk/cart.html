@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/front_desk/index.css"/>
+    <link rel="stylesheet" href="../swiper/swiper.min.css">
+    <link rel="stylesheet" href="../css/front_desk/cart.css">
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+
+</head>
+<body>
+
+<!--<header id="header"></header>-->
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+<!-- 内容区域 -->
+<div class="bit_main_content bgc">
+
+    <div class="shop_goods" v-if="cart">
+        <div class="shop_cart_header">
+            <div class="shop_cart_info">
+                <div class="shop_cart_chckbox">
+                    <input id="checkAll" type="checkbox" class="checkAll" :checked="checkAllElement" @click="checkAll"/>
+                    <span> 全选</span>
+                </div>
+                <div class="shop_cart_name">
+                    <span>商品</span>
+                </div>
+                <div class="shop_cart_price"><span>价格</span></div>
+                <div class="shop_cart_number"><span>数量</span></div>
+                <div class="shop_cart_combined"><span>小计</span></div>
+                <div class="shop_cart_operation"><span>操作</span></div>
+            </div>
+        </div>
+
+
+        <div class="shop_goods_list" v-for="(item,index) in cart">
+            <div class="shop_goods_chckbox">
+                <input type="checkbox" class="checkItem" v-model="item.checked"/>
+            </div>
+            <div class="shop_goods_name">
+                <div class="shop_goods_name_img">
+                    <a href="#">
+                        <img :src="item.path">
+                    </a>
+                </div>
+                <div class="shop_goods_text"><a href="#">{{item.name}}</a></div>
+            </div>
+            <div class="shop_goods_price"><span>￥{{item.price}}.00</span></div>
+            <div class="shop_goods_number"><span>1</span></div>
+            <div class="shop_goods_combined"><span>￥{{item.preferential * 1}}.00</span></div>
+            <div class="shop_goods_operation">
+                <a href="javascript:;;" @click="remove(index,item.id)">删除</a>
+            </div>
+        </div>
+        <div v-if="show" style="width: 1000px;height: 340px;">
+            {{msg}}
+        </div>
+
+        <div class="shop_cart_settlement">
+            <div>
+                <div class="shop">
+						<span>
+							共<strong>{{cart.length > 0 ? cart.length : 0}}</strong>商品，以选择<strong>{{checkList.length}}</strong>件商品
+						</span>
+                </div>
+                <div class="order_res">
+						<span>
+							合计：
+							<strong>￥{{totalPrice}}.00 </strong>
+							元
+						</span>
+                </div>
+            </div>
+            <input type="button" value="去结算" class="submit" @click="pay()"/>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- footer -->
+<div id="foot">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#foot"
+    })
+</script>
+<script>
+    let userCart = new Vue({
+        el: ".shop_goods",
+        data() {
+            return {
+                cart: [],
+                show: false,
+                msg: "",
+
+            }
+        },
+        mounted: function () {
+            this.getData();
+        },
+        computed: {
+            /**
+             * 总价
+             * @returns {string}
+             */
+            totalPrice: function () {
+                /**
+                 * 总价
+                 * @returns {string}
+                 */
+                if (this.checkList.length == 0) {
+                    return 0;
+                }
+                return this.checkList.reduce((total, obj) => {
+                    console.log(total)
+                    return total + obj.preferential * 1;
+                }, 0)
+            },
+            // 判断是否全选
+            checkAllElement() {
+                return this.checkList.length == this.cart.length;
+            },
+            checkList() {
+                return this.cart.filter(item => item.checked == true)
+            }
+
+        },
+        methods: {
+
+            getData() {
+                axios.get('/cart/' + sessionStorage.getItem('uname')
+                ).then(function (response) {
+                    if (response.data.code == 200) {
+                        let list = []
+                        list = response.data.data.userCart
+                        userCart.cart.splice(0, userCart.cart.length)
+                        userCart.cart.push(...list.map((item) => {
+                            return {
+                                ...item,
+                                checked: true
+                            }
+                        }))
+                        userCart.show = false
+                    } else if (response.data.code == 400) {
+                        userCart.msg = response.data.data.msg
+                        userCart.show = true
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            },
+
+            /**
+             * 移除商品
+             * @param index
+             */
+            remove: function (index,gid) {
+                console.log(index)
+                console.log(gid + '  ' + typeof gid)
+                if(confirm("你确定要删除吗")) {
+                    axios.get('/cart/delete/' + gid
+                    ).then(function (response) {
+                        console.log(response)
+                        if (response.data.code == 200) {
+                            userCart.cart.splice(index, 1)
+                            alert(response.data.data.msg)
+                        } else if (response.data.code == 400) {
+                            alert(response.data.data.msg)
+                        }
+                    }).catch(function (error) {
+                        alert('系统错误')
+                    })
+                }
+            },
+
+            /**
+             * 全选
+             */
+            checkAll: function () {
+                if (this.checkAllElement) {
+                    this.cart.forEach(element => {
+                        element.checked = false;
+                    });
+                } else {
+                    this.cart.forEach(element => {
+                        element.checked = true;
+                    });
+                }
+            },
+
+            /**
+             * 订单
+             * */
+            pay: function () {
+                let then = this
+                axios.post('/order/addOrder/', then.checkList
+                ).then(function (response) {
+                    if(response.data.code == 200){
+                        location.href = '/order/pay.html?' + response.data.data.orderId
+                    }
+                }).catch(function (error) {
+                    alert('系统错误')
+                })
+                // location.href = '/pay.html'
+                console.log("执行了")
+            }
+
+        }
+    });
+</script>
+</body>
+</html>

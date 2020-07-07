@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/front_desk/login-register.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+</head>
+<body class="style-3">
+<div class="row">
+    <div class="col-md-4 col-md-push-8">
+
+        <!-- Start Sign In Form -->
+        <form class="fh5co-form animate-box fadeInRight animated-fast" data-animate-effect="fadeInRight" id="from">
+            <h2>Sign Up</h2>
+            <div class="form-group">
+                <div class="alert alert-success" role="alert" v-if="show">{{msg}}</div>
+            </div>
+            <div class="form-group">
+                <!-- <label for="name" class="sr-only">Name</label> -->
+                <input type="text" class="form-control" id="name" placeholder="Name" autocomplete="off" v-model="name">
+            </div>
+            <!--					<div class="form-group">-->
+            <!--						&lt;!&ndash; <label for="email" class="sr-only">Email</label> &ndash;&gt;-->
+            <!--						<input type="email" class="form-control" id="email" placeholder="Email" autocomplete="off">-->
+            <!--					</div>-->
+            <div class="form-group">
+                <!-- <label for="password" class="sr-only">Password</label> -->
+                <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off"
+                       v-model="password">
+            </div>
+            <div class="form-group">
+                <!-- <label for="re-password" class="sr-only">Re-type Password</label> -->
+                <input type="password" class="form-control" id="re-password" placeholder="Re-type Password"
+                       autocomplete="off" v-model="rePassword">
+            </div>
+            <!--					<div class="form-group">-->
+            <!--						<label for="remember"><input type="checkbox" id="remember"> 记住我 </label>-->
+            <!--					</div>-->
+            <div class="form-group">
+                <p>已有账号? <a href="/toLogin">去登陆</a></p>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Sign Up" class="btn btn-primary" @click="getData">
+            </div>
+        </form>
+        <!-- END Sign In Form -->
+
+
+        <div class="row" style="padding-top: 60px; clear: both;">
+            <div class="col-md-12 text-center">
+                <p><small>© Silly dog company Rights Reserved</small></p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let user = new Vue({
+        el: "#from",
+        data() {
+            return {
+                show: false,
+                name: "",
+                password: "",
+                rePassword: "",
+                msg: "注册成功",
+            }
+        },
+        methods: {
+            getData() {
+                if (this.name == '' && this.password == '' && this.rePassword == '') {
+                    this.msg = '有空项'
+                    this.show = true
+                } else {
+                    axios.post('/user/addUser' + '?name=' + this.name + '&password='
+                        + this.password + '&rePassword=' + this.rePassword
+                    ).then(function (response) {
+                        if (response.data.code == '200') {
+                            user.msg = '注册成功'
+                            user.name = ''
+                            user.password = ''
+                            user.rePassword = ''
+                            user.show = true
+                        } else if (response.data.code == '400') {
+                            console.log(response)
+                            console.log(response.data.data.error)
+                            user.msg = response.data.data.error
+                            user.show = true
+                        } else {
+                            alert("服务器错误")
+                        }
+
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

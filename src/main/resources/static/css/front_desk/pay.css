@@ -1,0 +1,135 @@
+.pay-cen {
+	margin: auto;
+	width: 944px;
+	padding: 20px;
+	overflow: hidden;
+}
+
+.pay-text {
+	margin-top: 20px ;
+	font-size: 18px;
+	font-weight: bold;
+	color: #494949;
+}
+
+.shop-td{
+	margin-top: 5px;
+	border-bottom:4px solid #dddddd ;
+	overflow: hidden;
+	color: #555555;
+	font-size: 16px;
+	font-weight: bold;
+}
+.shop-td div{
+	height: 20px;
+	width: 190px;
+	padding: 10px 20px;
+	float: left;
+}
+.two{
+	border: 0;
+	font-size: 14px;
+	color: #777777;
+}
+
+.tishi{
+	padding: 30px 0;
+	color: #333333;
+	font-size: 14px;
+}
+
+.pay-account {
+	
+}
+
+.dingdan {
+	font-size: 18px;
+	font-weight: bold;
+	color: #555555;
+	padding-bottom: 15px;
+}
+
+.dingdan-header {
+	font-size: 16px;
+	font-weight: bold;
+	color: #555555;
+	font-family: 微软雅黑;
+	border-color: #dddddd;
+	padding: 4px 12px;
+	border-bottom:4px solid #dddddd ;
+	overflow: hidden;
+}
+.shangpin{
+	float: left;
+}
+.heji{
+	float: right;
+}
+
+.quanbu{
+	overflow: hidden;
+}
+.shangpin-list{
+	padding: 8px;
+	overflow: hidden;
+	border-bottom: 1px solid #DDDDDD;
+	line-height: 40px;
+	color: #777777 ;
+	font-size: 14px;
+}
+.shangpin-list a{
+	color: #000000 ;
+	font-size: 14px;
+}
+
+.shangpin-list-img{
+	float: left;
+	width: 60px;
+	height: 60px;
+	margin-right: 20px;
+}
+
+.shangpin-list-img img{
+	width: 60px;
+	height: 60px;
+}
+
+.shangpin-list-name{
+	line-height: 60px;
+	float: left;
+}
+
+.shangpin-list-price{
+	line-height: 60px;
+	float: right;
+}
+
+.dingdan-xiaoji,.dingdan-yuanfei,.dingdan-zongji{
+	padding: 8px;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.xuanzhe{
+	margin-top: 40px;
+	height: 50px;
+	line-height: 50px;
+}
+.xuanzhe > div{
+	float: right;
+	overflow: hidden;
+}
+.fukuan,.quxiao,.fanhui{
+	float: left;
+	margin-left: 20px;
+	height: 40px;
+	line-height: 40px;
+	width: 90px;
+	background-color: #777777;
+	text-align: center;
+	color: white;
+}
+
+.fukuan:hover,.quxiao:hover,.fanhui:hover{
+	background-color: black;
+	cursor: pointer;
+}

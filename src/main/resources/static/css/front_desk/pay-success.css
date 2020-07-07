@@ -1,0 +1,50 @@
+.pay-success{
+	width: 900px;
+	margin: auto;
+	color: #333333;
+}
+.zhuangtai{
+	margin: auto;
+	font-size: 26px;
+	color: #32ba86;
+	line-height: 90px;
+	overflow: hidden;
+	border: 1px solid #DDDDDD;
+	margin-top: 40px;
+}
+.zhuangtai img{
+	width: 60px;
+	height: 60px;
+}
+.pay-success-info{
+	margin-top: 20px;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+}
+.dingdan-info{
+	padding: 30px;
+}
+.quyu{
+	margin-top: 20px;
+	overflow: hidden;
+	font-size: 14px;
+}
+.quyu-left{
+	margin-right: 50px;
+	float: left;
+}
+.pad{
+	padding: 5px;
+}
+.qita{
+	margin-top: 30px;
+	padding: 30px 0 30px 30px;
+	overflow: hidden;
+	border: 1px solid #DDDDDD;
+}
+.qita-left{
+	width: 265px;
+	float: left;
+	height: 200px;
+	border-right: 1px dotted #DDDDDD ;
+}

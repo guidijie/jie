@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/front_desk/index.css"/>
+    <link href="../css/front_desk/pay-success.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+</head>
+<body>
+<!--<header id="header"></header>-->
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+
+<!-- 主题内容 -->
+<div class="bit_main_content">
+    <div class="pay-success">
+        <div class="zhuangtai">
+            <div style="float: left;display:flex ;">
+                <img style="margin: 15px 0 0 30px;" src="/images/front_desk/yemian/cg.png">
+            </div>
+            <div style="float: left;margin-left: 30px;">
+                <span>交易状态：</span>
+                <span>交易成功</span>
+            </div>
+        </div>
+        <div class="pay-success-info">
+            <div style="background-color: #32ba86; height: 10px;"></div>
+            <div class="dingdan-info">
+                <div style="height: 30px;font-size: 18px;">
+                    <div style="background-color: #32ba86; height: 20px;width: 5px; float: left;"></div>
+                    <span style="display: block; float: left; margin-left: 5px;">基本信息</span>
+                </div>
+                <div class="quyu">
+                    <div class="quyu-left">
+                        <div class="pad">商品单号</div>
+                        <div class="pad">交易单号</div>
+                        <div class="pad">支付方式</div>
+                        <div class="pad">交易时间</div>
+                    </div>
+                    <div class="quyu-left">
+                        <div class="pad"><span>#201645146</span></div>
+                        <div class="pad"><span>#496421254</span></div>
+                        <div class="pad"><span>支护宝</span></div>
+                        <div class="pad"><span>2020-04-6 14:15:32</span></div>
+                    </div>
+                    <div class="quyu-left" style="margin-left: 100px;">
+                        <div class="pad">订单金额</div>
+                        <div class="pad">优惠金额</div>
+                        <div class="pad">实付金额</div>
+                        <div class="pad">收款门店</div>
+                    </div>
+                    <div class="quyu-left">
+                        <div class="pad"><span>￥1600.00</span></div>
+                        <div class="pad"><span>￥0.00</span></div>
+                        <div class="pad"><span>￥1600.00</span></div>
+                        <div class="pad"><span>stupiddog</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="qita">
+            <div class="qita-left">
+                <div class="qita-text">
+                    <span>优惠明细</span>
+                </div>
+                <div style="margin-top: 30px; font-size: 12px;">
+                    <div style="float: left;">
+                        <div class="pad">优惠金额</div>
+                    </div>
+                    <div style="float: left;">
+                        <div class="pad"><span>￥0.00</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="qita-left" style="padding-left: 30px;">
+                <div class="qita-text">
+                    <span>平台明细</span>
+                </div>
+                <div style="margin-top: 30px; font-size: 12px;">
+                    <div style="float: left;">
+                        <div class="pad">实付金额</div>
+                    </div>
+                    <div style="float: left;">
+                        <div class="pad"><span>￥1600.00</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="qita-left" style="padding-left: 30px; border-right: 0;">
+                <div class="qita-text">
+                    <span>其他信息</span>
+                </div>
+                <div style="margin-top: 30px; font-size: 12px;">
+                    <div style="float: left;">
+                        <div class="pad">付款人：</div>
+                        <div class="pad">手机号：</div>
+                        <div class="pad">交易来源：</div>
+                    </div>
+                    <div style="float: left;">
+                        <div class="pad"><span>李四</span></div>
+                        <div class="pad"><span>13846584445</span></div>
+                        <div class="pad"><span>stupiddig</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div id="foot">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#foot"
+    })
+</script>
+</body>
+<script type="text/javascript">
+    // 列表点击
+    $(document).ready(function () {
+        $(".ul-menu-item").on("click", function () {
+            $(this).addClass("item-bgc").siblings().removeClass("item-bgc");
+        });
+    });
+</script>
+</html>

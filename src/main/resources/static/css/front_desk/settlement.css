@@ -1,0 +1,114 @@
+.settlement-cen {
+	margin: auto;
+	width: 944px;
+	padding: 20px;
+	overflow: hidden;
+}
+
+.settlement-text {
+	border: 1px solid #bbbbbb !important;
+	padding: 15px 8px;
+	font-size: 16px;
+	font-weight: normal;
+	color: #494949;
+	margin: 25px 0;
+}
+
+.settlement-account {
+	border: 3px solid #777777;
+	padding: 30px;
+}
+
+.dingdan {
+	font-size: 22px;
+	font-weight: bold;
+	color: #000000;
+	padding-bottom: 15px;
+}
+
+.dingdan-header {
+	font-size: 16px;
+	font-weight: bold;
+	color: #555555;
+	font-family: 微软雅黑;
+	border-color: #dddddd;
+	padding: 4px 12px;
+	border-bottom:4px solid #dddddd ;
+	overflow: hidden;
+}
+.shangpin{
+	float: left;
+}
+.heji{
+	float: right;
+}
+
+.quanbu{
+	overflow: hidden;
+}
+.shangpin-list{
+	padding: 8px;
+	overflow: hidden;
+	border-bottom: 1px solid #DDDDDD;
+	line-height: 40px;
+	color: #777777 ;
+	font-size: 14px;
+}
+.shangpin-list a{
+	color: #000000 ;
+	font-size: 14px;
+}
+.shangpin-list-img{
+	float: left;
+	height: 40px;
+	margin-right: 15px;
+}
+.shangpin-list-img img{
+	height: 40px;
+	width: 40px;
+}
+.shangpin-list-name{
+	float: left;
+}
+.shangpin-list-price{
+	float: right;
+}
+
+.dingdan-xiaoji,.dingdan-yuanfei,.dingdan-zongji{
+	padding: 8px;
+	border-bottom: 1px solid #DDDDDD;
+}
+.fukuanfangshi{
+	border: 0;
+}
+.font{
+	color: #777777 ;
+	font-size: 14px;
+	font-weight: normal;
+}
+.fanshi{
+	line-height: 60px;
+	font-size: 17px;
+	color:#4D4D4D;
+	font-weight: normal;
+}
+.fanshi span{
+	margin-right: 30px;
+}
+.fanshi input{
+	margin-right: 5px;
+}
+
+.xiadan{
+	height: 40px;
+	line-height: 40px;
+	width: 90px;
+	background-color: #777777;
+	text-align: center;
+	color: white;
+}
+
+.xiadan:hover{
+	background-color: black;
+	cursor: pointer;
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jie.stupiddog.dao.UserDao">
+
+    <!--查询用户-->
+    <select id="findByUserName" parameterType="String" resultType="User">
+		SELECT * FROM t_user u WHERE u.username = #{username}
+	</select>
+
+    <!--按照密码查询用户-->
+    <select id="findByPassword" parameterType="String" resultType="User">
+		SELECT * FROM t_user u WHERE u.password = #{password}
+	</select>
+
+    <!--查询用户信息-->
+    <select id="findByUserInfo" parameterType="Integer" resultType="UserInfo">
+		SELECT
+			ui.*
+		FROM
+			t_user AS u,
+			t_user_info AS ui
+		WHERE
+			u.id = #{uId}
+			AND ui.user_id = u.id
+	</select>
+
+    <!--注册用户-->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="User">
+		INSERT
+		INTO
+			t_user(username,password,creationtime,modifytime,mask)
+		values
+			(#{username},#{password},#{creationtime},#{modifytime},#{mask})
+	</insert>
+
+	<!-- 注册用户信息 -->
+	<insert id="addUserInfo" parameterType="UserInfo">
+		INSERT
+		INTO
+			t_user_info(user_id,name,imagePath,email,birthday,sex,phone,individuality_signature,creationtime,modifytime)
+		values
+			(#{userId},#{name},#{imagePath},#{email},#{birthday},#{sex},#{phone},#{individualitySignature},#{creationtime},#{modifytime})
+	</insert>
+
+	<!-- 付款 -->
+	<update id="pay" parameterType="Order">
+		UPDATE
+			t_user_info
+		SET
+			money = money - #{totalAmount}
+		WHERE
+			user_id = #{userId}
+	</update>
+
+	<!--	将商品添加到用户课程里面-->
+	<insert id="addGoodsToCourse" parameterType="List">
+		INSERT
+		INTO
+		t_user_course(user_id,goods_id)
+		values
+		<foreach collection="userCourseList" item="userCourse" separator=",">
+			(#{userCourse.userId},#{userCourse.goodsId})
+		</foreach>
+	</insert>
+</mapper>

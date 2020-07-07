@@ -1,0 +1,184 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/front_desk/index.css"/>
+    <link rel="stylesheet" href="../swiper/swiper.min.css">
+
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+    <script type="text/javascript" src="../swiper/swiper.min.js"></script>
+
+</head>
+<body>
+
+<!--<header id="header"></header>-->
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el : "#my-header"
+    })
+</script>
+
+<!-- 主题内容 -->
+<div class="bit_main_content">
+    <!-- 轮播图 -->
+    <div class="lubo">
+        <div class="box-1">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="../images/front_desk/yemian/1.jpg"/></div>
+                    <div class="swiper-slide"><img src="../images/front_desk/yemian/2.jpg"/></div>
+                    <div class="swiper-slide"><img src="../images/front_desk/yemian/3.jpg"/></div>
+                    <div class="swiper-slide"><img src="../images/front_desk/yemian/1.jpg"/></div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 广告 -->
+    <div class="guanggao">
+        <div class="guanggao-info">
+            <div class="guanggao-info-list">
+                <div>
+                    <div><img src="../images/front_desk/yemian/gg1.png"/></div>
+                </div>
+                <div class="guanggao-info-list-t1">
+                    <div>随时开看，无需等待</div>
+                </div>
+                <div class="guanggao-info-list-t2">
+                    <div>任何时间，任何地点，想看就看.</div>
+                </div>
+            </div>
+            <div class="guanggao-info-list">
+                <div>
+                    <div><img src="../images/front_desk/yemian/gg2.png"/></div>
+                </div>
+                <div class="guanggao-info-list-t1">
+                    <div>1年365天，天天更新</div>
+                </div>
+                <div class="guanggao-info-list-t2">
+                    <div>终生有效，随时开看。</div>
+                </div>
+            </div>
+            <div class="guanggao-info-list">
+                <div>
+                    <div><img src="../images/front_desk/yemian/gg3.png"/></div>
+                </div>
+                <div class="guanggao-info-list-t1">
+                    <div>没有你看不到的</div>
+                </div>
+                <div class="guanggao-info-list-t2">
+                    <div>好视频不应该被埋没，您想看的，我们都有。</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 商品内容区域 -->
+    <div class="content">
+        <!-- 绘画课程展示区域 -->
+        <div class="commodity-content" v-if="goods.data">
+
+            <div  v-for="(g ,key,index) in goods.data.data.goodsAll">
+                <div class="catalogue" >
+                    <div class="header-title">{{key}}</div>
+                    <div class="herder-subtitle">commodity Courses</div>
+                    <div class="button-warpper"><a :href="'/toCourseClassification?goodsType='+ key +'&level=all' + '&pageNum=1'">DETAIL+</a></div>
+                </div>
+
+                <div class="commodity">
+                    <div class="commodity-info-list" v-for="(item ,index) in g">
+                        <div>
+                            <div><a :href="'/goods.html?goodsid='+item.id"><img :src="item.path"/></a></div>
+                        </div>
+                        <div class="commodity-info-list-t1">
+                            <div><a :href="'/goods.html?goodsid='+item.id">{{item.name}}</a></div>
+                        </div>
+                        <div class="commodity-info-list-t2">
+                            <div>
+                                <span class="amount"><span>{{item.price == item.preferential ? '' : '￥'+ item.price}}</span></span>
+                                {{item.preferential ==0 ? '免费' : '￥'+ item.preferential}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<div id="foot">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript"  src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#foot"
+    })
+</script>
+
+<script>
+    <!-- 使用weiper插件实现轮播效果 -->
+    var swiper = new Swiper('.swiper-container', {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+
+    let goods = new Vue({
+        el : ".commodity-content",
+        data (){
+            return {
+                goods : []
+            }
+        },
+        methods: {
+            getData(){
+                axios.get('/findAll'
+                ).then(function (response) {
+                    goods.goods = response
+
+                }).catch(function (error) {
+                    console.log('错误')
+                })
+            }
+        },
+        created () {
+            this.getData();
+        }
+
+    })
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="2.0">
+    <CLASSES>
+      <root url="file://$MAVEN_REPOSITORY$/org/mybatis/mybatis-spring/2.0.4" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$MAVEN_REPOSITORY$/org/mybatis/mybatis-spring/2.0.4" />
+    </SOURCES>
+    <jarDirectory url="file://$MAVEN_REPOSITORY$/org/mybatis/mybatis-spring/2.0.4" recursive="false" />
+    <jarDirectory url="file://$MAVEN_REPOSITORY$/org/mybatis/mybatis-spring/2.0.4" recursive="false" type="SOURCES" />
+  </library>
+</component>

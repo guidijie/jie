@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jie.stupiddog.dao.GoodsTypeDao">
+
+
+    <select id="findAll" resultType="GoodsType">
+        select * from  t_goods_type
+    </select>
+
+    <!-- 按照商品商品类型id查询商品 -->
+    <select id="findByGoodsTypeId" resultType="GoodsIdAndGoodsType" parameterType="Integer">
+        SELECT
+	        *
+        FROM
+	        t_goods_id_type as git
+
+	    WHERE
+	        git.goods_type_id = #{id}
+    </select>
+
+    <!-- 按照商品商品类型id查询商品 -->
+    <select id="findByGoodsTypeName" resultType="GoodsType" parameterType="String">
+        SELECT
+            *
+        FROM
+            t_goods_type
+        WHERE
+            type_name = #{name}
+    </select>
+
+</mapper>

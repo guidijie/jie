@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/front_desk/index.css" rel="stylesheet"/>
+    <link href="../css/front_desk/course.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" src="../../js/front_desk/fenye.js"></script>
+</head>
+<body>
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+<!-- 内容区域 -->
+<div class="bit_main_content">
+    <div class="container">
+        <div class="container-cen">
+            <div class="element">
+                <div class="element-t1">众多优质课程总有一款适合您</div>
+                <div class="element-t2">Good Courses for Everyone</div>
+            </div>
+            <div class="container-search">
+                <ul class="mainul">
+                    <ul class="mainul-u1" id="u1" v-if="type.data">
+                        <li class="mainul-uheader"><span>专业</span></li>
+                        <li class="mainul-uacitiv"><a
+                                :href="'/toCourseClassification?goodsType=all' + myURL +'&pageNum=' + pageNum  "><span>全部</span></a>
+                        </li>
+                        <li class="mainul-uitem" v-for="item in type.data.data.goodsTypes">
+                            <a :href="'/toCourseClassification?goodsType='+ item.typeName +  myURL +'&pageNum=' + pageNum ">
+                                <span>{{item.typeName}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="mainul-u2" id="u2" v-if="grade.data">
+                        <li class="mainul-uheader"><span>难度</span></li>
+                        <li class="mainul-uacitiv"><a :href="myURL +'&level=all' + '&pageNum=1'"><span>全部</span></a>
+                        </li>
+                        <li class="mainul-uitem" v-for="item in grade.data.data.grade">
+                            <a :href="myURL + '&level=' + item.grade + '&pageNum=1'">
+                                <span>{{item.grade}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="goods" v-if="goods" v-cloak>
+            <div style="width: 970px ;height:600px">
+                <div class="goods-list" v-for="(item ,index) in goods">
+                    <div class="goods-img">
+                        <a :href="'/goods.html?goodsid='+item.id">
+                            <img :src="item.path"/>
+                        </a>
+                    </div>
+                    <div class="goods-info">
+                        <div class="goods-info-header">
+                            <a :href="'/goods.html?goodsid='+item.id" class="a">{{item.name}}</a>
+                        </div>
+                        <div class="goods-price">
+									<span class="amount">
+                            			{{item.price == item.preferential ? '' : '￥'+ item.price}}
+                        			</span>
+                            {{item.preferential ==0 ? '免费' : '￥'+ item.preferential}}
+                        </div>
+                        <div class="goods-info-describe">
+									<span>
+										{{item.introduction}}
+									</span>
+                        </div>
+                        <div class="goods-add-cart"><a href="javascript:;" @click="addCart(item.id)">加入购物车</a></div>
+                    </div>
+                </div>
+                <div v-if="show">
+                    没有更多了
+                </div>
+            </div>
+            <div v-if="!show">
+                <pagination v-if="showPage" :total="page.total" :prepage="page.pageSize" :show-page="5" v-model="page.pageNum"></pagination>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div id="footer">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#footer"
+    })
+</script>
+<script>
+
+    //获取总条数和总页数是在哪个里面，加句话试试
+    //这里获取到后端的数据
+    let a = new Vue({
+        el: ".goods",
+        data() {
+            return {
+                goods: [],
+                page: {
+                    total: 0,
+                },
+                level: 'all',
+                goodsType: 'all',
+                show: false,
+                showPage: false
+
+            }
+        },
+        methods: {
+            getData() {
+                let search = location.search;	//获取location的search属性，保存在search中
+                let params = {};		//创建空对象params
+                if (search != "") {		//如果search不是空字符串
+                    search.slice(1).split("&").forEach(	//?username=zhangdong&pwd=123456;//search去开头?，按&切割为数组，forEach
+                        function (val) {
+                            var arr = val.split("=");		//将当前元素值按=切割，保存在arr中
+                            params[arr[0]] = arr[1];		//向params中添加一个元素,属性名为arr[0],值为arr[1]
+                        }
+                    );
+                    this.goodsType = params.goodsType
+                    this.level = params.level
+                    this.page.pageNum = params.pageNum
+                }
+                axios.get('/goods/findGoodsType/' + this.goodsType + '/' + this.level + '/' + this.page.pageNum
+                ).then(function (response) {
+                    let obj = {}
+                    obj = response.data.data.goods
+                    for (o in obj) {
+                        if (o != "page") {
+                            a.goods = obj[o]
+                            if (a.goods.length == 0) {
+                                a.show = true
+                            }
+                        } else {
+                            a.page = obj[o]
+                            a.showPage = true
+                        }
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            },
+            addCart(id){
+                console.log(sessionStorage.getItem('uname'))
+                console.log(sessionStorage.getItem('uname') === null )
+                if(sessionStorage.getItem('uname') === null || sessionStorage.getItem('uname') == "null" ){
+                    if(confirm("你还没有登录，请先登录")) {
+                        location.href = '/login.html'
+                    }
+                }else {
+
+                    let goodsId = id;
+                    let username = sessionStorage.getItem('uname')
+                    console.log(typeof (goodsId))
+                    console.log(typeof(username))
+
+                    console.log(goodsId +'  ' + username)
+                    axios.get('/cart/' + goodsId +'/' + username
+                    ).then(function (response) {
+                        console.log(response.data.data.msg)
+                        if(response.data.code == 200){
+                            alert(response.data.data.msg)
+                        }else if(response.data.code == 400){
+                            alert(response.data.data.msg)
+                        }
+                    }).catch(function (error) {
+                        alert('商品添加失败')
+                    })
+
+                }
+            }
+        },
+        created() {
+            this.getData();
+
+        },
+        mounted() {
+
+        }
+    })
+
+
+    let goodsType = new Vue({
+        el: "#u1",
+        data() {
+            return {
+                type: [],
+                myURL: '',
+                pageNum: 1
+            }
+        },
+        methods: {
+            getData() {
+                let search = location.search;
+                let params = {};		//创建空对象params
+                if (search != "") {		//如果search不是空字符串
+                    search.slice(1).split("&").forEach(	//?username=zhangdong&pwd=123456;//search去开头?，按&切割为数组，forEach
+                        function (val) {
+                            var arr = val.split("=");		//将当前元素值按=切割，保存在arr中
+                            params[arr[0]] = arr[1];		//向params中添加一个元素,属性名为arr[0],值为arr[1]
+                        }
+                    );
+                    if (typeof (params.level) == "undefined") {
+                        params.level = 'all'
+                    }
+                }
+                this.myURL = '&level=' + params.level
+
+                axios.get('/goodsType/selectGoodsType'
+                ).then(function (response) {
+                    goodsType.type = response
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            }
+        },
+        created() {
+            this.getData();
+        }
+    })
+
+    let grade = new Vue({
+        el: "#u2",
+        data() {
+            return {
+                grade: [],
+                myURL: ''
+            }
+        },
+        methods: {
+            getData() {
+
+                let search = location.search;
+                let params = {};		//创建空对象params
+                if (search != "") {		//如果search不是空字符串
+                    search.slice(1).split("&").forEach(	//?username=zhangdong&pwd=123456;//search去开头?，按&切割为数组，forEach
+                        function (val) {
+                            var arr = val.split("=");		//将当前元素值按=切割，保存在arr中
+                            params[arr[0]] = arr[1];		//向params中添加一个元素,属性名为arr[0],值为arr[1]
+                        }
+                    );
+                }
+                this.myURL = '/toCourseClassification?goodsType=' + params.goodsType
+
+                axios.get('/goods/selectGrade'
+                ).then(function (response) {
+                    grade.grade = response
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            }
+        },
+        created() {
+            this.getData();
+        }
+    })
+
+
+</script>
+
+
+</body>
+
+
+</html>

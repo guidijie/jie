@@ -1,0 +1,486 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	font-family: "微软雅黑";
+	background-color: white;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul,
+li {
+	padding: 0;
+	margin: 0;
+	list-style: none
+}
+
+/* 超链接黑色 */
+.a:hover {
+	color: #000000;
+}
+
+.top-bar{
+	background: #e8e8e8;
+}
+.top-bar a{
+	color: #555555;
+}
+
+.top-bar-cen {
+	width: 90%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.top-bar-rigth {
+	float: right;
+	width: 170px;
+}
+.user{
+	float: left; 
+	margin-right: 10px;
+	display: block;
+}
+.users{
+	float: left;
+	display: block;
+	margin-right: 10px;
+}
+.containerde {
+	line-height: 40px;
+	height: 49px;
+	padding: 5px 15px 5px 15px;
+	box-sizing: border-box;
+}
+
+.touxiang{
+	width: 80px;
+}
+.touxiang img{
+	margin-left: 20px;
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+.mouse{
+	display: block;
+}
+
+.fruits {
+	margin-left: -15px;
+	padding: 7px 0 7px 0;
+	height: auto;
+	position: absolute;
+	border-radius: 5px;
+}
+
+.fruits>div {
+	list-style: none;
+	width: 100%;
+}
+.yin{
+	border-radius: 7px;
+	margin-top: 5px;
+	border: 1px solid #DDDDDD;
+	padding: 12px 0 12px 0;
+	background-color: white;
+}
+.line a{
+	display: block;
+	text-align: center;
+	line-height: 30px;
+	height: 30px;
+	width: 110px;
+}
+.line a:hover{
+	background-color: #DDDDDD;
+}
+
+.header {
+	height: 180px;
+	background: #ffffff;
+}
+
+.wf-wrap {
+	color: #8d9095;
+}
+
+.wf-table {
+	width: 1020px;
+	margin: auto;
+	padding: 10px 0 10px 0;
+	overflow: hidden;
+}
+
+/* logo */
+.logo-bar {
+	float: left;
+	height: 105px;
+	width: 580px;
+}
+
+/* 搜索 */
+.assistive-info {
+	float: right;
+	height: 105px;
+	width: calc(100% - 580px);
+}
+
+.assistive-info>div {
+	margin-top: 7.5%;
+	float: right;
+	height: auto;
+}
+
+.input-text {
+	float: left;
+	color: #8d9095;
+	font-size: 16px;
+	padding: 8px;
+	width: 258px;
+	height: 20px;
+	border: 1px solid #e0e0e0;
+	border-right: 0;
+}
+
+.input-text:focus {
+	margin-top: 0.5px;
+	/*height: 2;*/
+	border: 0;
+
+}
+
+.input-btn {
+	border: 0;
+	border-width: 0;
+	width: 37px;
+	height: 37.9px;
+	background: url(../../images/front_desk/yemian/sousuo.png) no-repeat center;
+}
+
+.input-btn:focus {
+	outline: none;
+}
+
+
+/* 导航 */
+.navigation-holder {
+	color: #fff;
+	background-color: #363942;
+}
+
+.nav {
+	width: 1020px;
+	margin: auto;
+	padding-left: 30px;
+}
+
+.nav ul {
+	overflow: hidden;
+}
+
+.nav ul li>a {
+	color: #FFFFFF;
+}
+
+.nav-li {
+	height: 50px;
+	width: 115px;
+	line-height: 50px;
+	float: left;
+	color: #fff;
+	text-align: center;
+	font-size: 18px;
+}
+
+
+/* 主内容 */
+.bit_main_content {
+	margin: auto;
+	padding-bottom: 30px;
+}
+
+
+/* 轮播图 */
+.lubo {
+	margin: 20px 0 90px 0;
+}
+
+.box-1 {
+	height: 405px;
+	width: 975px;
+	margin: auto;
+}
+
+.box-1 img {
+	height: 405px;
+	width: 974px;
+}
+
+
+/* 广告 */
+.guanggao {
+	margin: auto;
+	width: 1024px;
+}
+
+.guanggao-info {
+	margin: auto;
+	height: auto;
+	overflow: hidden;
+	padding: 0 20px 0 20px;
+}
+
+.guanggao-info-list {
+	text-align: center;
+	margin: auto;
+	margin-right: 5px;
+	margin-left: 5px;
+	height: 260px;
+	width: 310px;
+	float: left;
+
+}
+
+.guanggao-info-list-t1 {
+	height: 40px;
+	margin-top: 28px;
+	font-size: 16px;
+}
+
+.guanggao-info-list-t2 {
+	color: rgb(105, 105, 105);
+	height: 40px;
+	font-size: 12px;
+}
+
+
+/* 商品内容区域 */
+.content {
+	width: 1024px;
+	height: auto;
+	margin: auto;
+	overflow: hidden;
+	/* background-color: aqua; */
+}
+
+
+.commodity-content {
+	height: auto;
+	overflow: hidden;
+}
+
+/* 商品标签 */
+.catalogue {
+	margin-top: 70px;
+	height: 32px;
+	width: 970px;
+	border-bottom: 1px #cccccc solid;
+}
+
+.header-title {
+	float: left;
+	height: 31px;
+	font-size: 18px;
+	line-height: 31px;
+	color: #333333;
+	padding-right: 10px;
+}
+
+.herder-subtitle {
+	float: left;
+	padding-top: 5px;
+	height: 26px;
+	font-size: 13px;
+	line-height: 26px;
+	color: #BABABA;
+
+}
+
+.button-warpper {
+	float: right;
+	text-align: right;
+	padding-top: 5px;
+	width: 200px;
+	height: 26px;
+	font-size: 13px;
+	line-height: 26px;
+	color: #BABABA;
+}
+.button-warpper a{
+	font-size: 13px;
+	color: #BABABA;
+}
+
+
+/* commodity区域  */
+.commodity {
+	width: 1024px;
+	height: auto;
+	margin-top: 20px;
+	overflow: hidden;
+}
+
+.commodity-info-list {
+	margin: auto;
+	margin-right: 15px;
+	margin-bottom: 30px;
+	height: auto;
+	float: left;
+}
+
+.commodity-info-list img {
+	height: 228px;
+	width: 228px;
+}
+
+.commodity-info-list-t1 {
+	height: 34px;
+	margin-top: 8px;
+	font-size: 17px;
+}
+
+.commodity-info-list-t1 div>a {
+	color: #666666;
+}
+
+.commodity-info-list-t1 div>a:hover {
+	color: black;
+}
+
+.commodity-info-list-t2 {
+	color: #ff6621;
+	height: 34px;
+	font-size: 20px;
+}
+.amount{
+	font-size: 12px;
+	font-weight: normal;
+	color: #c4c4c4;
+	font-family: verdana;
+	text-decoration: line-through;
+}
+
+
+
+/* footer */
+.footer {
+	position: absolute;
+	height: 300px;
+	width: 100%;
+	background-color: #4D4D4D;
+}
+
+.footer-info {
+	margin: auto;
+	position: absolute;
+	width: 700px;
+	height: 130px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+}
+
+.footer-info-t1 {
+	font-size: 14px;
+	color: white;
+	height: 50px;
+}
+
+.footer-info-t2 {
+	height: 50px;
+	font-size: 14px;
+}
+
+.footer-info-t2>ul {
+	margin: auto;
+	width: 400px;
+	overflow: hidden;
+}
+
+.footer-info-t2>ul>li {
+	height: 30px;
+	line-height: 30px;
+	width: 100px;
+	float: left;
+}
+
+.footer-info-t2 a {
+	color: white;;
+}
+
+.footer-info-t2 a:hover {
+	color: #000000;
+}
+
+.footer-info-t3 {
+	margin-top: 10px;
+	height: 30px;
+	color: white;
+	font-size: 11px;
+}
+
+
+/* 分页css */
+.box {
+	margin: 100px auto 0;
+	width: 80%;
+}
+.clear:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.pagination {
+	margin: 10px auto;
+	width: 500px;
+}
+
+.pagination span {
+	margin: 0 10px;
+}
+
+.pagination span.page, .pagination span.prev, .pagination span.next {
+	cursor: pointer;
+}
+
+.pagination span.page:hover {
+	color: #409eff;
+}
+
+.pagination span.page.active {
+	color: #409eff;
+	cursor: default;
+}
+
+.pagination span.prev.disabled, .pagination span.next.disabled {
+	color: #cccccc;
+	cursor: not-allowed;
+}
+
+.pagination input[type='text'] {
+	padding: 2px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	width: 60px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	outline: none;
+	transition: .2s all;
+}
+.pagination input[type='text']:focus {
+	border-color: #409eff;
+}

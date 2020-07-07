@@ -1,0 +1,171 @@
+.bgc {
+	background-color: #F5F5F5;
+	padding-top: 20px;
+}
+
+.shop_cart_header {
+	margin: auto;
+	width: 1000px;
+	/* background-color: #007722; */
+}
+
+.shop_cart_info {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	overflow: hidden;
+	background-color: white;
+	margin-bottom: 10px;
+	color: #555555;
+	font-weight: bold;
+}
+
+.shop_cart_chckbox,
+.shop_cart_name,
+.shop_cart_price,
+.shop_cart_number,
+.shop_cart_combined,
+.shop_cart_operation {
+	width: 80px;
+	float: left;
+}
+
+.shop_cart_chckbox,
+.shop_cart_price,
+.shop_cart_number,
+.shop_cart_combined,
+.shop_cart_operation {
+	width: 110px;
+	text-align: center;
+}
+
+.shop_cart_name {
+	box-sizing: border-box;
+	width: 450px;
+	padding-left: 60px;
+}
+
+
+.shop_goods {
+	margin: auto;
+	width: 1000px;
+	min-height: 400px;
+}
+
+.shop_goods_list {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin-bottom: 2px;
+	/* line-height: 110px; */
+	overflow: hidden;
+	background-color: white;
+	font-size: 14px;
+}
+
+.shop_goods_list a {
+	color: #000000;
+}
+
+.shop_goods_chckbox,
+.shop_goods_name,
+.shop_goods_price,
+.shop_goods_number,
+.shop_goods_combined,
+.shop_goods_operation {
+	float: left;
+	line-height: 90px;
+	width: 120px;
+}
+
+.shop_goods_combined,
+.shop_goods_operation {
+	font-weight: bold;
+	color: #777777;
+}
+
+.shop_goods_chckbox {
+	text-align: center;
+	width: 140px;
+}
+
+.shop_goods_price,
+.shop_goods_number,
+.shop_goods_combined,
+.shop_goods_operation {
+	height: 22px;
+	text-align: center;
+	width: 110px;
+}
+
+.shop_goods_name {
+	height: 90px;
+	line-height: 90px;
+	width: 405px;
+	margin-left: 15px;
+}
+
+.shop_goods_name_img,
+.shop_goods_text {
+	float: left;
+}
+
+.shop_goods_name_img {
+	height: 90px;
+}
+
+.shop_goods_text {
+	margin-left: 30px;
+}
+
+.shop_goods_name_img img {
+	width: 90px;
+}
+
+.shop_cart_settlement {
+	margin: auto;
+	width: 1000px;
+	overflow: hidden;
+}
+
+.shop_cart_settlement>div {
+	width: 800px;
+	float: left;
+	margin-top: 30px;
+	background-color: white;
+	height: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.shop {
+	margin-left: 40px;
+	float: left;
+}
+
+.shop strong {
+	font-size: 16px;
+	color: red;
+}
+
+.order_res {
+	color: red;
+	margin-right: 30px;
+	float: right;
+}
+
+.submit {
+	margin-top: 30px;
+	float: left;
+	outline: none;
+	color: white;
+	border: 0;
+	width: 200px;
+	height: 60px;
+	background: #969696;
+}
+
+.submit:hover {
+	background-color: #000000;
+}
+
+
+

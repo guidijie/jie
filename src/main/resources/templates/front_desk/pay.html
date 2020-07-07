@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/front_desk/index.css"/>
+    <link href="../css/front_desk/pay.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+</head>
+<body>
+<!--<header id="header"></header>-->
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+<!-- 内容区域 -->
+<div class="bit_main_content">
+    <div class="pay-cen">
+        <div class="pay-text">
+            <span>您的订单已收到。</span>
+        </div>
+        <div class="shop-table">
+            <div class="shop-td">
+                <div><span>订单：</span></div>
+                <div><span>日期：</span></div>
+                <div><span>总计</span></div>
+                <div><span>付款方式：</span></div>
+            </div>
+            <div class="shop-td two">
+                <div><span>#{{order.id}}</span></div>
+                <div><span>{{order.createTime}}</span></div>
+                <div><span>￥</span><span>{{order.totalAmount}}.00</span></div>
+                <div><span>在线支付</span></div>
+            </div>
+        </div>
+        <div class="tishi">
+            <span>请使用订单号作为付款名目。我们会在资金到账后配送订单。</span>
+        </div>
+        <div class="pay-account">
+            <div>
+                <div class="dingdan">
+                    <span>订单详情</span>
+                </div>
+                <div class="dingdan-header">
+                    <div class="shangpin"><span>商品</span></div>
+                    <div class="heji"><span>合计</span></div>
+                </div>
+                <div class="quanbu" v-for="item in orderGoodsList">
+                    <div class="shangpin-list">
+                        <div class="shangpin-list-img">
+                            <a :href="'/goods.html?goodsid='+item.id">
+                                <img :src="item.path">
+                            </a>
+                        </div>
+                        <div class="shangpin-list-name">
+                            <span><a :href="'/goods.html?goodsid='+item.id">{{item.name}}</a></span><span> ×1</span>
+                        </div>
+                        <div class="shangpin-list-price">
+                            <span>￥</span><span>{{item.preferential}}.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dingdan-header dingdan-xiaoji">
+                    <div class="shangpin"><span>购物车小计</span></div>
+                    <div class="heji font">
+                        <span>￥</span><span>{{order.totalAmount}}.00</span>
+                    </div>
+                </div>
+
+                <div class="dingdan-header dingdan-yuanfei">
+                    <div class="shangpin"><span>运费</span></div>
+                    <div class="heji font"><span>免费配送</span></div>
+                </div>
+
+                <div class="dingdan-header dingdan-zongji">
+                    <div class="shangpin"><span>商品总计</span></div>
+                    <div class="heji font">
+                        <span>￥</span><span>{{order.totalAmount}}.00</span>
+                    </div>
+                </div>
+
+
+                <div class="xuanzhe">
+                    <div>
+                        <a href="javascript:;;">
+                            <!-- pay-success.html -->
+                            <div class="fukuan" @click="fukuan()">付款</div>
+                        </a>
+                        <a href="#">
+                            <div class="quxiao">取消</div>
+                        </a>
+                        <a href="#">
+                            <div class="fanhui">返回</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- footer -->
+<div id="foot">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#foot"
+    })
+</script>
+
+</body>
+
+<script>
+    let order = new Vue({
+        el: ".pay-cen",
+        data() {
+            return {
+                order: {},
+                orderGoodsList: [],
+                msg: "",
+
+            }
+        },
+        mounted: function () {
+            this.getData();
+        },
+        methods: {
+
+            getData() {
+
+                //订单号
+                var orderId = window.location.search.replace("?","");
+
+                let then = this
+                axios.post('/order/selectOrder/' + orderId
+                ).then(function (response) {
+                    if (response.data.code == 200) {
+                        then.order =  response.data.data.order
+                    } else if (response.data.code == 400) {
+                        alert("发生了错误")
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                })
+
+                axios.post('/order/selectOrderGoods/' + orderId
+                ).then(function (response) {
+                    if (response.data.code == 200) {
+                        then.orderGoodsList =  response.data.data.orderGoodsList
+                    } else if (response.data.code == 400) {
+                        alert("发生了错误")
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            },
+            fukuan(){
+                let then = this
+                let password = prompt("请输入你的密码:");
+                axios.get('/user/isPassword/' + sessionStorage.getItem('uname') + '/' + password
+                ).then(function (response) {
+
+                    if(response.data.data.isPassword){
+                        let vo= {
+                            username: sessionStorage.getItem('uname'),
+                            inputPassword: password,
+                            order: then.order,
+                            goodsAndImagesList: then.orderGoodsList
+                        }
+                        axios.post('/order/pay/' , vo
+                        ).then(function (response) {
+                            if(response.data.data.pay == true){
+                                alert("支付成功，商品可在我的课程观看")
+                                location.href = 'pay-success.html';
+                            }else{
+                                alert("支付失败")
+                            }
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+
+                    }else{
+                        alert("密码错误")
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            }
+
+        }
+    });
+</script>
+
+</html>

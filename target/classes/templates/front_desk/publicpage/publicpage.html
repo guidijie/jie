@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- top-bar -->
+    <div class="top-bar" th:fragment="top-bar">
+        <div class="top-bar-cen">
+            <div class="top-bar-rigth">
+                <div class="user" :style="{display:a}">
+                    <div class="containerde">
+                        <a href="/toLogin">请登录</a>
+                    </div>
+                </div>
+                <div class="users"  :style="{display:a}">
+                    <div class="containerde" id="Obj">
+                        <a href="#">
+                            <div class="touxiang">
+                                <img  src="../../images/front_desk/yemian/huihua.jpg" />
+                            </div>
+<!--                            <div class="zi">-->
+<!--                                <span>无敌的你又回来了</span>-->
+<!--                            </div>-->
+                        </a>
+                        <div class="fruits" id="Obj1">
+                            <div>
+                                <div>
+                                    <div class="yin">
+                                        <div class="line"><a href="#">个人信息</a></div>
+                                        <div class="line"><a href="#">我的订单</a></div>
+                                        <div class="line"><a href="#">修改密码</a></div>
+                                        <div class="line"><a href="#">退出</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="float: left; line-height: 40px;padding: 5px 0 5px 0;">
+                    <a href="/toCart">购物车</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- header -->
+    <header class="header" th:fragment="header">
+        <!-- logo和搜索 -->
+        <div class="wf-wrap">
+            <div class="wf-table">
+                <div class="logo-bar">
+                    <div>
+                        <img src="../images/front_desk/yemian/logo2.png" style="width: 105px; height: 105px;" />
+                    </div>
+                </div>
+                <div class="assistive-info">
+                    <div>
+                        <input type="text" class="input-text" />
+                        <button class="input-btn" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 导航 -->
+        <div class="navigation-holder"  >
+            <div class="nav">
+                <ul id="ul-title">
+                    <li class="nav-li" v-for="(i,index) in list">
+                        <a :href="i.src">
+                            <span>{{i.name}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- footer -->
+    <footer id="footer" class="footer" th:fragment="footer">
+        <div class="footer-info">
+            <div class="footer-info-t1">郑重声明：内容均系原创，已申请版权保护，请勿盗版。</div>
+            <div class="footer-info-t2">
+                <ul>
+                    <li><a href="#">隐私保护</a></li>
+                    <li><a href="#">版权声明</a></li>
+                    <li><a href="#">退换货政策</a></li>
+                    <li><a href="#">关于我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-info-t3">Copyright © 2010-2017 yougou有限公司. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

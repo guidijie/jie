@@ -41,4 +41,9 @@ public interface UserDao {
       * 付款
       * */
      public int pay(Order order);
+
+     /**
+      * 测试
+      * */
+     public void git();
 }

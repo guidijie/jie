@@ -3,7 +3,6 @@ package com.jie.stupiddog.config.authen;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.jie.stupiddog.utils.ResponseMessage;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.RequestMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

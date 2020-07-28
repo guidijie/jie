@@ -1,8 +1,10 @@
 package com.jie.stupiddog.service.impl;
 
+import com.jie.stupiddog.dao.CourseDao;
 import com.jie.stupiddog.dao.GoodsAndImagesDao;
 import com.jie.stupiddog.dao.GoodsCartDao;
 import com.jie.stupiddog.dao.UserDao;
+import com.jie.stupiddog.pojo.Course;
 import com.jie.stupiddog.pojo.GoodsAndImages;
 import com.jie.stupiddog.pojo.GoodsCart;
 import com.jie.stupiddog.pojo.User;
@@ -25,19 +27,28 @@ public class GoodsCartServiceImpl implements GoodsCartService {
 
     @Resource
     private GoodsAndImagesDao goodsAndImagesDao;
+
+    @Resource
+    private CourseDao courseDao;
     /**
      * 添加商品到购物车
      * */
     @Override
     public int addCart(int gid, int uid) {
-        GoodsCart cart = new GoodsCart(gid,uid,1,new Date(),new Date());
-        GoodsCart goods = goodsCartDao.findGoods(cart);
-        if(goods == null){
-            return goodsCartDao.addCart(cart);
-        }else if(goods != null){
-            return 0;
+        Course c = new Course(uid,gid);
+        Course course = courseDao.findCourse(c);
+        System.out.println(course);
+        if(course == null){
+            GoodsCart cart = new GoodsCart(gid,uid,1,new Date(),new Date());
+            GoodsCart goods = goodsCartDao.findGoods(cart);
+            if(goods == null){
+                return goodsCartDao.addCart(cart);
+            }else if(goods != null){
+                return 0;
+            }
+            return -1;
         }
-        return -1;
+        return -4;
     }
 
     /**

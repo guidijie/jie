@@ -37,5 +37,10 @@ public interface UserDao {
       * */
      public int addGoodsToCourse(@Param("userCourseList") List<UserCourse> userCourseList);
 
+     /**
+      * 付款
+      * */
+     public int pay(Order order);
+
 
 }

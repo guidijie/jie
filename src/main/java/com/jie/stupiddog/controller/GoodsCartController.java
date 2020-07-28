@@ -31,6 +31,8 @@ public class GoodsCartController {
         int addCart = goodsCartService.addCart(integer, user.getId());
         if(addCart == 0){
             return ResponseMessage.error().addObject("msg","购物车已存在改商品！");
+        }else if(addCart == -4){
+            return ResponseMessage.error().addObject("msg","你已购买该课程！");
         }
         return addCart > -1 ? ResponseMessage.success().addObject("msg","商品成功添加到了购物车"):
                 ResponseMessage.error().addObject("msg","商品添加失败了！");

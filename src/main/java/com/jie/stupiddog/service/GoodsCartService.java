@@ -1,6 +1,7 @@
 package com.jie.stupiddog.service;
 
 import com.jie.stupiddog.pojo.GoodsAndImages;
+import com.jie.stupiddog.pojo.GoodsCart;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface GoodsCartService {
     public List<GoodsAndImages> findUserCart(String username);
 
     //删除购物车某一项商品
-    public int deleteCart(int gId);
+    public int deleteCart(GoodsCart goodsCart);
 }

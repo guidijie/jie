@@ -25,5 +25,5 @@ public interface GoodsCartDao {
     /**
      * 删除购物车商品
      */
-    public int deleteCart(int gId);
+    public int deleteCart(GoodsCart goodsCart);
 }

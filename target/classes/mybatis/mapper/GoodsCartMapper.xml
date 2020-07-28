@@ -23,7 +23,7 @@
 	</select>
 
 	<!-- 删除购物车某一项商品 -->
-	<delete id="deleteCart" parameterType="Integer">
-		DELETE FROM t_goods_cart WHERE goods_id = #{gId}
+	<delete id="deleteCart" parameterType="GoodsCart">
+		DELETE FROM t_goods_cart WHERE goods_id = #{goodsId} and user_id =#{userId}
 	</delete>
 </mapper>

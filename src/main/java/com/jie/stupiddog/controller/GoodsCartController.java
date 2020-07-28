@@ -1,8 +1,10 @@
 package com.jie.stupiddog.controller;
 
 import com.jie.stupiddog.pojo.GoodsAndImages;
+import com.jie.stupiddog.pojo.GoodsCart;
 import com.jie.stupiddog.pojo.User;
 import com.jie.stupiddog.service.GoodsCartService;
+import com.jie.stupiddog.service.GoodsService;
 import com.jie.stupiddog.service.GoodsTypeService;
 import com.jie.stupiddog.service.UserService;
 import com.jie.stupiddog.utils.ResponseMessage;
@@ -16,10 +18,11 @@ import java.util.List;
 @Controller
 public class GoodsCartController {
     @Resource
-    UserService userService;
+    private UserService userService;
 
     @Resource
-    GoodsCartService goodsCartService;
+    private GoodsCartService goodsCartService;
+
 
 
     @GetMapping("/cart/{goodsId}/{username}")
@@ -48,9 +51,12 @@ public class GoodsCartController {
 
     @GetMapping("/cart/delete/{gId}")
     @ResponseBody
-    public ResponseMessage deleteCart(@PathVariable String gId ){
-        Integer integer = Integer.valueOf(gId);
-        int num = goodsCartService.deleteCart(integer);
+    public ResponseMessage deleteCart(@PathVariable String gId , @PathVariable String userName){
+        User user = userService.findByUserName(userName);
+        GoodsCart goodsCart = new GoodsCart();
+        goodsCart.setGoodsId(Integer.valueOf(gId));
+        goodsCart.setUserId(user.getId());
+        int num = goodsCartService.deleteCart(goodsCart);
         return num > -1 ? ResponseMessage.success().addObject("msg","删除成功") :
                 ResponseMessage.error().addObject("msg","删除失败");
     }

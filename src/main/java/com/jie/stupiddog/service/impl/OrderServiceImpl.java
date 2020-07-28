@@ -1,5 +1,6 @@
 package com.jie.stupiddog.service.impl;
 
+import com.jie.stupiddog.dao.GoodsCartDao;
 import com.jie.stupiddog.dao.GoodsDao;
 import com.jie.stupiddog.dao.OrderDao;
 import com.jie.stupiddog.dao.UserDao;
@@ -28,6 +29,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private GoodsDao goodsDao;
+
+    @Autowired
+    private GoodsCartDao goodsCartDao;
 
     /**
      * 新建订单
@@ -73,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 查询所有订单
+     * 查看订单
      * */
     @Override
     public List<OrderVO> selectOrderAll() {
@@ -116,6 +120,13 @@ public class OrderServiceImpl implements OrderService {
                 orderStatus.setId(payVO.getOrder().getId());
                 orderStatus.setOrderStatus("已完成");
                 orderDao.updateOrderStatus(orderStatus);
+
+                for (UserCourse u:userCourseList) {
+                    GoodsCart goodsCart = new GoodsCart();
+                    goodsCart.setUserId(u.getUserId());
+                    goodsCart.setGoodsId(u.getGoodsId());
+                    goodsCartDao.deleteCart(goodsCart);
+                }
                 return true;
             }
         }

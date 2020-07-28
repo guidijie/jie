@@ -78,7 +78,7 @@ public class GoodsCartServiceImpl implements GoodsCartService {
      * 删除购物车某一项商品
      */
     @Override
-    public int deleteCart(int gId){
-       return goodsCartDao.deleteCart(gId);
+    public int deleteCart(GoodsCart goodsCart){
+       return goodsCartDao.deleteCart(goodsCart);
     }
 }

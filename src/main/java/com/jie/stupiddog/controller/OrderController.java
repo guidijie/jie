@@ -7,6 +7,7 @@ import com.jie.stupiddog.service.OrderService;
 import com.jie.stupiddog.utils.ResponseMessage;
 import com.jie.stupiddog.vo.OrderVO;
 import com.jie.stupiddog.vo.PayVO;
+import com.jie.stupiddog.vo.TimeAndStateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -73,17 +74,10 @@ public class OrderController {
                 ResponseMessage.error().addObject("msg", "錯誤");
     }
 
-    /**
-     * 查询所有的订单
-     * */
-    @PostMapping("/selectOrderAll")
-    @ResponseBody
-    public ResponseMessage selectOrderAll() {
-        List<OrderVO> orderVOList = orderService.selectOrderAll();
-        return orderVOList != null ? ResponseMessage.success().addObject("orderGoodsList", orderVOList) :
-                ResponseMessage.error().addObject("msg", "錯誤");
-    }
 
+    /**
+     * 支付
+     * */
     @PostMapping("/pay")
     @ResponseBody
     public ResponseMessage pay(@RequestBody PayVO payVO){
@@ -91,5 +85,19 @@ public class OrderController {
         boolean pay = orderService.pay(payVO);
         return pay == true ? ResponseMessage.success().addObject("pay", pay) :
                 ResponseMessage.error().addObject("pay", pay);
+    }
+
+
+    /**
+     * 查询订单
+     * */
+    @PostMapping("/selectOrder")
+    @ResponseBody
+    public ResponseMessage selectOrderAll(@RequestBody TimeAndStateVo timeAndStateVo) {
+        System.out.println(timeAndStateVo.getTime() +"===="+timeAndStateVo.getState());
+//        List<OrderVO> orderVOList = orderService.selectOrderAll();
+//        return orderVOList != null ? ResponseMessage.success().addObject("orderGoodsList", orderVOList) :
+//                ResponseMessage.error().addObject("msg", "錯誤");
+        return null;
     }
 }

@@ -64,13 +64,10 @@
                 <div class="order-nva">
                     <ul class="order-nva-ul">
                         <li class="order-nva-item">
-                            <a href="#">全部订单</a>
+                            <a href="javascript:;;"  @click="orderAll('all')">全部订单</a>
                         </li>
                         <li class="order-nva-item">
-                            <a href="#">待付款</a>
-                        </li>
-                        <li class="order-nva-item">
-                            <a href="#">待收货</a>
+                            <a href="javascript:;;"  @click="unPay('unpay')">未付款</a>
                         </li>
                         <li class="order-nva-item">
                             <input type="text"/>
@@ -80,10 +77,8 @@
                 </div>
                 <div class="order-header">
                     <div class="order-header-item">
-                        <select>
-                            <option value="volvo">近一周</option>
-                            <option value="saab">近一个月</option>
-                            <option value="opel">近一年</option>
+                        <select v-model="time" @change="getData">
+                            <option v-for="item in times" :value="item.value">{{item.name}}</option>
                         </select>
                     </div>
                     <div class="order-header-item dier">
@@ -93,11 +88,8 @@
                         <span>金额</span>
                     </div>
                     <div class="order-header-item">
-                        <select>
-                            <option value="volvo">全部状态</option>
-                            <option value="saab">待付款</option>
-                            <option value="opel">已完成</option>
-                            <option value="opel">已取消</option>
+                        <select v-model="state" @change="getData">
+                            <option v-for="item in states" :value="item.value">{{item.name}}</option>
                         </select>
                     </div>
                     <div class="order-header-item">
@@ -168,7 +160,7 @@
         el: ".me",
         data() {
             return {
-                info: [],
+                info: []
             }
         },
         methods: {
@@ -201,12 +193,25 @@
 
 
     let order = new Vue({
-        el: ".order-info-cen",
+        el: ".me-info-right",
         data() {
             return {
+                times:[
+                    {name: '今天',value: 'day'},
+                    {name: '近一周',value: 'weeks'},
+                    {name: '近一个月',value: 'month'},
+                    {name: '近一年',value: 'years'},
+                ],
+                states:[
+                    {name: '全部订单',value: 'all'},
+                    {name: '未付款',value: 'unpay'},
+                    {name: '已完成',value: 'complete'},
+                    {name: '已取消',value: 'cancel'},
+                ],
                 orderGoodsList: [],
                 msg: "",
-
+                state: "all",
+                time: "years"
             }
         },
         mounted: function () {
@@ -215,7 +220,11 @@
         methods: {
             getData() {
                 let then = this
-                axios.post('/order/selectOrderAll'
+                let aa ={
+                    time: then.time,
+                    state: then.state
+                }
+                axios.post('/order/selectOrder' , aa
                 ).then(function (response) {
                     if (response.data.code == 200) {
                         then.orderGoodsList =  response.data.data.orderGoodsList
@@ -225,9 +234,15 @@
                 }).catch(function (error) {
                     console.log(error)
                 })
-
             },
-
+            unPay(value){
+                let then = this
+                then.state = value
+            },
+            orderAll(value){
+                let then = this
+                then.state = value
+            }
         }
     });
 </script>

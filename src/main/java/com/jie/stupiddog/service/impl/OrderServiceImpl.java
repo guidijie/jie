@@ -8,6 +8,7 @@ import com.jie.stupiddog.pojo.*;
 import com.jie.stupiddog.service.OrderService;
 import com.jie.stupiddog.vo.OrderVO;
 import com.jie.stupiddog.vo.PayVO;
+import com.jie.stupiddog.vo.TimeAndStateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,18 +81,21 @@ public class OrderServiceImpl implements OrderService {
      * 查看订单
      * */
     @Override
-    public List<OrderVO> selectOrderAll() {
+    public List<OrderVO> findOrder(TimeAndStateVo timeAndStateVo) {
         List<OrderVO>  OrderVOList = new ArrayList<>();
-        List<Order> orderList = orderDao.selectOrderAll();
-        for (Order order : orderList) {
-            OrderVO orderVO = OrderVO.transToOrderVO(order);
-            //查询订单的商品和图片
-            List<OrderGoods> orderGoodsList = orderDao.selectOrderGoods(order.getId());
-            List<GoodsAndImages> goodsAndImagesList = goodsDao.selectByListGoodsId1(orderGoodsList);
-            orderVO.setGoodsAndImagesList(goodsAndImagesList);
-            OrderVOList.add(orderVO);
+        List<Order> orderList = orderDao.findOrder(timeAndStateVo);
+        if(orderList != null){
+            for (Order order : orderList) {
+                OrderVO orderVO = OrderVO.transToOrderVO(order);
+                //查询订单的商品和图片
+                List<OrderGoods> orderGoodsList = orderDao.selectOrderGoods(order.getId());
+                List<GoodsAndImages> goodsAndImagesList = goodsDao.selectByListGoodsId1(orderGoodsList);
+                orderVO.setGoodsAndImagesList(goodsAndImagesList);
+                OrderVOList.add(orderVO);
+            }
+            return OrderVOList;
         }
-        return OrderVOList;
+        return null;
     }
 
 

@@ -6,6 +6,7 @@ import com.jie.stupiddog.pojo.Order;
 import com.jie.stupiddog.pojo.OrderGoods;
 import com.jie.stupiddog.vo.OrderVO;
 import com.jie.stupiddog.vo.PayVO;
+import com.jie.stupiddog.vo.TimeAndStateVo;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface OrderService {
     /**
      * 查询所有的订单
      * */
-    public List<OrderVO> selectOrderAll();
+    public List<OrderVO> findOrder(TimeAndStateVo timeAndStateVo);
 
     /**
      *支付

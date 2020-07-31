@@ -91,13 +91,11 @@ public class OrderController {
     /**
      * 查询订单
      * */
-    @PostMapping("/selectOrder")
+    @PostMapping("/findOrder")
     @ResponseBody
-    public ResponseMessage selectOrderAll(@RequestBody TimeAndStateVo timeAndStateVo) {
-        System.out.println(timeAndStateVo.getTime() +"===="+timeAndStateVo.getState());
-//        List<OrderVO> orderVOList = orderService.selectOrderAll();
-//        return orderVOList != null ? ResponseMessage.success().addObject("orderGoodsList", orderVOList) :
-//                ResponseMessage.error().addObject("msg", "錯誤");
-        return null;
+    public ResponseMessage findOrder(@RequestBody TimeAndStateVo timeAndStateVo) {
+        List<OrderVO> orderVOList = orderService.findOrder(timeAndStateVo);
+        return orderVOList != null ? ResponseMessage.success().addObject("orderGoodsList", orderVOList) :
+                ResponseMessage.error().addObject("msg", "錯誤");
     }
 }

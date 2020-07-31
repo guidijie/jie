@@ -2,6 +2,7 @@ package com.jie.stupiddog.dao;
 
 import com.jie.stupiddog.pojo.Order;
 import com.jie.stupiddog.pojo.OrderGoods;
+import com.jie.stupiddog.vo.TimeAndStateVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface OrderDao {
     /**
      * 查询所有订单
      * */
-    public List<Order> selectOrderAll();
+    public List<Order> findOrder(TimeAndStateVo timeAndStateVo);
 
     /**
      * 按照orderID查询订单商品

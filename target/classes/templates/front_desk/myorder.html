@@ -77,7 +77,7 @@
                 </div>
                 <div class="order-header">
                     <div class="order-header-item">
-                        <select v-model="time" @change="getData">
+                        <select v-model="time">
                             <option v-for="item in times" :value="item.value">{{item.name}}</option>
                         </select>
                     </div>
@@ -88,7 +88,7 @@
                         <span>金额</span>
                     </div>
                     <div class="order-header-item">
-                        <select v-model="state" @change="getData">
+                        <select v-model="state">
                             <option v-for="item in states" :value="item.value">{{item.name}}</option>
                         </select>
                     </div>
@@ -176,7 +176,7 @@
                 }).catch(function (error) {
                     console.log('请求出错啦')
                 })
-            },
+            }
         },
         created() {
             this.getData();
@@ -201,6 +201,7 @@
                     {name: '近一周',value: 'weeks'},
                     {name: '近一个月',value: 'month'},
                     {name: '近一年',value: 'years'},
+                    {name: '全部时间',value: 'all'},
                 ],
                 states:[
                     {name: '全部订单',value: 'all'},
@@ -211,7 +212,7 @@
                 orderGoodsList: [],
                 msg: "",
                 state: "all",
-                time: "years"
+                time: "all"
             }
         },
         mounted: function () {
@@ -224,7 +225,7 @@
                     time: then.time,
                     state: then.state
                 }
-                axios.post('/order/selectOrder' , aa
+                axios.post('/order/findOrder' , aa
                 ).then(function (response) {
                     if (response.data.code == 200) {
                         then.orderGoodsList =  response.data.data.orderGoodsList
@@ -242,6 +243,14 @@
             orderAll(value){
                 let then = this
                 then.state = value
+            }
+        },
+        watch: {
+            state(){
+                this.getData()
+            },
+            time(){
+                this.getData()
             }
         }
     });

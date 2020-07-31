@@ -172,34 +172,36 @@
             pay(){
                 let then = this
                 let password = prompt("请输入你的密码:");
-                axios.get('/user/isPassword/' + sessionStorage.getItem('uname') + '/' + password
-                ).then(function (response) {
+                if(password != null) {// 如果取消输入则会返回null
+                    axios.get('/user/isPassword/' + sessionStorage.getItem('uname') + '/' + password
+                    ).then(function (response) {
 
-                    if(response.data.data.isPassword){
-                        let vo= {
-                            username: sessionStorage.getItem('uname'),
-                            inputPassword: password,
-                            order: then.order,
-                            goodsAndImagesList: then.orderGoodsList
-                        }
-                        axios.post('/order/pay/' , vo
-                        ).then(function (response) {
-                            if(response.data.data.pay == true){
-                                alert("支付成功，商品可在我的课程观看")
-                                location.href = 'pay-success.html';
-                            }else{
-                                alert("支付失败")
+                        if(response.data.data.isPassword){
+                            let vo= {
+                                username: sessionStorage.getItem('uname'),
+                                inputPassword: password,
+                                order: then.order,
+                                goodsAndImagesList: then.orderGoodsList
                             }
-                        }).catch(function (error) {
-                            console.log(error)
-                        })
+                            axios.post('/order/pay/' , vo
+                            ).then(function (response) {
+                                if(response.data.data.pay == true){
+                                    alert("支付成功，商品可在我的课程观看")
+                                    location.href = 'pay-success.html';
+                                }else{
+                                    alert("支付失败")
+                                }
+                            }).catch(function (error) {
+                                console.log(error)
+                            })
 
-                    }else{
-                        alert("密码错误")
-                    }
-                }).catch(function (error) {
-                    console.log(error)
-                })
+                        }else{
+                            alert("密码错误")
+                        }
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                }
             },
             cancel(){
                 let then = this

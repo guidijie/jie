@@ -35,4 +35,12 @@ public interface OrderService {
      *支付
      * */
     public boolean pay(PayVO payVO);
+
+
+    /**
+     *支付
+     */
+    public boolean cancelOrder(Order order);
+
+
 }

@@ -125,6 +125,7 @@ public class OrderServiceImpl implements OrderService {
                 orderStatus.setOrderStatus("已完成");
                 orderDao.updateOrderStatus(orderStatus);
 
+                //支付成功后删除购物车商品
                 for (UserCourse u:userCourseList) {
                     GoodsCart goodsCart = new GoodsCart();
                     goodsCart.setUserId(u.getUserId());
@@ -137,7 +138,18 @@ public class OrderServiceImpl implements OrderService {
         return false;
     }
 
+    /**
+     * 取消订单
+     */
+    public boolean cancelOrder(Order order){
 
+        order.setOrderStatus("已取消");
+        int i = orderDao.updateOrderStatus(order);
+        if(i > 0 ){
+            return true;
+        }
+        return false;
+    }
     /**
      * 生成orderId
      */
@@ -149,4 +161,6 @@ public class OrderServiceImpl implements OrderService {
         System.out.println(id);
         return id;
     }
+
+
 }

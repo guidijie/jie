@@ -118,7 +118,7 @@
 	float: right;
 	overflow: hidden;
 }
-.fukuan,.quxiao,.fanhui{
+.toPay,.cancel,.back{
 	float: left;
 	margin-left: 20px;
 	height: 40px;

@@ -87,6 +87,16 @@ public class OrderController {
                 ResponseMessage.error().addObject("pay", pay);
     }
 
+    /**
+     * 取消订单
+     * */
+    @PostMapping("/cancelOrder")
+    @ResponseBody
+    public ResponseMessage cancelOrder(@RequestBody Order order){
+        boolean cancel = orderService.cancelOrder(order);
+        return cancel == true ? ResponseMessage.success().addObject("cancel", cancel) :
+                ResponseMessage.error().addObject("cancel", cancel);
+    }
 
     /**
      * 查询订单

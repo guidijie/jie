@@ -25,12 +25,43 @@
 		</foreach>
 	</insert>
 
-	<!-- 查询所有订单信息 -->
-	<select id="selectOrderAll" resultType="Order">
+	<!-- 查询订单信息 -->
+	<select id="findOrder" resultType="Order" parameterType="com.jie.stupiddog.vo.TimeAndStateVo">
 		SELECT
 			*
 		FROM
-			`t_order`
+			`t_order` as o
+		where
+			1 = 1
+			<if test="state != null and state != '' and state == 'all' ">
+
+			</if>
+			<if test="state != null and state != '' and state == 'unpay' ">
+				 and o.order_status = "未付款"
+			</if>
+			<if test="state != null and state != '' and state == 'complete' ">
+				and o.order_status = "已完成"
+			</if>
+			<if test="state != null and state != '' and state == 'cancel' ">
+				and o.order_status = "已取消"
+			</if>
+
+
+			<if test="time != null and  time!= '' and time == 'all' ">
+
+			</if>
+			<if test="time != null and  time!= '' and time == 'day' ">
+				and to_days(o.creationtime) = to_days(now())
+			</if>
+			<if test="time != null and  time!= '' and time == 'weeks' ">
+				and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(o.creationtime)
+			</if>
+			<if test="time != null and  time!= '' and time == 'month' ">
+				and DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(o.creationtime)
+			</if>
+			<if test="time != null and  time!= '' and time == 'years' ">
+				and DATE_SUB(CURDATE(), INTERVAL 30*12 DAY) &lt;= date(o.creationtime)
+			</if>
 	</select>
 
 	<!-- 按照订单id查询订单信息 -->

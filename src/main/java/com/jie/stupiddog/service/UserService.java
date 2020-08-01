@@ -16,6 +16,11 @@ public interface UserService {
     public int addUser(User user);
 
     /**
+     * 修改用户信息
+     */
+    public int updateUserInfo(UserInfo userInfo);
+
+    /**
      * 查询用户信息
      */
     public UserInfo findByUserInfo(String username);

@@ -4,6 +4,7 @@ import com.jie.stupiddog.pojo.User;
 import com.jie.stupiddog.pojo.UserInfo;
 import com.jie.stupiddog.service.UserService;
 import com.jie.stupiddog.utils.ResponseMessage;
+import com.jie.stupiddog.vo.UserInfoVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,13 +66,14 @@ public class UserController {
     }
 
     /**
-     * 添加用户
+     * 查询用户
      * */
     @GetMapping("/findByUserInfo/{username}")
     @ResponseBody
     public ResponseMessage findByUserInfo(@PathVariable String username){
         UserInfo userInfo = userService.findByUserInfo(username);
-        return userInfo != null ? ResponseMessage.success().addObject("userInfo",userInfo) :
+        UserInfoVo userInfoVo = new UserInfoVo(userInfo);
+        return userInfo != null ? ResponseMessage.success().addObject("userInfo",userInfoVo) :
                 ResponseMessage.error().addObject("error","出错啦…………");
     }
 

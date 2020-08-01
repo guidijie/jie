@@ -43,6 +43,10 @@
 			(#{userId},#{name},#{imagePath},#{email},#{birthday},#{sex},#{phone},#{individualitySignature},#{creationtime},#{modifytime})
 	</insert>
 
+	<update id="updateUserInfo" parameterType="UserInfo">
+
+	</update>
+
 	<!-- 付款 -->
 	<update id="pay" parameterType="Order">
 		UPDATE

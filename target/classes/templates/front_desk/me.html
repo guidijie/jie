@@ -64,19 +64,19 @@
                 <form>
                     <div class="form-item">
                         <span>昵称：</span>
-                        <input type="text" :placeholder="info.name" ref="userInfo.name"/>
+                        <input type="text" :placeholder="info.name" ref="name"/>
                     </div>
                     <div class="form-item">
                         <span>生日：</span>
-                        <input type="date" :placeholder="info.birthday" :value="info.birthday" ref="userInfo.birthday"/>
+                        <input type="date" :placeholder="info.birthday" :value="userInfo.birthday" ref="birthday"/>
                     </div>
                     <div class="form-item">
                         <span>邮箱：</span>
-                        <input type="text" :placeholder="info.email"  ref="userInfo.email"/>
+                        <input type="text" :placeholder="info.email"  ref="email"/>
                     </div>
                     <div class="form-item">
                         <span>手机：</span>
-                        <input type="text" :placeholder="info.phone" ref="userInfo.phone"/>
+                        <input type="text" :placeholder="info.phone" ref="phone"/>
                     </div>
                     <div class="form-item">
                         <div>
@@ -92,7 +92,7 @@
                     <div class="form-item">
                         <span style="display: block;float: left;">个性签名：</span>
                         <span style="display: block;float: left;">
-                            <textarea class="" rows="0" cols="0" ref="userInfo.individualitySignature" :placeholder="info.individualitySignature"></textarea>
+                            <textarea class="" rows="0" cols="0" ref="individualitySignature" :placeholder="info.individualitySignature"></textarea>
                         </span>
                     </div>
                     <div class="form-item">
@@ -158,14 +158,15 @@
             },
             updateInfo(){
                 let then = this
+                then.userInfo.name = then.$refs.name.value
+                then.userInfo.email = then.$refs.email.value
+                then.userInfo.birthday = then.$refs.birthday.value
+                then.userInfo.phone = then.$refs.phone.value
+                then.userInfo.individualitySignature = then.$refs.individualitySignature.value
 
                 axios.post('/userInfo/updateUserInfo' ,then.userInfo
                 ).then(function (response) {
-                    // if (response.data.code == 200) {
-                    //     alert("修改成功")
-                    // } else {
-                    //     alert("出现故障了，请重新登录")
-                    // }
+                    console.log(response.data.data.info)
 
                 }).catch(function (error) {
                     console.log('请求出错啦')

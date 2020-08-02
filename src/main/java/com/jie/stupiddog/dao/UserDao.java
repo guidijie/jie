@@ -28,6 +28,11 @@ public interface UserDao {
      public int addUserInfo(UserInfo userInfo);
 
      /**
+     * 添加用户
+     */
+     public int updateUserInfo(UserInfo userInfo);
+
+     /**
       * 按照用户密码查询
       * */
      public User findByPassword(String encodedPassword);

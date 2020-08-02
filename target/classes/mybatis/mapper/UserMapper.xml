@@ -44,7 +44,18 @@
 	</insert>
 
 	<update id="updateUserInfo" parameterType="UserInfo">
-
+		UPDATE `t_user_info`
+		<set>
+			<if test="name!=null and name!=''"> name = #{name},</if>
+			<if test="email!=null and email!=''"> email = #{email},</if>
+			<if test="birthday!=null"> birthday = #{birthday},</if>
+			sex = #{sex},
+			<if test="phone!=null and phone!=''"> phone = #{phone},</if>
+			<if test="individualitySignature!=null and individualitySignature!='' "> individuality_signature = #{individualitySignature},</if>
+			<if test="modifytime!=null"> modifytime = #{modifytime},</if>
+		</set>
+		WHERE
+			id = #{id} and user_id = #{userId}
 	</update>
 
 	<!-- 付款 -->

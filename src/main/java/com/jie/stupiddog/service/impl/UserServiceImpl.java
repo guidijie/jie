@@ -50,6 +50,15 @@ public class UserServiceImpl implements UserService {
         return -1;
     }
 
+
+    /**
+     * 修改用户信息
+     * */
+    @Override
+    public int updateUserInfo(UserInfo userInfo) {
+        return userDao.updateUserInfo(userInfo);
+    }
+
     /**
      * 查询用户信息
      * */

@@ -64,21 +64,21 @@
                 <form>
                     <div class="form-item">
                         <span>原密码：</span>
-                        <input type="text"/>
+                        <input type="password" v-model="password"/>
                     </div>
                     <div class="form-item">
                         <span>请输入密码：</span>
-                        <input type="text"/>
+                        <input type="password" v-model="newPassword"/>
                     </div>
                     <div class="form-item">
                         <span>请再次确定密码：</span>
-                        <input type="text"/>
+                        <input type="password" v-model="determine"/>
                     </div>
                     <div class="form-item">
                         <a href="Forgot-Password.html">忘记密码？</a>
                     </div>
                     <div class="form-item">
-                        <input type="submit" id="submit" value="保存修改"/>
+                        <input type="button" id="submit" value="保存修改" @click="submit()"/>
                     </div>
                 </form>
             </div>
@@ -99,10 +99,13 @@
 <script>
 
     let userInfo = new Vue({
-        el: ".me",
+        el: ".me-info",
         data() {
             return {
                 info: [],
+                password: "",
+                newPassword: "",
+                determine: ""
             }
         },
         methods: {
@@ -119,6 +122,39 @@
                     console.log('请求出错啦')
                 })
             },
+            submit(){
+                let then = this
+                if(then.password === "" || then.newPassword === "" || then.determine === ""){
+                    alert("kong")
+                }else {
+                    axios.get('/user/isPassword/'+ sessionStorage.getItem('uname') +'/'+ then.password
+                    ).then(function (response) {
+                        if(response.data.data.isPassword != false){
+                            if(then.newPassword === then.determine){
+                                let user ={
+                                    id : then.info.userId,
+                                    password: then.newPassword,
+                                }
+                                axios.post('/user/changePassword/',user
+                                ).then(function (response) {
+                                    alert(response.data.data.msg)
+                                    location.href = "/login.html"
+                                }).catch(function (error) {
+                                    console.log('请求出错啦')
+                                })
+
+                            }else{
+                                alert("请再次确定新密码")
+                            }
+                        }else {
+                            alert("原密码不正确")
+                        }
+
+                    }).catch(function (error) {
+                        console.log('请求出错啦')
+                    })
+                }
+            }
         },
         created() {
             this.getData();
@@ -132,6 +168,20 @@
             location.href='/logout'
         }
     }
+
+    // let newPassword = new Vue({
+    //     el: ".me",
+    //     data() {
+    //         return {
+    //             info: [],
+    //
+    //         }
+    //     },
+    //     methods: {
+    //
+    //     }
+    // })
+
 </script>
 </body>
 </html>

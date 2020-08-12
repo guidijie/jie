@@ -82,18 +82,22 @@ public class OrderServiceImpl implements OrderService {
      * */
     @Override
     public List<OrderVO> findOrder(TimeAndStateVo timeAndStateVo) {
-        List<OrderVO>  OrderVOList = new ArrayList<>();
-        List<Order> orderList = orderDao.findOrder(timeAndStateVo);
-        if(orderList != null){
-            for (Order order : orderList) {
-                OrderVO orderVO = OrderVO.transToOrderVO(order);
-                //查询订单的商品和图片
-                List<OrderGoods> orderGoodsList = orderDao.selectOrderGoods(order.getId());
-                List<GoodsAndImages> goodsAndImagesList = goodsDao.selectByListGoodsId1(orderGoodsList);
-                orderVO.setGoodsAndImagesList(goodsAndImagesList);
-                OrderVOList.add(orderVO);
+        User user = userDao.findByUserName(timeAndStateVo.getUserName());
+        if(user != null){
+            timeAndStateVo.setUserId(user.getId());
+            List<OrderVO>  OrderVOList = new ArrayList<>();
+            List<Order> orderList = orderDao.findOrder(timeAndStateVo);
+            if(orderList != null){
+                for (Order order : orderList) {
+                    OrderVO orderVO = OrderVO.transToOrderVO(order);
+                    //查询订单的商品和图片
+                    List<OrderGoods> orderGoodsList = orderDao.selectOrderGoods(order.getId());
+                    List<GoodsAndImages> goodsAndImagesList = goodsDao.selectByListGoodsId1(orderGoodsList);
+                    orderVO.setGoodsAndImagesList(goodsAndImagesList);
+                    OrderVOList.add(orderVO);
+                }
+                return OrderVOList;
             }
-            return OrderVOList;
         }
         return null;
     }

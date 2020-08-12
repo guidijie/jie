@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TimeAndStateVo {
-
+    private String userName;
+    private int userId;
     private String time;
     private String state;
 }

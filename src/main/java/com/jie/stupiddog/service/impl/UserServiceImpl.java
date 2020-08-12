@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -82,6 +83,27 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * 修改密码
+     */
+    @Override
+    public int changePassword(User user) {
+
+        //生成盐
+        String uuid = UUID.randomUUID().toString();
+        user.setMask(uuid);
+        //密码加盐
+        String password = MD5.passwordToMD5(user.getPassword());
+        password = MD5.passwordToMD5(password + uuid);
+        password = MD5.passwordToMD5(password);
+        user.setPassword(password);
+
+        user.setModifytime(new Date());
+        System.out.println(user);
+        return userDao.changePassword(user);
     }
 
 }

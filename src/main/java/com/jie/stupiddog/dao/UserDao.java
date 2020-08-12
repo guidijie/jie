@@ -48,4 +48,12 @@ public interface UserDao {
      public int pay(Order order);
 
 
+     /**
+      * 修改密码
+      * */
+     public int changePassword(User user);
+
+
+
+
 }

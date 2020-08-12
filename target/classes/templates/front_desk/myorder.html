@@ -99,6 +99,9 @@
                 <!-- 订单 -->
                 <div class="order-info">
                     <div class="order-info-cen">
+                        <div v-if="orderGoodsList">
+                            <span>您暂时还没有订单哦</span>
+                        </div>
                         <div class="order-nerrong" v-for="item in orderGoodsList">
                             <div class="order-info-header">
                                 <div class="shping-time">
@@ -106,7 +109,7 @@
                                 </div>
                                 <div class="shping-orderNumber">
                                     <span>订单号：</span>
-                                    <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : '/order/xiangqing.html' + item.id">{{item.id}}</a>
+                                    <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : '/order/xiangqing.html?' + item.id">{{item.id}}</a>
                                 </div>
                                 <div class="state">
                                     <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : ''">{{item.orderStatus}}</a>
@@ -222,6 +225,8 @@
             getData() {
                 let then = this
                 let aa ={
+                    userName: sessionStorage.getItem('uname'),
+                    userId: 0,
                     time: then.time,
                     state: then.state
                 }

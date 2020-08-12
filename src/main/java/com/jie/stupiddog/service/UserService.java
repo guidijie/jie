@@ -29,4 +29,9 @@ public interface UserService {
      * 判断密码是否正确
      * */
     public boolean isPassword(String username,String inputPassword);
+
+    /**
+     * 修改密码
+     * */
+    public int changePassword(User user);
 }

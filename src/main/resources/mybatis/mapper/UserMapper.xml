@@ -78,4 +78,14 @@
 			(#{userCourse.userId},#{userCourse.goodsId})
 		</foreach>
 	</insert>
+
+	<!-- 修改用户密码 -->
+	<update id="changePassword" parameterType="User">
+		UPDATE
+			t_user
+		SET
+			password = #{password} , modifytime = #{modifytime} ,mask = #{mask}
+		WHERE
+			id = #{id}
+	</update>
 </mapper>

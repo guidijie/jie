@@ -32,7 +32,7 @@
 		FROM
 			`t_order` as o
 		where
-			1 = 1
+			o.user_id = #{userId}
 			<if test="state != null and state != '' and state == 'all' ">
 
 			</if>

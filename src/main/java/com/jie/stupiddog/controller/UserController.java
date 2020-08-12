@@ -25,11 +25,11 @@ public class UserController {
     /**
      * 查询用户
      * */
-    @GetMapping("/selectUser")
+    @GetMapping("/selectUser/{username}")
     @ResponseBody
-    public ResponseMessage selectUser(String username){
-        User byUserName = userService.findByUserName(username);
-        return byUserName !=null ? ResponseMessage.success() : ResponseMessage.error();
+    public ResponseMessage selectUser(@PathVariable String username){
+        User user = userService.findByUserName(username);
+        return user !=null ? ResponseMessage.success().addObject("user",user) : ResponseMessage.error();
     }
 
     /**
@@ -86,5 +86,16 @@ public class UserController {
         boolean password = userService.isPassword(username, inputPassword);
         return password == true ? ResponseMessage.success().addObject("isPassword",password) :
                 ResponseMessage.error().addObject("isPassword",password);
+    }
+
+    /**
+     * 修改密码
+     * */
+    @PostMapping("/changePassword")
+    @ResponseBody
+    public ResponseMessage changePassword(@RequestBody User user){
+        int num = userService.changePassword(user);
+        return num >0 ? ResponseMessage.success().addObject("msg","密码更改成功,请重新登录") :
+                ResponseMessage.error().addObject("msg","密码更改失败");
     }
 }

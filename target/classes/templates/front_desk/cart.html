@@ -53,11 +53,13 @@
             </div>
             <div class="shop_goods_name">
                 <div class="shop_goods_name_img">
-                    <a href="#">
+                    <a :href="'/goods.html?goodsid='+item.id">
                         <img :src="item.path">
                     </a>
                 </div>
-                <div class="shop_goods_text"><a href="#">{{item.name}}</a></div>
+                <div class="shop_goods_text">
+                    <a :href="'/goods.html?goodsid='+item.id">{{item.name}}</a>
+                </div>
             </div>
             <div class="shop_goods_price"><span>￥{{item.price}}.00</span></div>
             <div class="shop_goods_number"><span>1</span></div>
@@ -173,12 +175,9 @@
              * @param index
              */
             remove: function (index,gid) {
-                console.log(index)
-                console.log(gid + '  ' + typeof gid)
                 if(confirm("你确定要删除吗")) {
                     axios.get('/cart/delete/' + gid + sessionStorage.getItem('uname')
                     ).then(function (response) {
-                        console.log(response)
                         if (response.data.code == 200) {
                             userCart.cart.splice(index, 1)
                             alert(response.data.data.msg)

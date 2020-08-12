@@ -170,6 +170,7 @@ textarea {
 .order-info-cen{
 	color: #696969;
 	padding-top: 30px;
+	min-height: 500px;
 }
 .order-nerrong{
 	margin-top: 10px;

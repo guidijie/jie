@@ -241,3 +241,26 @@ textarea {
 
 
 /* end 我的订单模块 */
+
+
+/* 我的课程 */
+.my-course{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap:wrap;
+	margin-top: 10px;
+	min-height: 420px;
+	width: 700px;
+}
+.my-course-list{
+	text-align: center;
+	width: 160px;
+	height: 190px;
+
+}
+.my-course-list img{
+
+	width: 160px;
+	height: 160px;
+}
+/* end  我的课程 */

@@ -97,6 +97,12 @@ public class IndexController {
         return "/front_desk/myorder";
     }
 
+    /* 我的课程 */
+    @RequestMapping("/mycourse.html")
+    public String myCourse(){
+        return "/front_desk/mycourse";
+    }
+
     /* 修改密码 */
     @RequestMapping("/Change-p.html")
     public String ChangePwd(){

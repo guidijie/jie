@@ -42,10 +42,10 @@
                 <li class="ul-menu-item">
                     <a href="/me.html">修改资料</a>
                 </li>
-                <li class="ul-menu-item  item-bgc">
+                <li class="ul-menu-item">
                     <a href="/myorder.html">我的订单</a>
                 </li>
-                <li class="ul-menu-item">
+                <li class="ul-menu-item  item-bgc">
                     <a href="/mycourse.html">我的课程</a>
                 </li>
                 <li class="ul-menu-item">
@@ -58,91 +58,17 @@
         </div>
         <div class="me-info-right">
             <div class="me-info-right-header">
-                <span>我的订单</span>
+                <span>我的课程</span>
             </div>
-            <div class="me-info-right-ziliao">
-                <div class="order-nva">
-                    <ul class="order-nva-ul">
-                        <li class="order-nva-item">
-                            <a href="javascript:;;"  @click="orderAll('all')">全部订单</a>
-                        </li>
-                        <li class="order-nva-item">
-                            <a href="javascript:;;"  @click="unPay('unpay')">未付款</a>
-                        </li>
-                        <li class="order-nva-item">
-                            <input type="text"/>
-                            <input type="button" value="搜索"/>
-                        </li>
-                    </ul>
-                </div>
-                <div class="order-header">
-                    <div class="order-header-item">
-                        <select v-model="time">
-                            <option v-for="item in times" :value="item.value">{{item.name}}</option>
-                        </select>
-                    </div>
-                    <div class="order-header-item dier">
-                        <span>订单详情</span>
-                    </div>
-                    <div class="order-header-item">
-                        <span>金额</span>
-                    </div>
-                    <div class="order-header-item">
-                        <select v-model="state">
-                            <option v-for="item in states" :value="item.value">{{item.name}}</option>
-                        </select>
-                    </div>
-                    <div class="order-header-item">
-                        <span>操作</span>
-                    </div>
-                </div>
-                <!-- 订单 -->
-                <div class="order-info">
-                    <div class="order-info-cen">
-                        <div v-if="orderGoodsList">
-                            <span>您暂时还没有订单哦</span>
+            <div class="my-course">
+                <a href="#">
+                    <div class="my-course-list">
+                        <img src="../images/goodsImage/1_1.jpg">
+                        <div>
+                            <span>绘画</span>
                         </div>
-                        <div class="order-nerrong" v-for="item in orderGoodsList">
-                            <div class="order-info-header">
-                                <div class="shping-time">
-                                    <span>{{item.createTime}}</span>
-                                </div>
-                                <div class="shping-orderNumber">
-                                    <span>订单号：</span>
-                                    <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : '/order/xiangqing.html?' + item.id">{{item.id}}</a>
-                                </div>
-                                <div class="state">
-                                    <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : ''">{{item.orderStatus}}</a>
-                                </div>
-                                <div class="shping-delet">
-                                    <a href="#">删除</a>
-                                </div>
-                            </div>
-                            <div class="list">
-                                <div class="order-info-list" v-for="goodsImage in item.goodsAndImagesList">
-                                    <div class="shping-img">
-                                        <a :href="'/goods.html?goodsid=' + goodsImage.id">
-                                            <img :src="goodsImage.path"/>
-                                        </a>
-                                    </div>
-                                    <div class="shping-name">
-                                        <samp>
-                                            <a :href="'/goods.html?goodsid=' + goodsImage.id">{{goodsImage.name}}</a></samp>
-                                        <span>×1</span>
-                                    </div>
-                                    <div class="shping-price">
-                                        <span>￥{{goodsImage.preferential}}.00</span>
-                                    </div>
-<!--                                    <div class="shping-state">-->
-<!--                                        <span>{{item.orderStatus}}</span>-->
-<!--                                    </div>-->
-
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>

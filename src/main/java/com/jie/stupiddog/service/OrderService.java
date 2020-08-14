@@ -49,5 +49,5 @@ public interface OrderService {
     public int deleteOrder(long id);
 
 
-    SuccessPayVo successPay(long parseLong);
+    public SuccessPayVo successPay(long parseLong);
 }

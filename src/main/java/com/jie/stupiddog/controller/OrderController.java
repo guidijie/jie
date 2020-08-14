@@ -7,6 +7,7 @@ import com.jie.stupiddog.service.OrderService;
 import com.jie.stupiddog.utils.ResponseMessage;
 import com.jie.stupiddog.vo.OrderVO;
 import com.jie.stupiddog.vo.PayVO;
+import com.jie.stupiddog.vo.SuccessPayVo;
 import com.jie.stupiddog.vo.TimeAndStateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -120,13 +121,13 @@ public class OrderController {
     }
 
     /**
-     * 删除订单
+     * 支付成功后
      * */
     @GetMapping("/successPay/{id}")
     @ResponseBody
     public ResponseMessage successPay(@PathVariable String id) {
-        Order order = orderService.successPay(Long.parseLong(id));
-        return order != null  ? ResponseMessage.success().addObject("msg", "删除成功") :
-                ResponseMessage.error().addObject("msg", "删除失败");
+        SuccessPayVo successPayVo = orderService.successPay(Long.parseLong(id));
+        return order != null  ? ResponseMessage.success().addObject("successPayVo", successPayVo) :
+                ResponseMessage.error().addObject("msg", "系统发生故障");
     }
 }

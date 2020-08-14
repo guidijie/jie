@@ -115,7 +115,7 @@
                                     <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : ''">{{item.orderStatus}}</a>
                                 </div>
                                 <div class="shping-delet">
-                                    <a href="#">删除</a>
+                                    <a href="javascript:;" @click="deleteOrder(item.id)">删除</a>
                                 </div>
                             </div>
                             <div class="list">
@@ -248,6 +248,16 @@
             orderAll(value){
                 let then = this
                 then.state = value
+            },
+            deleteOrder(id){
+                if(confirm("确认要删除？")){
+                    axios.get('/order/deleteOrder/' +id
+                    ).then(function (response) {
+                        then.msg =  response.data.data.msg
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                }
             }
         },
         watch: {

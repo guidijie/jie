@@ -38,4 +38,14 @@ public interface OrderDao {
      * 修改订单状态
      * */
     public int updateOrderStatus(Order order);
+
+    /**
+     * 删除订单
+     * */
+    public int deleteOrder(long id);
+
+    /**
+     * 删除订单商品
+     * */
+    public int deleteOrderGoods(long id);
 }

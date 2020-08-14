@@ -88,4 +88,9 @@
 		WHERE
 			id = #{id}
 	</update>
+
+	<!-- 查询我的课程 -->
+	<select id="findCourse" resultType="UserCourse" parameterType="Integer">
+		SELECT * FROM `t_user_course` where user_id = #{userId}
+	</select>
 </mapper>

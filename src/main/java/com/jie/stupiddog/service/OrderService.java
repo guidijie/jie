@@ -38,9 +38,14 @@ public interface OrderService {
 
 
     /**
-     *支付
+     *取消支付
      */
     public boolean cancelOrder(Order order);
+
+    /**
+     * 删除订单
+     * */
+    public int deleteOrder(long id);
 
 
 }

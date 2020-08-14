@@ -109,4 +109,15 @@ public class OrderController {
         return orderVOList != null ? ResponseMessage.success().addObject("orderGoodsList", orderVOList) :
                 ResponseMessage.error().addObject("msg", "錯誤");
     }
+
+    /**
+     * 删除订单
+     * */
+    @GetMapping("/deleteOrder/{id}")
+    @ResponseBody
+    public ResponseMessage deleteOrder(@PathVariable String id) {
+        int order = orderService.deleteOrder(Long.parseLong(id));
+        return order > 0 ? ResponseMessage.success().addObject("msg", "删除成功") :
+                ResponseMessage.error().addObject("msg", "删除失败");
+    }
 }

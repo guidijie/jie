@@ -154,6 +154,20 @@ public class OrderServiceImpl implements OrderService {
         }
         return false;
     }
+
+    /**
+    * 删除订单
+    * */
+    @Override
+    public int deleteOrder(long id) {
+        int i = orderDao.deleteOrder(id);
+        if(i>0){
+            return orderDao.deleteOrderGoods(id);
+
+        }
+        return -1;
+    }
+
     /**
      * 生成orderId
      */

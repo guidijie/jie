@@ -93,4 +93,12 @@
 		WHERE
 			id = #{id}
 	</update>
+	
+	<delete id="deleteOrder" parameterType="Long">
+		DELETE FROM t_order WHERE id = #{id}
+	</delete>
+
+	<delete id="deleteOrderGoods" parameterType="Long">
+		DELETE FROM t_order_goods WHERE order_id = #{id}
+	</delete>
 </mapper>

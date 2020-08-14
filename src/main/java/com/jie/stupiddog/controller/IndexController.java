@@ -34,6 +34,7 @@ public class IndexController {
         }else {
             User user = (User)principal;
             session.setAttribute("uname",user.getUsername());
+            session.setMaxInactiveInterval(60 * 30);
         }
 
         return "front_desk/index";

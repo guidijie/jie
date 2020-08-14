@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //定义授权
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.sessionManagement().invalidSessionUrl("/login.html");
         http.csrf().disable();// 必须有, 不然会 403 forbidden
         http.cors();
         //拦截以下请求

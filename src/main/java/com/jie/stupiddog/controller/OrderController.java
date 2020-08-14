@@ -123,5 +123,11 @@ public class OrderController {
     /**
      * 支付成功后
      * */
-
+    @GetMapping("/successPay/{id}")
+    @ResponseBody
+    public ResponseMessage successPay(@PathVariable String id) {
+        SuccessPayVo successPayVo = orderService.successPay(Long.parseLong(id));
+        return successPayVo != null ? ResponseMessage.success().addObject("successPayVo", successPayVo) :
+                ResponseMessage.error().addObject("msg", "系统发生错误");
+    }
 }

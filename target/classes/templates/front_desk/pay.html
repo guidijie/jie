@@ -187,7 +187,7 @@
                             ).then(function (response) {
                                 if(response.data.data.pay == true){
                                     alert("支付成功，商品可在我的课程观看")
-                                    location.href = '/order/pay-success.html?' + window.location.search.replace("?","");;
+                                    location.href = '/order/pay-success.html?' + window.location.search.replace("?","");
                                 }else{
                                     alert("支付失败")
                                 }

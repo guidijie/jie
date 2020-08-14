@@ -33,12 +33,10 @@ public class GoodsAndImagesServiceImpl implements GoodsAndImagesService {
     @Override
     public Map<String, Object> findIfGoodsVo(GoodsVo goodsVo, int pageNum) {
         Map<String, Object> map = new HashMap<>();
-        System.out.println(goodsVo);
         Page<Object> page = PageHelper.startPage(pageNum, 2);
         List<GoodsAndImages> goodsVo1 = goodsAndImagesDao.findIfGoodsVo(goodsVo);
         for (GoodsAndImages gi:goodsVo1) {
             gi.setIntroduction(gi.getIntroduction().replace("</br>",""));
-            System.out.println(gi);
         }
         map.put("goodsLevel",goodsVo1);
 

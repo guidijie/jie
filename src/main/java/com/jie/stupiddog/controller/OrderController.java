@@ -42,7 +42,6 @@ public class OrderController {
         String userName = "";
         if (userNameObj != null) {
             userName = userNameObj.toString();
-            System.out.println(userName);
         }
         Long orderId = orderService.addOrder(goodsAndImages, userName);
         return orderId > 0 ? ResponseMessage.success().addObject("orderId", orderId) :
@@ -81,7 +80,6 @@ public class OrderController {
     @PostMapping("/pay")
     @ResponseBody
     public ResponseMessage pay(@RequestBody PayVO payVO){
-        System.out.println(payVO.toString());
         boolean pay = orderService.pay(payVO);
         return pay == true ? ResponseMessage.success().addObject("pay", pay) :
                 ResponseMessage.error().addObject("pay", pay);

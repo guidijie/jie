@@ -24,7 +24,6 @@ public class UserInfoController {
     public ResponseMessage updateUserInfo(@RequestBody UserInfo userInfo){
         userInfo.setModifytime(new Date());
         int info = userService.updateUserInfo(userInfo);
-        System.out.println(userInfo.toString());
         return info >0 ? ResponseMessage.success().addObject("info", "修改成功") :
                 ResponseMessage.error().addObject("info", "錯誤");
     }

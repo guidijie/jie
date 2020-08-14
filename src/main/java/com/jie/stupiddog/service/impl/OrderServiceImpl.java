@@ -40,7 +40,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Long addOrder(List<GoodsAndImages> goodsAndImages, String userName) {
         User user = userDao.findByUserName(userName);
-        System.out.println("user" + user);
         Long id = OrderServiceImpl.orderId();  //订单id
         Double totalMoney = 0.00;  //总金额
         List<OrderGoods> listOrderGoods = new ArrayList<>();  //存放goods id
@@ -54,7 +53,6 @@ public class OrderServiceImpl implements OrderService {
         int i = orderDao.addOrder(order);
         if (i > 0) {
             int num = orderDao.addOrderGoods(listOrderGoods);
-            System.out.println(num);
         }
         return id;
     }
@@ -73,7 +71,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<GoodsAndImages> selectOrderGoods(Long orderId) {
         List<OrderGoods> orderGoods = orderDao.selectOrderGoods(orderId);
-        System.out.println(orderGoods);
         return goodsDao.selectByListGoodsId1(orderGoods);
     }
 
@@ -176,7 +173,6 @@ public class OrderServiceImpl implements OrderService {
         String date = sdfTime.format(new Date()).toString();
         String replace = date.replace("-", "").replace(" ", "").replace(":", "");
         Long id = Long.valueOf(replace);
-        System.out.println(id);
         return id;
     }
 

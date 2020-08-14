@@ -54,7 +54,6 @@ public class GoodsController {
     @GetMapping("/findGoodsId/{id}")
     @ResponseBody
     public ResponseMessage findGoodsId(@PathVariable int id) {
-        System.out.println(id);
         GoodsAndImages goodsAndImages = goodsAndImagesService.findAllGoodsId(id);
         return goodsAndImages != null ?
                 ResponseMessage.success().addObject("goods", goodsAndImages) :
@@ -68,7 +67,6 @@ public class GoodsController {
         if (level.equals("undefined")) {
             level = "all";
         }
-        System.out.println(goodsType + "  " + level + "   " + pageNum);
         GoodsVo goodsVo = new GoodsVo(goodsType,level);
         Map<String, Object> levelMap = goodsAndImagesService.findIfGoodsVo(goodsVo, pageNum);
         return levelMap != null ?

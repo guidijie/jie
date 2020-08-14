@@ -102,7 +102,7 @@
                         <div v-if="orderGoodsList">
                             <span>您暂时还没有订单哦</span>
                         </div>
-                        <div class="order-nerrong" v-for="item in orderGoodsList">
+                        <div class="order-nerrong" v-for="(item,index) in orderGoodsList">
                             <div class="order-info-header">
                                 <div class="shping-time">
                                     <span>{{item.createTime}}</span>
@@ -115,7 +115,7 @@
                                     <a :href=" item.orderStatus =='未付款' ? '/order/pay.html?' + item.id : ''">{{item.orderStatus}}</a>
                                 </div>
                                 <div class="shping-delet">
-                                    <a href="javascript:;" @click="deleteOrder(item.id)">删除</a>
+                                    <a href="javascript:;" @click="deleteOrder(item.id,index)">删除</a>
                                 </div>
                             </div>
                             <div class="list">
@@ -249,8 +249,10 @@
                 let then = this
                 then.state = value
             },
-            deleteOrder(id){
+            deleteOrder(id,index){
+               let then = this
                 if(confirm("确认要删除？")){
+                    this.orderGoodsList.splice(index, 1)
                     axios.get('/order/deleteOrder/' +id
                     ).then(function (response) {
                         then.msg =  response.data.data.msg

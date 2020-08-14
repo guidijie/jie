@@ -37,7 +37,6 @@ public class GoodsCartServiceImpl implements GoodsCartService {
     public int addCart(int gid, int uid) {
         Course c = new Course(uid,gid);
         Course course = courseDao.findCourse(c);
-        System.out.println(course);
         if(course == null){
             GoodsCart cart = new GoodsCart(gid,uid,1,new Date(),new Date());
             GoodsCart goods = goodsCartDao.findGoods(cart);
@@ -61,10 +60,8 @@ public class GoodsCartServiceImpl implements GoodsCartService {
         User user = userDao.findByUserName(username);
         //查询用户的购物车
         List<GoodsCart> userCart = goodsCartDao.findUserCart(user.getId());
-        System.out.println(userCart.size() == 0);
         if(userCart.size() != 0){
             for (GoodsCart gc :userCart) {
-                System.out.println(gc.getGoodsId());
                 //根据userCart查询商品
                 GoodsAndImages goodsAndImages = goodsAndImagesDao.findByGoodsID(gc.getGoodsId());
                 goodsAndImagesList.add(goodsAndImages);

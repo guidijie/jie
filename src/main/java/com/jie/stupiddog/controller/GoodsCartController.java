@@ -28,7 +28,6 @@ public class GoodsCartController {
     @GetMapping("/cart/{goodsId}/{username}")
     @ResponseBody
     public ResponseMessage addCart(@PathVariable String goodsId,@PathVariable String username ){
-        System.out.println(goodsId +"  "+ username);
         Integer integer = Integer.valueOf(goodsId);
         User user = userService.findByUserName(username);
         int addCart = goodsCartService.addCart(integer, user.getId());

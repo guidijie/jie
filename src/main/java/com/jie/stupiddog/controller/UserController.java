@@ -59,7 +59,6 @@ public class UserController {
         if(password.equals(rePassword)){
             User user = new User(username,password,new Date(),new Date());
             int num = userService.addUser(user);
-            System.out.println(num);
             return num >= 1 ?
                     ResponseMessage.success() :
                     ResponseMessage.error().addObject("error","用户已存在，请重新注册！");

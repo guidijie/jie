@@ -108,7 +108,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
 
         user.setModifytime(new Date());
-        System.out.println(user);
         return userDao.changePassword(user);
     }
 

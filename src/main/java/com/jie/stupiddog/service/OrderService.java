@@ -6,6 +6,7 @@ import com.jie.stupiddog.pojo.Order;
 import com.jie.stupiddog.pojo.OrderGoods;
 import com.jie.stupiddog.vo.OrderVO;
 import com.jie.stupiddog.vo.PayVO;
+import com.jie.stupiddog.vo.SuccessPayVo;
 import com.jie.stupiddog.vo.TimeAndStateVo;
 
 import java.util.List;
@@ -48,4 +49,5 @@ public interface OrderService {
     public int deleteOrder(long id);
 
 
+    SuccessPayVo successPay(long parseLong);
 }

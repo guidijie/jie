@@ -8,6 +8,7 @@ import com.jie.stupiddog.pojo.*;
 import com.jie.stupiddog.service.OrderService;
 import com.jie.stupiddog.vo.OrderVO;
 import com.jie.stupiddog.vo.PayVO;
+import com.jie.stupiddog.vo.SuccessPayVo;
 import com.jie.stupiddog.vo.TimeAndStateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -164,6 +165,17 @@ public class OrderServiceImpl implements OrderService {
         }
         return -1;
     }
+
+    @Override
+    public SuccessPayVo successPay(long parseLong) {
+        Order order = orderDao.selectOrder(parseLong);
+        UserInfo byUserInfo = userDao.findByUserInfo(order.getUserId());
+        SuccessPayVo successPayVo= new SuccessPayVo(byUserInfo,order)
+        return null;
+    }
+
+
+
 
     /**
      * 生成orderId

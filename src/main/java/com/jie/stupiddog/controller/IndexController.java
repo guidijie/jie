@@ -108,6 +108,8 @@ public class IndexController {
     public String ChangePwd(){
         return "/front_desk/Change-p";
     }
+
+
     @Resource
     public GoodsService goodsService;
     @Resource

@@ -118,4 +118,15 @@ public class OrderController {
         return order > 0 ? ResponseMessage.success().addObject("msg", "删除成功") :
                 ResponseMessage.error().addObject("msg", "删除失败");
     }
+
+    /**
+     * 删除订单
+     * */
+    @GetMapping("/successPay/{id}")
+    @ResponseBody
+    public ResponseMessage successPay(@PathVariable String id) {
+        Order order = orderService.successPay(Long.parseLong(id));
+        return order != null  ? ResponseMessage.success().addObject("msg", "删除成功") :
+                ResponseMessage.error().addObject("msg", "删除失败");
+    }
 }

@@ -29,6 +29,11 @@ public interface GoodsDao {
     // 批量查詢2
     public List<Goods> selectByListGoodsId2(@Param("orderGoodsList") List<OrderGoods> orderGoodsList);
 
+    // 批量查詢3
+    public List<GoodsAndImages> selectByListGoodsId3(@Param("userCourseList") List<UserCourse> userCourse);
+
     //查询商品的级别
     public List<Goods> selectGrade();
+
+
 }

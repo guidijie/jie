@@ -88,6 +88,25 @@
 		</foreach>
 	</select>
 
+	<select id="selectByListGoodsId3" resultType="GoodsAndImages" parameterType="List">
+		select
+			g.id,
+			g.`name`,
+			g.price,
+			g.preferential,
+			g.introduction,
+			img.path
+		from
+			t_goods g,
+			t_goods_images img
+		where
+			g.id in
+		<foreach collection="userCourseList" item="userCourse" open="(" close=")" separator=",">
+			#{userCourse.goodsId}
+		</foreach>
+		AND g.id = img.goods_id
+	</select>
+
 	<!-- 查询难度级别 -->
 	<select id="selectGrade" resultType="Goods">
 		SELECT distinct  grade FROM `t_goods`

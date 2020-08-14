@@ -53,6 +53,11 @@ public interface UserDao {
       * */
      public int changePassword(User user);
 
+     /**
+      * 查询我的课程
+      * */
+     public List<UserCourse> findCourse(int goodsId);
+
 
 
 

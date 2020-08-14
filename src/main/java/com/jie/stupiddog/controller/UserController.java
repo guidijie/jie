@@ -1,6 +1,8 @@
 package com.jie.stupiddog.controller;
 
+import com.jie.stupiddog.pojo.GoodsAndImages;
 import com.jie.stupiddog.pojo.User;
+import com.jie.stupiddog.pojo.UserCourse;
 import com.jie.stupiddog.pojo.UserInfo;
 import com.jie.stupiddog.service.UserService;
 import com.jie.stupiddog.utils.ResponseMessage;
@@ -97,5 +99,16 @@ public class UserController {
         int num = userService.changePassword(user);
         return num >0 ? ResponseMessage.success().addObject("msg","密码更改成功,请重新登录") :
                 ResponseMessage.error().addObject("msg","密码更改失败");
+    }
+
+    /**
+     * 查询用户的课程
+     * */
+    @PostMapping("/findCourse/{userId}")
+    @ResponseBody
+    public ResponseMessage findCourse(@PathVariable int userId){
+        List<GoodsAndImages> course = userService.findCourse(userId);
+        return course != null ? ResponseMessage.success().addObject("course",course) :
+                ResponseMessage.error().addObject("msg","用户暂时没有课程哦~");
     }
 }

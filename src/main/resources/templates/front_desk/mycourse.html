@@ -46,7 +46,7 @@
                     <a href="/myorder.html">我的订单</a>
                 </li>
                 <li class="ul-menu-item  item-bgc">
-                    <a href="/mycourse.html">我的课程</a>
+                    <a href="/mycourse.html" @click="findCourse()">我的课程</a>
                 </li>
                 <li class="ul-menu-item">
                     <a href="/Change-p.html">修改密码</a>
@@ -61,11 +61,11 @@
                 <span>我的课程</span>
             </div>
             <div class="my-course">
-                <a href="#">
+                <a href="#" v-for="item in course">
                     <div class="my-course-list">
-                        <img src="../images/goodsImage/1_1.jpg">
+                        <img :src="item.path">
                         <div>
-                            <span>绘画</span>
+                            <span>{{item.name}}</span>
                         </div>
                     </div>
                 </a>
@@ -86,18 +86,34 @@
 </script>
 <script>
     let userInfo = new Vue({
-        el: ".me",
+        el: ".me-info",
         data() {
             return {
-                info: []
+                info: [],
+                course:[],
+                msg:''
             }
         },
         methods: {
             getData() {
+
                 axios.get('/user/findByUserInfo/' + sessionStorage.getItem('uname')
                 ).then(function (response) {
                     if (response.data.code == 200) {
                         userInfo.info = response.data.data.userInfo
+
+                        axios.post('/user/findCourse/' + response.data.data.userInfo.userId
+                        ).then(function (response) {
+                            if (response.data.code == 200) {
+                                userInfo.course = response.data.data.course
+                            } else if(response.data.code == 400) {
+                                userInfo.msg =  response.data.data.msg
+                            }
+
+                        }).catch(function (error) {
+                            console.log('请求出错啦')
+                        })
+
                     } else {
                         alert("出现故障了，请重新登录")
                     }
@@ -105,7 +121,7 @@
                 }).catch(function (error) {
                     console.log('请求出错啦')
                 })
-            }
+            },
         },
         created() {
             this.getData();
@@ -121,70 +137,7 @@
     }
 
 
-    let order = new Vue({
-        el: ".me-info-right",
-        data() {
-            return {
-                times:[
-                    {name: '今天',value: 'day'},
-                    {name: '近一周',value: 'weeks'},
-                    {name: '近一个月',value: 'month'},
-                    {name: '近一年',value: 'years'},
-                    {name: '全部时间',value: 'all'},
-                ],
-                states:[
-                    {name: '全部订单',value: 'all'},
-                    {name: '未付款',value: 'unpay'},
-                    {name: '已完成',value: 'complete'},
-                    {name: '已取消',value: 'cancel'},
-                ],
-                orderGoodsList: [],
-                msg: "",
-                state: "all",
-                time: "all"
-            }
-        },
-        mounted: function () {
-            this.getData();
-        },
-        methods: {
-            getData() {
-                let then = this
-                let aa ={
-                    userName: sessionStorage.getItem('uname'),
-                    userId: 0,
-                    time: then.time,
-                    state: then.state
-                }
-                axios.post('/order/findOrder' , aa
-                ).then(function (response) {
-                    if (response.data.code == 200) {
-                        then.orderGoodsList =  response.data.data.orderGoodsList
-                    } else if (response.data.code == 400) {
-                        alert("发生了错误")
-                    }
-                }).catch(function (error) {
-                    console.log(error)
-                })
-            },
-            unPay(value){
-                let then = this
-                then.state = value
-            },
-            orderAll(value){
-                let then = this
-                then.state = value
-            }
-        },
-        watch: {
-            state(){
-                this.getData()
-            },
-            time(){
-                this.getData()
-            }
-        }
-    });
+
 </script>
 </body>
 </html>

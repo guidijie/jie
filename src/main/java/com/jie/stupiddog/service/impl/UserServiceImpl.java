@@ -1,16 +1,19 @@
 package com.jie.stupiddog.service.impl;
 
+import com.jie.stupiddog.dao.GoodsDao;
 import com.jie.stupiddog.dao.UserDao;
+import com.jie.stupiddog.pojo.GoodsAndImages;
 import com.jie.stupiddog.pojo.User;
+import com.jie.stupiddog.pojo.UserCourse;
 import com.jie.stupiddog.pojo.UserInfo;
 import com.jie.stupiddog.service.UserService;
 import com.jie.stupiddog.utils.MD5;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private GoodsDao goodsDao;
 
     /**
      * 按账号查询用户
@@ -104,6 +110,15 @@ public class UserServiceImpl implements UserService {
         user.setModifytime(new Date());
         System.out.println(user);
         return userDao.changePassword(user);
+    }
+
+    @Override
+    public List<GoodsAndImages> findCourse(int goodsId) {
+        List<UserCourse> course = userDao.findCourse(goodsId);
+        if (course ==null){
+            return null;
+        }
+        return goodsDao.selectByListGoodsId3(course);
     }
 
 }

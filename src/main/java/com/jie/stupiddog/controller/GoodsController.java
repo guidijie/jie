@@ -12,10 +12,7 @@ import com.jie.stupiddog.service.GoodsService;
 import com.jie.stupiddog.utils.ResponseMessage;
 import com.jie.stupiddog.vo.GoodsVo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -67,8 +64,20 @@ public class GoodsController {
         if (level.equals("undefined")) {
             level = "all";
         }
-        GoodsVo goodsVo = new GoodsVo(goodsType,level);
+        GoodsVo goodsVo = new GoodsVo(goodsType,level,"");
         Map<String, Object> levelMap = goodsAndImagesService.findIfGoodsVo(goodsVo, pageNum);
+        return levelMap != null ?
+                ResponseMessage.success().addObject("goods", levelMap) :
+                ResponseMessage.error();
+
+    }
+
+    /*搜索商品*/
+    @PostMapping("/searchGoods/{pageNum}")
+    @ResponseBody
+    public ResponseMessage searchGoods(@PathVariable int pageNum,@RequestBody GoodsVo goodsVo) {
+        System.out.println(pageNum+"   "+goodsVo.toString());
+        Map<String, Object> levelMap = goodsAndImagesService.searchGoods(goodsVo, pageNum);
         return levelMap != null ?
                 ResponseMessage.success().addObject("goods", levelMap) :
                 ResponseMessage.error();

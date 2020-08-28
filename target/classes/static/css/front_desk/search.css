@@ -1,0 +1,72 @@
+/* 商品 */
+.search-goods-name{
+    margin-bottom: 15px;
+}
+.search-goods-name a{
+    color:#373A41;
+    font-size:22px;
+    line-height:22px;
+}
+.centen{
+    overflow: hidden;
+}
+.goods-list{
+    width: 900px;
+    overflow: hidden;
+    float: left;
+    margin-right: 25px;
+    padding-top: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.search-goods-img{
+    height: 147px;
+    width: 214px;
+    float: left;
+    overflow: hidden;
+}
+.search-goods-img img{
+    height: 147px;
+    width: 214px;
+    /* 添加动画效果 */
+    transition: all 1s ease-in-out;
+}
+.search-goods-img img:hover{
+    /* 鼠标移入放大1.5倍 */
+    transform: scale(1.5,1.5);
+}
+.search-goods-info{
+    float: left;
+    margin-left: 20px;
+    height: auto;
+}
+.search-goods-info-header{
+    height: 22px;
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #666666;
+}
+.search-goods-info-header a{
+    color: #666666;
+}
+.search-goods-amount {
+    font-weight: normal;
+    color: #c4c4c4;
+    font-family: verdana;
+    text-decoration: line-through;
+    font-size: 20px;
+}
+.search-goods-price{
+    color: #ff6621;
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+.search-goods-info-describe{
+    font-size: 13px;
+    height: 51px;
+    max-height: 51px;
+    max-width: 400px;
+    color: #666666;
+    margin-bottom: 10px;
+    overflow: hidden;
+
+}

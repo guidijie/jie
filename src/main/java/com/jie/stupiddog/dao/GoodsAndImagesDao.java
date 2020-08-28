@@ -19,6 +19,9 @@ public interface GoodsAndImagesDao {
     //goodsvo类条件查询
     public List<GoodsAndImages> findIfGoodsVo(GoodsVo gv);
 
+    //搜索
+    public List<GoodsAndImages> searchGoods(GoodsVo gv);
+
     //查询购物车商品
     public GoodsAndImages findByGoodsID(int goodsId);
 }

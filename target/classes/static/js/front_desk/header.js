@@ -50,8 +50,8 @@ var headerTemplate = `
             </div>
             <div class="assistive-info">
                 <div>
-                    <input type="text" class="input-text"/>
-                    <button class="input-btn"/>
+                    <input type="text" class="input-text" v-model="inputSearch"/>
+                    <button class="input-btn" @click="search"></button>
                 </div>
             </div>
         </div>
@@ -85,7 +85,8 @@ Vue.component('my-header', {
                 {name:"首页", src:"/"},
                 {name:"课程分类", src:"/toCourseClassification?goodsType=all&level=all&pageNum=1"},
             ],
-            touxiang: ""
+            touxiang:'',
+            inputSearch: ""
         }
 
     },
@@ -101,20 +102,21 @@ Vue.component('my-header', {
             this.username = sessionStorage.getItem('uname')
             if(this.username != "null" && !(!this.username)){
                 this.userShow = true
+                axios.get('/user/findByUserInfo/' + sessionStorage.getItem('uname')
+                ).then(function (response) {
+                    if (response.data.code == 200) {
+                        then.touxiang = response.data.data.userInfo.imagePath
+                    } else {
+                        alert("出现故障了，请重新登录")
+                    }
+
+                }).catch(function (error) {
+                    console.log('请求出错啦')
+                })
             }else {
                 this.userShow = false
             }
-            axios.get('/user/findByUserInfo/' + sessionStorage.getItem('uname')
-            ).then(function (response) {
-                if (response.data.code == 200) {
-                    then.touxiang = response.data.data.userInfo.imagePath
-                } else {
-                    alert("出现故障了，请重新登录")
-                }
 
-            }).catch(function (error) {
-                console.log('请求出错啦')
-            })
         },
         cart(){
             if(!this.username || this.username == 'null'){
@@ -131,6 +133,10 @@ Vue.component('my-header', {
                 this.username = ''
                 location.href='/logout'
             }
+        },
+        search(){
+            console.log("dianji")
+            location.href='/toSearch?search='+this.inputSearch
         }
     },
     created() {

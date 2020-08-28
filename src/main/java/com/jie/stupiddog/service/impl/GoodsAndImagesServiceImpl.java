@@ -49,4 +49,20 @@ public class GoodsAndImagesServiceImpl implements GoodsAndImagesService {
         map.put("page",page1);
         return map;
     }
+
+    @Override
+    public Map<String, Object> searchGoods(GoodsVo goodsVo, int pageNum) {
+        Map<String, Object> map = new HashMap<>();
+        Page<Object> page = PageHelper.startPage(pageNum, 2);
+        List<GoodsAndImages> goods = goodsAndImagesDao.searchGoods(goodsVo);
+        map.put("searchGoods",goods);
+        //封装自定义的page类
+        long total = page.getTotal();
+        int pageNum1 = page.getPageNum();
+        com.jie.stupiddog.utils.Page page1 = new com.jie.stupiddog.utils.Page();
+        page1.setTotal(total);
+        page1.setPageNum(pageNum1);
+        map.put("page",page1);
+        return map;
+    }
 }

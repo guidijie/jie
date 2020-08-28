@@ -19,7 +19,10 @@ public interface GoodsAndImagesService {
 //    public Map<String, Object> findLevel(String goodsType, String level , int pageNum);
 
     //按照GoodsVo类查询
-    public Map<String, Object> findIfGoodsVo(GoodsVo goodsVo, int pageNum);;
+    public Map<String, Object> findIfGoodsVo(GoodsVo goodsVo, int pageNum);
+
+    //搜索
+    public Map<String, Object> searchGoods(GoodsVo goodsVo, int pageNum);
 
 
 }

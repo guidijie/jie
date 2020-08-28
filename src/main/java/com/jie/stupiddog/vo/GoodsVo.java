@@ -12,4 +12,6 @@ public class GoodsVo {
 
     private String goodsType;
     private String level;
+    private String search;
+
 }

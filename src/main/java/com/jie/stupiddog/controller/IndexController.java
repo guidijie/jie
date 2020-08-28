@@ -46,7 +46,7 @@ public class IndexController {
         return "/front_desk/publicpage/header";
     }
 
-    /*头部*/
+    /*底部*/
     @RequestMapping("/footer")
     public String footer(){
         return "/front_desk/publicpage/footer";
@@ -66,6 +66,12 @@ public class IndexController {
     @RequestMapping("/toForgotPwd")
     public String toForgotPwd(){
         return "front_desk/Forgot-Password";
+    }
+
+    /*搜索*/
+    @RequestMapping("/toSearch")
+    public String toSearch(){
+        return "front_desk/search";
     }
 
     /*购物车页*/

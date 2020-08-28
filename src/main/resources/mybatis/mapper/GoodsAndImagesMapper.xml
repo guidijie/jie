@@ -106,4 +106,28 @@
 			g.id = #{goodsId}
 			AND gi.goods_id = g.id
 	</select>
+
+	<!-- 搜索 -->
+	<select id="searchGoods" resultType="GoodsAndImages" parameterType="com.jie.stupiddog.vo.GoodsVo">
+		SELECT
+		g.id,
+		g.`name`,
+		g.price,
+		g.preferential,
+		g.grade,
+		g.introduction,
+		img.path
+		FROM
+		t_goods g,
+		t_goods_images img,
+		t_goods_type gt,
+		t_goods_id_type git
+		WHERE
+		g.id = img.goods_id
+		AND gt.id = git.goods_type_id
+		AND git.goods_id = g.id
+		<if test="search != null and search != ''">
+			and g.name Like CONCAT('%', #{search}, '%')
+		</if>
+	</select>
 </mapper>

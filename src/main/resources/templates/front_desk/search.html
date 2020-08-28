@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/front_desk/index.css"/>
+    <link href="../css/front_desk/search.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+    <script type="text/javascript" src="../../js/front_desk/fenye.js"></script>
+</head>
+<body>
+<!--<header id="header"></header>-->
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+<!-- 内容区域 -->
+<div class="bit_main_content">
+    <div class="content">
+        <div style="width: 970px ;height:600px;margin-top:35px; ">
+            <div class="goods-list" v-for="(item ,index) in goods">
+                <div class="search-goods-name">
+                    <a :href="'/goods.html?goodsid='+item.id" class="a">{{item.name}}</a>
+                </div>
+                <div class="centen">
+                    <div class="search-goods-img">
+                        <a :href="'/goods.html?goodsid='+item.id">
+                            <img :src="item.path"/>
+                        </a>
+                    </div>
+                    <div class="search-goods-info">
+                        <div class="search-goods-info-describe" v-html="item.introduction">
+							{{item.introduction}}
+                        </div>
+                    </div>
+                </div>
+                <div class="search-goods-price">
+						<span class="search-goods-amount">
+                            {{item.price == item.preferential ? '' : '￥' + item.price}}
+                        </span>
+                    {{item.preferential == 0 ? '免费' : '￥' + item.preferential}}
+                </div>
+            </div>
+            <div v-if="show">
+                没有更多了
+            </div>
+        </div>
+<!--        <div v-if="!show">-->
+<!--            <pagination v-if="showPage" :total="page.total" :prepage="page.pageSize" :show-page="5" v-model="page.pageNum"></pagination>-->
+<!--        </div>-->
+    </div>
+</div>
+</div>
+
+
+<!-- footer -->
+<div id="foot">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#foot"
+    })
+</script>
+
+</body>
+
+<script>
+    let search = new Vue({
+        el: ".content",
+        data() {
+            return {
+                goods: [],
+                search:'',
+                msg: "",
+                page: {
+                    total: 0,
+                    pageSize: 0,
+                    pageNum:1
+                },
+                show: false,
+                showPage: false
+            }
+        },
+        mounted: function () {
+            this.getData();
+        },
+        methods: {
+
+            getData() {
+                let then = this
+                let a = {
+                    search: decodeURI(location.href.split("=")[1])
+                }
+                axios.post('goods/searchGoods/' + then.page.pageNum,a
+                ).then(function (response) {
+                    console.log(response)
+                    let obj = {}
+                    obj = response.data.data.goods
+                    for (o in obj) {
+                        console.log(o)
+                        if (o != "page") {
+                            then.goods = obj[o]
+                            if (then.goods.length == 0) {
+                                then.show = true
+                            }
+                        } else {
+                            then.page = obj[o]
+                            then.showPage = true
+                        }
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            }
+        }
+    });
+</script>
+
+</html>

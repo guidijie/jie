@@ -14,7 +14,6 @@ let paginations = `
              </span>
     </div>
        `
-//total显示是正确的吧
 Vue.component('pagination', {
 	template:paginations,
 	props: {

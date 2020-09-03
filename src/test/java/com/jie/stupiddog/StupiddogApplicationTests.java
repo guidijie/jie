@@ -40,6 +40,12 @@ class StupiddogApplicationTests {
 
 
     @Test
+    void testUrl() {
+
+        System.out.println(System.getProperty("user.dir"));
+    }
+
+    @Test
     void testGoods() {
         List<Goods> goods = goodsDao.selectGrade();
         System.out.println(goods);

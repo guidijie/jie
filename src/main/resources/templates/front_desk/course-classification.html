@@ -95,8 +95,8 @@
                     没有更多了
                 </div>
             </div>
-            <div v-if="!show">
-                <pagination v-if="showPage" :total="page.total" :prepage="page.pageSize" :show-page="5" v-model="page.pageNum"></pagination>
+            <div >
+                <pagination v-if="showPage" :total="page.total" :prepage="page.pageSize" :show-page="page.total/page.pageSize" v-model="page.pageNum"></pagination>
             </div>
 
         </div>

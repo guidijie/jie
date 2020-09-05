@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserInfo {
     private int id;
+    private String userName;
     private int userId;
     private String name = "stupiddog";
     private Double money;

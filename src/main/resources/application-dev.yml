@@ -67,7 +67,7 @@ mybatis:
   #映射别名路径
   type-aliases-package: com.jie.stupiddog.pojo
   #扫描mapper文件路径
-  mapper-Locations: classpath:mybatis/mapper/*.xml
+  mapper-Locations: classpath:mybatis/mapper/*.xml,classpath:mybatis/mapper/console/*.xml
   configuration:
     #开启驼峰命名法
     map-underscore-to-camel-case: true

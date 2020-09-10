@@ -30,10 +30,8 @@ public class ConsoleUserServiceImpl implements ConsoleUserService {
         map.put("users",byUser);
         //封装自定义的page类
         long total = page.getTotal();
-        int pageNum1 = page.getPageNum();
         com.jie.stupiddog.utils.Page page1 = new com.jie.stupiddog.utils.Page();
         page1.setTotal(total);
-        page1.setPageNum(pageNum1);
         map.put("page",page1);
         return map;
     }

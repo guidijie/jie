@@ -29,9 +29,9 @@
     <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="User">
 		INSERT
 		INTO
-			t_user(username,password,creationtime,modifytime,mask)
+			t_user(username,password,creationtime,modifytime,mask,role_id)
 		values
-			(#{username},#{password},#{creationtime},#{modifytime},#{mask})
+			(#{username},#{password},#{creationtime},#{modifytime},#{mask},#{roleId})
 	</insert>
 
 	<!-- 注册用户信息 -->
@@ -93,4 +93,7 @@
 	<select id="findCourse" resultType="UserCourse" parameterType="Integer">
 		SELECT * FROM `t_user_course` where user_id = #{userId}
 	</select>
+
+
+
 </mapper>

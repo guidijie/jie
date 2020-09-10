@@ -6,12 +6,16 @@
     <!--查询所有用户信息-->
     <select id="findByUser" resultType="UserInfo">
 		SELECT
-            *
+            u.*,ui.*,r.role
         FROM
             `t_user` AS u,
-            t_user_info AS ui
+            t_user_info AS ui,
+            t_role AS r,
+            t_user_role AS ur
         WHERE
             u.id = ui.user_id
+            AND ur.user_id = u.id
+            AND ur.role_id = r.id
 	</select>
 
 </mapper>

@@ -23,6 +23,7 @@ public class UserInfo {
     private String individualitySignature = "生活不止眼前的苟且";
     private Date creationtime = new Date();
     private Date modifytime = new Date();
+    private String role;
 
     public UserInfo(int userId) {
         this.userId = userId;

@@ -1,13 +1,12 @@
 package com.jie.stupiddog.service.impl;
 
 import com.jie.stupiddog.dao.GoodsDao;
+import com.jie.stupiddog.dao.RoleDao;
 import com.jie.stupiddog.dao.UserDao;
-import com.jie.stupiddog.pojo.GoodsAndImages;
-import com.jie.stupiddog.pojo.User;
-import com.jie.stupiddog.pojo.UserCourse;
-import com.jie.stupiddog.pojo.UserInfo;
+import com.jie.stupiddog.pojo.*;
 import com.jie.stupiddog.service.UserService;
 import com.jie.stupiddog.utils.MD5;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private GoodsDao goodsDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     /**
      * 按账号查询用户
@@ -50,8 +52,14 @@ public class UserServiceImpl implements UserService {
             user.setPassword(password);
 
             int num = userDao.addUser(user);
-            UserInfo userInfo = new UserInfo(user.getId());
-            userDao.addUserInfo(userInfo);
+            System.out.println(num);
+            if(num>0){
+                UserInfo userInfo = new UserInfo(user.getId());
+                userDao.addUserInfo(userInfo);
+                UserRole u = new UserRole(user.getId(),2);
+                roleDao.addUserRole(u);
+            }
+
             return num;
         }
         return -1;

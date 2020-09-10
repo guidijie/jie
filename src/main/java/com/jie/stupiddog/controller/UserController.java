@@ -57,7 +57,7 @@ public class UserController {
 
         //判断两次密码是否相等
         if(password.equals(rePassword)){
-            User user = new User(username,password,new Date(),new Date());
+            User user = new User(username,password,new Date(),new Date(),2);
             int num = userService.addUser(user);
             return num >= 1 ?
                     ResponseMessage.success() :

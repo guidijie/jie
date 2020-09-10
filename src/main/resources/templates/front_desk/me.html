@@ -166,8 +166,7 @@
 
                 axios.post('/userInfo/updateUserInfo' ,then.userInfo
                 ).then(function (response) {
-                    console.log(response.data.data.info)
-
+                    alert(response.data.data.info)
                 }).catch(function (error) {
                     console.log('请求出错啦')
                 })

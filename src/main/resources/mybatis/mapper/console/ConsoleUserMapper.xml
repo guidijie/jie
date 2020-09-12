@@ -6,7 +6,7 @@
     <!--查询所有用户信息-->
     <select id="findByUser" resultType="UserInfo">
 		SELECT
-            u.*,ui.*,r.role
+            u.username,ui.*,r.role
         FROM
             `t_user` AS u,
             t_user_info AS ui,
@@ -18,4 +18,14 @@
             AND ur.role_id = r.id
 	</select>
 
+
+    <!-- 修改用户的角色 -->
+    <update id="updateRoleId" parameterType="UserRole">
+        UPDATE
+            `t_user`
+        SET
+            role_id = #{roleId}
+        WHERE
+            id = #{userId}
+    </update>
 </mapper>

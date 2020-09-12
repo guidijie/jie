@@ -119,6 +119,9 @@ public class UserServiceImpl implements UserService {
         return userDao.changePassword(user);
     }
 
+    /**
+     * 查询我的课程
+     * */
     @Override
     public List<GoodsAndImages> findCourse(int goodsId) {
         List<UserCourse> course = userDao.findCourse(goodsId);

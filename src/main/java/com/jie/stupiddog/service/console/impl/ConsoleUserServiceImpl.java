@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.jie.stupiddog.dao.console.ConsoleUserDao;
 import com.jie.stupiddog.pojo.UserInfo;
+import com.jie.stupiddog.pojo.UserRole;
 import com.jie.stupiddog.service.console.ConsoleUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,13 @@ public class ConsoleUserServiceImpl implements ConsoleUserService {
         page1.setTotal(total);
         map.put("page",page1);
         return map;
+    }
+
+    /**
+     * 修改user中的role_id
+     * */
+    @Override
+    public int updateRoleId(UserRole userRole) {
+        return consoleUserDao.updateRoleId(userRole);
     }
 }

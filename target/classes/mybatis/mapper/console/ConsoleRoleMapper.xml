@@ -17,4 +17,9 @@
         WHERE
             user_id = #{userId}
     </update>
+
+    <!-- 按照user_id删除user_role表数据-->
+    <delete id="deleteUserRoleId" parameterType="Integer">
+        DELETE FROM `t_user_role` WHERE user_id = #{id}
+    </delete>
 </mapper>

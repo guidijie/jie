@@ -16,4 +16,24 @@ public interface ConsoleUserDao {
      * 修改user角色id
      * */
     int updateRoleId(UserRole userRole);
+
+    /**
+     * 删除用户
+     * */
+    int deleteUserId(int id);
+
+    /**
+     * 删除用户信息
+     * */
+    int deleteUserInfoId(int userId);
+
+    /**
+     * 删除用户课程
+     * */
+    int deleteUserCourseId(int userId);
+
+    /**
+     * 修改用户头像
+     * */
+    int updateUserImage(UserInfo userInfo);
 }

@@ -44,4 +44,36 @@ public class ConsoleUserServiceImpl implements ConsoleUserService {
     public int updateRoleId(UserRole userRole) {
         return consoleUserDao.updateRoleId(userRole);
     }
+
+    /**
+     * 删除用户
+     * */
+    @Override
+    public int deleteUserId(int id) {
+        return consoleUserDao.deleteUserId(id);
+    }
+
+    /**
+     * 删除用户信息
+     * */
+    @Override
+    public int deleteUserInfoId(int userId) {
+        return consoleUserDao.deleteUserInfoId(userId);
+    }
+
+    /**
+     * 删除用户课程
+     * */
+    @Override
+    public int deleteUserCourseId(int userId) {
+        return consoleUserDao.deleteUserCourseId(userId);
+    }
+
+    /**
+     * 修改用户头像
+     * */
+    @Override
+    public int updateUserImage(UserInfo userInfo) {
+        return consoleUserDao.updateUserImage(userInfo);
+    }
 }

@@ -47,7 +47,7 @@ public class DruidConfig {
         // 添加过滤规则
         filterRegistrationBean.addUrlPatterns("/*");
         // 忽略过滤格式
-        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,");
+        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.jpeg,*.png,*.css,*.ico,/druid/*,");
         return filterRegistrationBean;
     }
 }

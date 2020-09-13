@@ -28,4 +28,31 @@
         WHERE
             id = #{userId}
     </update>
+
+    <!-- 按照user_id删除user表数据-->
+    <delete id="deleteUserId" parameterType="Integer">
+        DELETE FROM `t_user` WHERE id = #{id}
+    </delete>
+
+    <!-- 按照user_id删除user_info表数据-->
+    <delete id="deleteUserInfoId" parameterType="Integer">
+        DELETE FROM `t_user_info` WHERE user_id = #{id}
+    </delete>
+
+    <!-- 按照user_id删除user_course表数据-->
+    <delete id="deleteUserCourseId" parameterType="Integer">
+        DELETE FROM `t_user_course` WHERE user_id = #{id}
+    </delete>
+
+
+    <!-- 修改用户的角色 -->
+    <update id="updateUserImage" parameterType="UserInfo">
+        UPDATE
+            `t_user_info`
+        SET
+            imagePath = #{imagePath},
+            modifytime = #{modifytime}
+        WHERE
+            user_id = #{userId}
+    </update>
 </mapper>

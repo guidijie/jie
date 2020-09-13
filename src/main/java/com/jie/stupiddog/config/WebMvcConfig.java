@@ -15,5 +15,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/images/")
                 .addResourceLocations("classpath:/mybatis/")
                 .addResourceLocations("classpath:/swiper/");
+
+//        registry.addResourceHandler("/images/**")
+//                .addResourceLocations("E:/stupiddog/jie/src/main/resources/static/images/");
     }
 }

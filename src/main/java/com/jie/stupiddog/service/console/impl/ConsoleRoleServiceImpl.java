@@ -32,4 +32,9 @@ public class ConsoleRoleServiceImpl implements ConsoleRoleService {
     public int byUserIdUpdateUserRole(UserRole userRole) {
         return consoleRoleDao.byUserIdUpdateUserRole(userRole);
     }
+
+    @Override
+    public int deleteUserRoleId(int userId) {
+        return consoleRoleDao.deleteUserRoleId(userId);
+    }
 }

@@ -16,7 +16,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/mybatis/")
                 .addResourceLocations("classpath:/swiper/");
 
-//        registry.addResourceHandler("/images/**")
-//                .addResourceLocations("E:/stupiddog/jie/src/main/resources/static/images/");
+        //获取文件的真实路径
+        String path = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\";
+        //       /images/**是对应resource下工程目录
+        registry.addResourceHandler("/images/**").addResourceLocations("file:"+path);
+
     }
 }

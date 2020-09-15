@@ -1,9 +1,6 @@
 package com.jie.stupiddog.service.impl;
 
-import com.jie.stupiddog.dao.CourseDao;
-import com.jie.stupiddog.dao.GoodsAndImagesDao;
-import com.jie.stupiddog.dao.GoodsCartDao;
-import com.jie.stupiddog.dao.UserDao;
+import com.jie.stupiddog.dao.*;
 import com.jie.stupiddog.pojo.Course;
 import com.jie.stupiddog.pojo.GoodsAndImages;
 import com.jie.stupiddog.pojo.GoodsCart;
@@ -26,7 +23,7 @@ public class GoodsCartServiceImpl implements GoodsCartService {
     private GoodsCartDao goodsCartDao;
 
     @Resource
-    private GoodsAndImagesDao goodsAndImagesDao;
+    private GoodsDao goodsDao;
 
     @Resource
     private CourseDao courseDao;
@@ -63,7 +60,7 @@ public class GoodsCartServiceImpl implements GoodsCartService {
         if(userCart.size() != 0){
             for (GoodsCart gc :userCart) {
                 //根据userCart查询商品
-                GoodsAndImages goodsAndImages = goodsAndImagesDao.findByGoodsID(gc.getGoodsId());
+                GoodsAndImages goodsAndImages = goodsDao.findByGoodsID(gc.getGoodsId());
                 goodsAndImagesList.add(goodsAndImages);
             }
             return goodsAndImagesList;

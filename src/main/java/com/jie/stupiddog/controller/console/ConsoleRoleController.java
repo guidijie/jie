@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/role")
 @RestController
 @CrossOrigin(methods = {RequestMethod.GET, RequestMethod.POST})
-public class consoleRoleController {
+public class ConsoleRoleController {
 
 
     @Autowired

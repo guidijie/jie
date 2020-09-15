@@ -1,13 +1,9 @@
 package com.jie.stupiddog.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.jie.stupiddog.dao.GoodsDao;
 import com.jie.stupiddog.dao.GoodsTypeDao;
 import com.jie.stupiddog.pojo.Goods;
 import com.jie.stupiddog.pojo.GoodsAndImages;
-import com.jie.stupiddog.pojo.GoodsIdAndGoodsType;
-import com.jie.stupiddog.pojo.GoodsType;
-import com.jie.stupiddog.service.GoodsAndImagesService;
 import com.jie.stupiddog.service.GoodsService;
 import com.jie.stupiddog.utils.ResponseMessage;
 import com.jie.stupiddog.vo.GoodsVo;
@@ -15,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +23,6 @@ public class GoodsController {
     public GoodsTypeDao goodsTypeDao;
     @Resource
     public GoodsDao goodsDao;
-    @Resource
-    public GoodsAndImagesService goodsAndImagesService;
 
     @GetMapping("/toPay")
     public String toPay(){
@@ -51,7 +43,7 @@ public class GoodsController {
     @GetMapping("/findGoodsId/{id}")
     @ResponseBody
     public ResponseMessage findGoodsId(@PathVariable int id) {
-        GoodsAndImages goodsAndImages = goodsAndImagesService.findAllGoodsId(id);
+        GoodsAndImages goodsAndImages = goodsService.findById(id);
         return goodsAndImages != null ?
                 ResponseMessage.success().addObject("goods", goodsAndImages) :
                 ResponseMessage.error();
@@ -65,7 +57,7 @@ public class GoodsController {
             level = "all";
         }
         GoodsVo goodsVo = new GoodsVo(goodsType,level,"");
-        Map<String, Object> levelMap = goodsAndImagesService.findIfGoodsVo(goodsVo, pageNum);
+        Map<String, Object> levelMap = goodsService.findIfGoodsVo(goodsVo, pageNum);
         return levelMap != null ?
                 ResponseMessage.success().addObject("goods", levelMap) :
                 ResponseMessage.error();
@@ -77,7 +69,7 @@ public class GoodsController {
     @ResponseBody
     public ResponseMessage searchGoods(@PathVariable int pageNum,@RequestBody GoodsVo goodsVo) {
         System.out.println(pageNum+"   "+goodsVo.toString());
-        Map<String, Object> levelMap = goodsAndImagesService.searchGoods(goodsVo, pageNum);
+        Map<String, Object> levelMap = goodsService.searchGoods(goodsVo, pageNum);
         return levelMap != null ?
                 ResponseMessage.success().addObject("goods", levelMap) :
                 ResponseMessage.error();

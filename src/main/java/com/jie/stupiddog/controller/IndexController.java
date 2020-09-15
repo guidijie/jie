@@ -4,6 +4,7 @@ package com.jie.stupiddog.controller;
 import ch.qos.logback.core.util.FileUtil;
 import com.jie.stupiddog.dao.GoodsDao;
 import com.jie.stupiddog.dao.GoodsTypeDao;
+import com.jie.stupiddog.pojo.Goods;
 import com.jie.stupiddog.pojo.GoodsAndImages;
 import com.jie.stupiddog.service.GoodsService;
 import com.jie.stupiddog.utils.ResponseMessage;
@@ -129,8 +130,8 @@ public class IndexController {
     @GetMapping("/findAll")
     @ResponseBody
     public ResponseMessage findAll() {
-        Map<String, List<GoodsAndImages>> stringListMap = goodsService.selectByIds();
-        return stringListMap != null ? ResponseMessage.success().addObject("goodsAll", stringListMap)
+        Map<String, List<GoodsAndImages>> goodsList = goodsService.findAll();
+        return goodsList != null ? ResponseMessage.success().addObject("goodsAll", goodsList)
                 : ResponseMessage.error().addObject("error", "请求失败了~");
     }
 

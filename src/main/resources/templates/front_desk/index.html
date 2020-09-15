@@ -92,9 +92,9 @@
     <!-- 商品内容区域 -->
     <div class="content">
         <!-- 绘画课程展示区域 -->
-        <div class="commodity-content" v-if="goods.data">
+        <div class="commodity-content" v-if="goods">
 
-            <div  v-for="(g ,key,index) in goods.data.data.goodsAll">
+            <div  v-for="(g,key,index) of goods">
                 <div class="catalogue" >
                     <div class="header-title">{{key}}</div>
                     <div class="herder-subtitle">commodity Courses</div>
@@ -104,7 +104,7 @@
                 <div class="commodity">
                     <div class="commodity-info-list" v-for="(item ,index) in g">
                         <div>
-                            <div><a :href="'/goods.html?goodsid='+item.id"><img :src="item.path"/></a></div>
+                            <div><a :href="'/goods.html?goodsid='+item.id"><img :src="item.imagePath"/></a></div>
                         </div>
                         <div class="commodity-info-list-t1">
                             <div><a :href="'/goods.html?goodsid='+item.id">{{item.name}}</a></div>
@@ -164,7 +164,7 @@
             getData(){
                 axios.get('/findAll'
                 ).then(function (response) {
-                    goods.goods = response
+                    goods.goods = response.data.data.goodsAll
 
                 }).catch(function (error) {
                     console.log('错误')

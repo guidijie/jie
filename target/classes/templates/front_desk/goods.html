@@ -35,25 +35,25 @@
         <div class="column_inner"></div>
 
         <!-- 商品信息 -->
-        <div class="a-goods-info" v-if="goods.data" id="goodsInfo" v-cloak>
+        <div class="a-goods-info" v-if="goods" id="goodsInfo" v-cloak>
             <div>
-                <div class="goods-img"><img :src="goods.data.data.goods.path"></div>
+                <div class="goods-img"><img :src="goods.imagePath"></div>
                 <div class="goods-text">
-                    <div class="goods-text-header"><span>{{goods.data.data.goods.name}}</span></div>
+                    <div class="goods-text-header"><span>{{goods.name}}</span></div>
                     <div class="xia"></div>
                     <div class="price">
                             <span class="amount">
-                                {{goods.data.data.goods.price == goods.data.data.goods.preferential ?
+                                {{goods.price == goods.preferential ?
                                 '' :
-                                '￥'+ goods.data.data.goods.price}}
+                                '￥'+ goods.price}}
                             </span>
-                        {{goods.data.data.goods.preferential ==0 ?
+                        {{goods.preferential ==0 ?
                         '免费' :
-                        '￥'+ goods.data.data.goods.preferential}}
+                        '￥'+ goods.preferential}}
                     </div>
                     <div class="goods-text-info">
-                        <div v-html="goods.data.data.goods.introduction">
-                            {{goods.data.data.goods.introduction}}
+                        <div v-html="goods.introduction">
+                            {{goods.introduction}}
                         </div>
                     </div>
                     <div class="buy">
@@ -62,8 +62,8 @@
                     </div>
                     <div class="goods-groupby">
                         <span>分类：</span>
-                        <span><a href="#">{{goods.data.data.goods.typeName}}</a></span>
-                        <span><a href="#">{{goods.data.data.goods.grade}}</a></span>
+                        <span><a href="#">{{goods.typeName}}</a></span>
+                        <span><a href="#">{{goods.grade}}</a></span>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                         <span>课程介绍......</span>
                     </div>
                     <div class="xiangqing">
-                        {{goods.data.data.goods.details}}
+                        {{goods.details}}
                     </div>
                 </div>
 
@@ -82,8 +82,8 @@
                     <div class="jianjie" style="margin: 30px 5px 20px 0;">
                         <span>课程目录</span>
                     </div>
-                    <div class="xiangqing" v-html="goods.data.data.goods.directory">
-                        {{goods.data.data.goods.directory}}
+                    <div class="xiangqing" v-html="goods.directory">
+                        {{goods.directory}}
                     </div>
                 </div>
             </div>
@@ -179,7 +179,7 @@
                 console.log(id)
                 axios.get('/goods/findGoodsId/' + id
                 ).then(function (response) {
-                    goodsInfo.goods = response
+                    goodsInfo.goods = response.data.data.goods
                     console.log(goodsInfo.goods)
                 }).catch(function (error) {
                     console.log(error)

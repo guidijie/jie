@@ -122,7 +122,7 @@
                                 <div class="order-info-list" v-for="goodsImage in item.goodsAndImagesList">
                                     <div class="shping-img">
                                         <a :href="'/goods.html?goodsid=' + goodsImage.id">
-                                            <img :src="goodsImage.path"/>
+                                            <img :src="goodsImage.imagePath"/>
                                         </a>
                                     </div>
                                     <div class="shping-name">
@@ -256,6 +256,7 @@
                     axios.get('/order/deleteOrder/' +id
                     ).then(function (response) {
                         then.msg =  response.data.data.msg
+                        alert(then.msg)
                     }).catch(function (error) {
                         console.log(error)
                     })

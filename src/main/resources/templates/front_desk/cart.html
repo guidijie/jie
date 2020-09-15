@@ -54,7 +54,7 @@
             <div class="shop_goods_name">
                 <div class="shop_goods_name_img">
                     <a :href="'/goods.html?goodsid='+item.id">
-                        <img :src="item.path">
+                        <img :src="item.imagePath">
                     </a>
                 </div>
                 <div class="shop_goods_text">
@@ -176,7 +176,7 @@
              */
             remove: function (index,gid) {
                 if(confirm("你确定要删除吗")) {
-                    axios.get('/cart/delete/' + gid + sessionStorage.getItem('uname')
+                    axios.get('/cart/delete/' + gid +"/"+ sessionStorage.getItem('uname')
                     ).then(function (response) {
                         if (response.data.code == 200) {
                             userCart.cart.splice(index, 1)

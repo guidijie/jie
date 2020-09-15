@@ -3,11 +3,8 @@ package com.jie.stupiddog;
 import com.github.pagehelper.PageHelper;
 import com.jie.stupiddog.dao.*;
 import com.jie.stupiddog.pojo.*;
-import com.jie.stupiddog.service.GoodsAndImagesService;
 import com.jie.stupiddog.service.GoodsTypeService;
-import com.jie.stupiddog.vo.GoodsVo;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -136,12 +133,12 @@ class StupiddogApplicationTests {
 
     @Test
     public void bbb() {
-        GoodsVo gv = new GoodsVo();
-//        gv.setGoodsType("");
-        List<GoodsAndImages> ifGoodsVo = goodsAndImagesDao.findIfGoodsVo(gv);
-        for (GoodsAndImages goodsAndImages : ifGoodsVo) {
-            System.out.println(goodsAndImages);
-        }
+//        GoodsVo gv = new GoodsVo();
+////        gv.setGoodsType("");
+//        List<GoodsAndImages> ifGoodsVo = goodsAndImagesDao.findIfGoodsVo(gv);
+//        for (GoodsAndImages goodsAndImages : ifGoodsVo) {
+//            System.out.println(goodsAndImages);
+//        }
     }
 
 

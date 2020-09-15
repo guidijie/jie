@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,6 +19,8 @@ public class GoodsAndImages {
     private String introduction;
     private String details;
     private String directory;
-    private String path;
+    private Date creationTime;
+    private Date modifyTime;
+    private String imagePath;
     private String typeName;
 }

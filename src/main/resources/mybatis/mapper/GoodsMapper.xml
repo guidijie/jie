@@ -4,25 +4,66 @@
 <mapper namespace="com.jie.stupiddog.dao.GoodsDao">
 
     <!--查询所有商品信息-->
-    <select id="findAll" resultType="Goods">
+    <select id="findAll" resultType="GoodsAndImages">
         SELECT
-	        id,
-	        NAME,
-	        price,
-	        preferential,
-	        introduction
+            g.id,
+            g.NAME,
+            g.price,
+            g.imagePath,
+            g.preferential,
+            g.introduction,
+            gt.type_name
         FROM
-	        t_goods
+            t_goods as g,
+            t_goods_type as gt,
+            t_goods_id_type as gti
+        where
+            g.id = gti.goods_id
+            and
+            gt.id = gti.goods_type_id
     </select>
 
     <!-- 按照商品类型id查询商品 -->
-    <select id="findById" resultType="Goods" parameterType="Integer">
+    <select id="findById" resultType="GoodsAndImages" parameterType="Integer">
         SELECT
-	        *
+            g.*,
+            gt.type_name
         FROM
-	        t_goods
-	    WHERE
-	        id = #{id}
+            t_goods as g,
+            t_goods_type as gt,
+            t_goods_id_type as gti
+        where
+            g.id = gti.goods_id
+            and
+            gt.id = gti.goods_type_id
+            and g.id = #{id}
+    </select>
+
+    <!-- 综合条件查询 -->
+    <select id="findIfGoodsVo" resultType="GoodsAndImages" parameterType="com.jie.stupiddog.vo.GoodsVo">
+        SELECT
+        g.id,
+        g.`name`,
+        g.price,
+        g.preferential,
+        g.grade,
+        g.introduction,
+        g.imagePath,
+        gt.type_name
+        FROM
+        t_goods g,
+        t_goods_type gt,
+        t_goods_id_type git
+        WHERE
+        g.id = git.goods_id
+        and
+        gt.id = git.goods_type_id
+        <if test="goodsType != null and goodsType != '' and goodsType != 'all' ">
+            and gt.type_name = #{goodsType}
+        </if>
+        <if test="level != null and  level!= '' and level != 'all' ">
+            and g.grade = #{level}
+        </if>
     </select>
 
 	<select id="findById2" resultType="GoodsAndImages" parameterType="Integer">
@@ -54,6 +95,47 @@
 		AND g.id = img.goods_id
 	</select>
 
+
+    <!-- 查询购物车的商品 -->
+    <select id="findByGoodsID" parameterType="Integer" resultType="GoodsAndImages">
+		SELECT
+			g.imagePath,
+			g.id,
+			g.NAME,
+			g.price,
+			g.preferential
+		FROM
+			t_goods AS g
+		WHERE
+			g.id = #{goodsId}
+
+	</select>
+
+
+    <!-- 搜索 -->
+    <select id="searchGoods" resultType="GoodsAndImages" parameterType="com.jie.stupiddog.vo.GoodsVo">
+        SELECT
+        g.id,
+        g.`name`,
+        g.price,
+        g.preferential,
+        g.grade,
+        g.introduction,
+        g.imagePath
+        FROM
+        t_goods g,
+        t_goods_type gt,
+        t_goods_id_type git
+        WHERE
+        g.id = git.goods_id
+        and
+        gt.id = git.goods_type_id
+        <if test="search != null and search != ''">
+            and g.name Like CONCAT('%', #{search}, '%')
+        </if>
+    </select>
+
+
 	<select id="selectByListGoodsId1" resultType="GoodsAndImages" parameterType="List">
 		select
 		g.id,
@@ -61,16 +143,14 @@
 		g.price,
 		g.preferential,
 		g.introduction,
-		img.path
+		g.imagePath
 		from
-		t_goods g,
-		t_goods_images img
+		t_goods g
 		where
 		g.id in
 		<foreach collection="orderGoodsList" item="orderGoods" open="(" close=")" separator=",">
 			#{orderGoods.goodsId}
 		</foreach>
-		AND g.id = img.goods_id
 	</select>
 
 	<select id="selectByListGoodsId2" resultType="Goods" parameterType="List">

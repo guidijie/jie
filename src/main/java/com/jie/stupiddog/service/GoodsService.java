@@ -4,6 +4,7 @@ import com.jie.stupiddog.dao.GoodsDao;
 import com.jie.stupiddog.pojo.Goods;
 import com.jie.stupiddog.pojo.GoodsAndImages;
 import com.jie.stupiddog.pojo.GoodsType;
+import com.jie.stupiddog.vo.GoodsVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,15 +13,17 @@ import java.util.Map;
 public interface GoodsService {
 
     //查询所有商品
-    public Map<String,List<Goods>> findAll();
+    Map<String, List<GoodsAndImages>> findAll();
 
     //按照id查询商品
-    public List<Goods> findById(int goodsId);
+    GoodsAndImages findById(int goodsId);
 
     //按照goodsType_id查询商品
-    public Map<String,List<GoodsAndImages>> selectByIds();
+    Map<String, Object> findIfGoodsVo(GoodsVo goodsVo, int pageNum);
 
+    //搜索
+    Map<String, Object> searchGoods(GoodsVo goodsVo, int pageNum);
 
     //查询商品级别
-    public List<Goods> selectGrade();
+    List<Goods> selectGrade();
 }

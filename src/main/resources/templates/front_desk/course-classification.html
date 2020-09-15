@@ -70,7 +70,7 @@
                 <div class="goods-list" v-for="(item ,index) in goods">
                     <div class="goods-img">
                         <a :href="'/goods.html?goodsid='+item.id">
-                            <img :src="item.path"/>
+                            <img :src="item.imagePath"/>
                         </a>
                     </div>
                     <div class="goods-info">
@@ -154,7 +154,8 @@
                     for (o in obj) {
                         if (o != "page") {
                             a.goods = obj[o]
-                            if (a.goods.length == 0) {
+                            console.log(a.goods.length)
+                            if (a.goods.length === 0 ) {
                                 a.show = true
                             }
                         } else {

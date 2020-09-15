@@ -9,6 +9,7 @@ import com.jie.stupiddog.pojo.GoodsAndImages;
 import com.jie.stupiddog.pojo.GoodsIdAndGoodsType;
 import com.jie.stupiddog.pojo.GoodsType;
 import com.jie.stupiddog.service.GoodsService;
+import com.jie.stupiddog.vo.GoodsVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -27,41 +29,51 @@ public class GoodsServiceImpl implements GoodsService {
     public GoodsTypeDao goodsTypeDao;
 
     @Override
-    public Map<String,List<Goods>> findAll() {
-        return null;
+    public Map<String, List<GoodsAndImages>> findAll() {
+        List<GoodsAndImages> goodsList = goodsDao.findAll();
+        return goodsList.stream().collect(Collectors.groupingBy(GoodsAndImages::getTypeName));
     }
 
     @Override
-    public  List<Goods>  findById(int goodsId) {
-        List<Goods> Goods = goodsDao.findById(goodsId);
-        return Goods;
+    public GoodsAndImages findById(int goodsId) {
+        return goodsDao.findById(goodsId);
     }
 
-
     @Override
-    public Map<String, List<GoodsAndImages>> selectByIds() {
-        Map<String,List<GoodsAndImages>> map = new HashMap<>();
-        //查询所有商品类型
-        List<GoodsType> goodsTypeDaoAll = goodsTypeDao.findAll();
-        for (GoodsType gt: goodsTypeDaoAll) {
-            List<GoodsIdAndGoodsType> byGoodsTypeId = goodsTypeDao.findByGoodsTypeId(gt.getId());
-            for (GoodsIdAndGoodsType g : byGoodsTypeId){
-                //根据goodsId查询商品
-                GoodsAndImages goodsAndImages = goodsDao.findById2(g.getGoodsId());
-                //判断map中是否存在key
-                if (map.containsKey(gt.getTypeName())){
-                    List<GoodsAndImages> list = map.get(gt.getTypeName());
-                    list.add(goodsAndImages);
-                }else{
-                    List<GoodsAndImages> list2 = new ArrayList<>();
-                    list2.add(goodsAndImages);
-                    map.put(gt.getTypeName(),list2);
-                }
-            }
+    public Map<String, Object> findIfGoodsVo(GoodsVo goodsVo, int pageNum) {
+        Map<String, Object> map = new HashMap<>();
+        Page<Object> page = PageHelper.startPage(pageNum, 2);
+        List<GoodsAndImages> goodsVo1 = goodsDao.findIfGoodsVo(goodsVo);
+        for (GoodsAndImages gi:goodsVo1) {
+            gi.setIntroduction(gi.getIntroduction().replace("</br>",""));
         }
+        map.put("goodsLevel",goodsVo1);
+
+        //封装自定义的page类
+        long total = page.getTotal();
+        int pageNum1 = page.getPageNum();
+        com.jie.stupiddog.utils.Page page1 = new com.jie.stupiddog.utils.Page();
+        page1.setTotal(total);
+        page1.setPageNum(pageNum1);
+        map.put("page",page1);
         return map;
     }
 
+    @Override
+    public Map<String, Object> searchGoods(GoodsVo goodsVo, int pageNum){
+        Map<String, Object> map = new HashMap<>();
+        Page<Object> page = PageHelper.startPage(pageNum, 2);
+        List<GoodsAndImages> goods = goodsDao.searchGoods(goodsVo);
+        map.put("searchGoods",goods);
+        //封装自定义的page类
+        long total = page.getTotal();
+        int pageNum1 = page.getPageNum();
+        com.jie.stupiddog.utils.Page page1 = new com.jie.stupiddog.utils.Page();
+        page1.setTotal(total);
+        page1.setPageNum(pageNum1);
+        map.put("page",page1);
+        return map;
+    }
     @Override
     public List<Goods> selectGrade() {
         return goodsDao.selectGrade();

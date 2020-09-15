@@ -48,7 +48,7 @@ public class GoodsCartController {
                 ResponseMessage.error().addObject("msg","购物车暂无商品");
     }
 
-    @GetMapping("/cart/delete/{gId}")
+    @GetMapping("/cart/delete/{gId}/{userName}")
     @ResponseBody
     public ResponseMessage deleteCart(@PathVariable String gId , @PathVariable String userName){
         User user = userService.findByUserName(userName);

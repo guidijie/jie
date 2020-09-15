@@ -24,6 +24,7 @@ public class Goods {
     private String directory;
     private Date creationTime;
     private Date modifyTime;
+    private String imagePath;
 
 
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jie.stupiddog.dao.console.ConsoleGoodsAndGoodsTypeDao">
+
+    <!-- 查询所有商品类型 -->
+    <select id="findGoodsTypeAll" resultType="GoodsType">
+		SELECT id,type_name FROM `t_goods_type`
+	</select>
+
+    <!-- 给商品添加对应商品类型 -->
+    <insert id="giveGoodsAddGoodsType" parameterType="GoodsIdAndGoodsType">
+        INSERT
+            INTO `t_goods_id_type` ( `goods_id`, `goods_type_id` )
+        VALUES
+            (
+                #{goodsId},
+                #{goodsTypeId}
+            )
+    </insert>
+
+
+    <!-- 添加商品 -->
+    <insert id="addGoods" parameterType="Goods" useGeneratedKeys="true" keyProperty="id">
+        INSERT
+            INTO `t_goods` ( `name`, price, preferential, grade, introduction, details, `directory`, creationtime, modifytime, imagePath )
+        VALUES
+            (
+                #{name},
+                #{price},
+                #{preferential},
+                #{grade},
+                #{introduction},
+                #{details},
+                #{directory},
+                #{creationtime},
+                #{modifytime},
+                #{imagePath})
+	</insert>
+
+
+</mapper>

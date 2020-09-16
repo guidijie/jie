@@ -22,12 +22,25 @@ public class Goods {
     private String introduction;
     private String details;
     private String directory;
-    private Date creationTime;
-    private Date modifyTime;
+    private Date creationtime;
+    private Date modifytime;
     private String imagePath;
 
 
-
-
-
+    public Goods(String name, Double price,
+                 Double preferential,
+                 String grade, String introduction,
+                 String details, String directory, Date creationtime,
+                 Date modifytime, String imagePath) {
+        this.name = name;
+        this.price = price;
+        this.preferential = preferential;
+        this.grade = grade;
+        this.introduction = introduction;
+        this.details = details;
+        this.directory = directory;
+        this.creationtime = creationtime;
+        this.modifytime = modifytime;
+        this.imagePath = imagePath;
+    }
 }

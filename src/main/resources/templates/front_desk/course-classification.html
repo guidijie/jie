@@ -96,9 +96,9 @@
                 </div>
             </div>
             <div >
-                <pagination v-if="showPage" :total="page.total" :prepage="page.pageSize" :show-page="page.total/page.pageSize" v-model="page.pageNum"></pagination>
-            </div>
+                <pagination v-if="showPage" :total="page.total" :prepage="page.pageSize" :show-page="Math.ceil(page.total / page.pageSize)" v-model="page.pageNum"></pagination>
 
+            </div>
         </div>
     </div>
 </div>
@@ -154,13 +154,13 @@
                     for (o in obj) {
                         if (o != "page") {
                             a.goods = obj[o]
-                            console.log(a.goods.length)
-                            if (a.goods.length === 0 ) {
+                            if (Object.keys(a.goods) === 0 ) {
                                 a.show = true
                             }
                         } else {
                             a.page = obj[o]
                             a.showPage = true
+                            console.log("heihie")
                         }
                     }
                 }).catch(function (error) {

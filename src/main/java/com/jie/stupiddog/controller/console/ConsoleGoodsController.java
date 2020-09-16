@@ -1,8 +1,10 @@
 package com.jie.stupiddog.controller.console;
 
 
+import com.jie.stupiddog.pojo.Goods;
+import com.jie.stupiddog.pojo.GoodsIdAndGoodsType;
 import com.jie.stupiddog.pojo.GoodsType;
-import com.jie.stupiddog.service.console.ConsoleGoodsTypeService;
+import com.jie.stupiddog.service.console.ConsoleGoodsAndGoodsTypeService;
 import com.jie.stupiddog.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +23,7 @@ import java.util.UUID;
 public class ConsoleGoodsController {
 
     @Autowired
-    private ConsoleGoodsTypeService consoleGoodsTypeService;
+    private ConsoleGoodsAndGoodsTypeService consoleGoodsTypeService;
 
     /**
      * 查询所有商品类型
@@ -36,29 +39,35 @@ public class ConsoleGoodsController {
     /**
      * 添加goods
      */
-    @GetMapping("/addGoods")
+    @PostMapping("/addGoods")
     public ResponseMessage addGoods(@RequestParam(value = "name", required = false) String name,
-                                    @RequestParam(value = "price", required = false) String price,
-                                    @RequestParam(value = "preferential", required = false) String preferential,
+                                    @RequestParam(value = "price", required = false) Double price,
+                                    @RequestParam(value = "preferential", required = false) Double preferential,
                                     @RequestParam(value = "grade", required = false) String grade,
-                                    @RequestParam(value = "typeName", required = false) String typeName,
-                                    @RequestParam(value = "goodsImg", required = false) String goodsImg,
+                                    @RequestParam(value = "goodsTypeId", required = false) int goodsTypeId,
                                     @RequestParam(value = "introduction", required = false) String introduction,
                                     @RequestParam(value = "details", required = false) String details,
                                     @RequestParam(value = "directory", required = false) String directory,
-                                    @RequestParam(value = "delivery", required = false) String delivery,
                                     @RequestParam(value = "file", required = false) MultipartFile file,
                                     HttpServletRequest request) throws IOException {
 
         String imagesPath = uploadImag(file);
+        Goods goods = new Goods(name,price,preferential,grade,introduction,details,directory,new Date(),new Date(),imagesPath);
+        int num = consoleGoodsTypeService.addGoods(goods);
+        if(num > 0){
+            GoodsIdAndGoodsType g = new GoodsIdAndGoodsType(goods.getId(),goodsTypeId);
+            int i = consoleGoodsTypeService.giveGoodsAddGoodsType(g);
+            return i > 0 ?
+                ResponseMessage.success().addObject("msg","商品添加成功") :
+                ResponseMessage.error().addObject("msg","出错了");
+        }
+        System.out.println(imagesPath);
 
+        return ResponseMessage.error();
 
-
-        return null;
-//        return goodsTypeAll != null ?
-//                ResponseMessage.success().addObject("goodsType",goodsTypeAll) :
-//                ResponseMessage.error().addObject("msg","出错了");
     }
+
+
 
 
     private static String uploadImag(MultipartFile file) throws IOException {

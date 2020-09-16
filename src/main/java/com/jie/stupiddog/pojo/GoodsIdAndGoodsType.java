@@ -14,4 +14,8 @@ public class GoodsIdAndGoodsType {
     private int goodsId;
     private int goodsTypeId;
 
+    public GoodsIdAndGoodsType(int goodsId, int goodsTypeId) {
+        this.goodsId = goodsId;
+        this.goodsTypeId = goodsTypeId;
+    }
 }

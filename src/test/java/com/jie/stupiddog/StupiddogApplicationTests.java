@@ -3,7 +3,6 @@ package com.jie.stupiddog;
 import com.github.pagehelper.PageHelper;
 import com.jie.stupiddog.dao.*;
 import com.jie.stupiddog.pojo.*;
-import com.jie.stupiddog.service.GoodsTypeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,8 +16,6 @@ class StupiddogApplicationTests {
     @Resource
     public GoodsDao goodsDao;
 
-    @Resource
-    public GoodsImagesDao goodsImages;
 
     @Resource
     public GoodsIdAndGoodsTypeDao goodsIdAndGoodsTypeDao;
@@ -26,11 +23,6 @@ class StupiddogApplicationTests {
     @Resource
     public GoodsTypeDao goodsTypeDao;
 
-    @Resource
-    public GoodsTypeService goodsTypeService;
-
-    @Resource
-    public GoodsAndImagesDao goodsAndImagesDao;
 
     @Resource
     private UserDao userDao;
@@ -44,19 +36,11 @@ class StupiddogApplicationTests {
 
     @Test
     void testGoods() {
-        List<Goods> goods = goodsDao.selectGrade();
-        System.out.println(goods);
+        double a = (double)4;
+        System.out.println(a);
     }
 
-    @Test
-    void testGoodsImages() {
 
-        List<GoodsImages> goodsImagesAll = goodsImages.findAll();
-        for (GoodsImages s : goodsImagesAll) {
-            System.out.println(s);
-
-        }
-    }
 
     @Test
     void testGoodsIdAndGoodsType() {

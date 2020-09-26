@@ -15,7 +15,7 @@ public class GoodsType {
 
     private int id;
     private String typeName;
-    private Date creationTime;
-    private Date modifyTime;
+    private Date creationtime;
+    private Date modifytime;
 
 }

@@ -19,6 +19,27 @@
             )
     </insert>
 
+    <!-- 添加类型 -->
+    <insert id="addGoodsType" parameterType="GoodsType">
+        INSERT
+            INTO `t_goods_type`(type_name,creationtime,modifytime)
+        VALUES
+            (
+                #{typeName},
+                #{creationtime},
+                #{modifytime}
+            )
+    </insert>
+
+    <!-- 修改类型 -->
+    <update id="updateGoodsType" parameterType="GoodsType">
+        UPDATE
+            `t_goods_type`
+        SET
+            type_name = #{typeName},modifytime = #{modifytime}
+        WHERE
+            id = #{id}
+    </update>
 
     <!-- 添加商品 -->
     <insert id="addGoods" parameterType="Goods" useGeneratedKeys="true" keyProperty="id">
@@ -38,5 +59,65 @@
                 #{imagePath})
 	</insert>
 
+    <!-- 查询所有商品 -->
+    <select id="findGoodsAll" resultType="GoodsAndImages">
+       SELECT
+            g.*,
+            gt.type_name
+        FROM
+            t_goods AS g,
+            t_goods_type AS gt,
+            t_goods_id_type AS git
+        WHERE
+            git.goods_id = g.id
+            AND git.goods_type_id = gt.id
+    </select>
+
+    <!-- 按照goodsId修改商品信息 -->
+    <update id="updateGoods" parameterType="Goods">
+        UPDATE `t_goods`
+        <set>
+            <if test="name!=null and name!=''"> name = #{name},</if>
+            <if test="price!=null and price!=''"> price = #{price},</if>
+            <if test="preferential!=null and preferential != ''"> birthday = #{birthday},</if>
+            <if test="grade!=null and grade!=''"> grade = #{grade},</if>
+            <if test="introduction!=null and introduction!='' "> introduction = #{introduction},</if>
+            <if test="details!=null and details != '' "> details = #{details},</if>
+            <if test="directory!=null and directory != '' "> directory = #{directory},</if>
+            modifytime = #{modifytime}
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <!-- 删除goods -->
+    <delete id="deleteGoods" parameterType="Integer">
+        DELETE FROM `t_goods` WHERE id = #{id}
+    </delete>
+
+    <!-- 删除goods_id_type -->
+    <delete id="deleteGoodsIdType" parameterType="Integer">
+        DELETE FROM `t_goods_id_type` WHERE goods_id = #{id}
+    </delete>
+
+    <!-- 批量删除goods -->
+    <delete id="deleteGoodsList" parameterType="List">
+        DELETE FROM `t_goods`
+        WHERE
+            id in
+            <foreach collection="list" item="item" open="(" separator="," close=")">
+                #{item.id}
+            </foreach>
+    </delete>
+
+    <!-- 批量删除goods_id_type -->
+    <delete id="deleteGoodsIdTypeList" parameterType="List">
+        DELETE FROM `t_goods_id_type`
+        WHERE
+            goods_id in
+            <foreach collection="list" item="item" open="(" separator="," close=")">
+                #{item.id}
+            </foreach>
+    </delete>
 
 </mapper>

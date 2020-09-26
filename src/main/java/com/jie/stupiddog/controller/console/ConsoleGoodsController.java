@@ -2,6 +2,7 @@ package com.jie.stupiddog.controller.console;
 
 
 import com.jie.stupiddog.pojo.Goods;
+import com.jie.stupiddog.pojo.GoodsAndImages;
 import com.jie.stupiddog.pojo.GoodsIdAndGoodsType;
 import com.jie.stupiddog.pojo.GoodsType;
 import com.jie.stupiddog.service.console.ConsoleGoodsAndGoodsTypeService;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -32,8 +34,8 @@ public class ConsoleGoodsController {
     public ResponseMessage uploadUserImg() {
         List<GoodsType> goodsTypeAll = consoleGoodsTypeService.findGoodsTypeAll();
         return goodsTypeAll != null ?
-                ResponseMessage.success().addObject("goodsType",goodsTypeAll) :
-                ResponseMessage.error().addObject("msg","出错了");
+                ResponseMessage.success().addObject("goodsType", goodsTypeAll) :
+                ResponseMessage.error().addObject("msg", "出错了");
     }
 
     /**
@@ -52,14 +54,14 @@ public class ConsoleGoodsController {
                                     HttpServletRequest request) throws IOException {
 
         String imagesPath = uploadImag(file);
-        Goods goods = new Goods(name,price,preferential,grade,introduction,details,directory,new Date(),new Date(),imagesPath);
+        Goods goods = new Goods(name, price, preferential, grade, introduction, details, directory, new Date(), new Date(), imagesPath);
         int num = consoleGoodsTypeService.addGoods(goods);
-        if(num > 0){
-            GoodsIdAndGoodsType g = new GoodsIdAndGoodsType(goods.getId(),goodsTypeId);
+        if (num > 0) {
+            GoodsIdAndGoodsType g = new GoodsIdAndGoodsType(goods.getId(), goodsTypeId);
             int i = consoleGoodsTypeService.giveGoodsAddGoodsType(g);
             return i > 0 ?
-                ResponseMessage.success().addObject("msg","商品添加成功") :
-                ResponseMessage.error().addObject("msg","出错了");
+                    ResponseMessage.success().addObject("msg", "商品添加成功") :
+                    ResponseMessage.error().addObject("msg", "出错了");
         }
         System.out.println(imagesPath);
 
@@ -68,6 +70,85 @@ public class ConsoleGoodsController {
     }
 
 
+    /**
+     * 添加商品类型
+     */
+    @PostMapping("/addGoodsType")
+    public ResponseMessage addGoodsType(@RequestBody GoodsType goodsType) {
+        goodsType.setCreationtime(new Date());
+        goodsType.setModifytime(new Date());
+        int num = consoleGoodsTypeService.addGoodsType(goodsType);
+        return num > 0 ?
+                ResponseMessage.success().addObject("msg", "商品类型添加成功") :
+                ResponseMessage.error().addObject("msg", "出错了");
+
+    }
+
+    /**
+     * 修改商品类型
+     */
+    @PostMapping("/updateGoodsType")
+    public ResponseMessage updateGoodsType(@RequestBody GoodsType goodsType) {
+
+        goodsType.setModifytime(new Date());
+        int num = consoleGoodsTypeService.updateGoodsType(goodsType);
+        return num > 0 ?
+                ResponseMessage.success().addObject("msg", "商品类型修改成功") :
+                ResponseMessage.error().addObject("msg", "出错了");
+
+    }
+
+    /**
+     * 查询所有商品
+     */
+    @GetMapping("/findGoodsAll/{num}")
+    public ResponseMessage findGoodsAll(@PathVariable String num) {
+        Integer pageNum = Integer.valueOf(num);
+        final Map<String, Object> goodsAll = consoleGoodsTypeService.findGoodsAll(pageNum);
+        return goodsAll != null  ?
+                ResponseMessage.success().addObject("goods", goodsAll) :
+                ResponseMessage.error().addObject("msg", "出错了");
+
+    }
+
+    /**
+     * 根据goodsId更新goods
+     * */
+    @PostMapping("/updateGoods")
+    public ResponseMessage updateGoods(@RequestBody Goods goods) {
+        goods.setModifytime(new Date());
+        int num = consoleGoodsTypeService.updateGoods(goods);
+        return num > 0 ?
+                ResponseMessage.success().addObject("msg", "修改成功") :
+                ResponseMessage.error().addObject("msg", "出错了");
+
+    }
+
+    /**
+     * 根据goodsId删除goods
+     * */
+    @GetMapping("/deleteGoods/{goodsId}")
+    public ResponseMessage deleteGoods(@PathVariable int goodsId) {
+        int num1 = consoleGoodsTypeService.deleteGoods(goodsId);
+        int num2 = consoleGoodsTypeService.deleteGoodsIdType(goodsId);
+
+        return (num1 > 0 && num2 >0 ) ?
+                ResponseMessage.success().addObject("msg", "删除成功") :
+                ResponseMessage.error().addObject("msg", "出错了");
+    }
+
+    /**
+     * 批量删除goods
+     * */
+    @PostMapping("/deleteGoodsList")
+    public ResponseMessage deleteGoodsList(@RequestBody List<Goods> goodsList) {
+        int num1 = consoleGoodsTypeService.deleteGoodsList(goodsList);
+        int num2 = consoleGoodsTypeService.deleteGoodsIdTypeList(goodsList);
+
+        return (num1 > 0 && num2 >0 ) ?
+                ResponseMessage.success().addObject("msg", "删除成功") :
+                ResponseMessage.error().addObject("msg", "出错了");
+    }
 
 
     private static String uploadImag(MultipartFile file) throws IOException {

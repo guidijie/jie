@@ -26,7 +26,7 @@ public class ConsoleUserServiceImpl implements ConsoleUserService {
     @Override
     public Map<String, Object> findByUser(int pageNum) {
         Map<String, Object> map = new HashMap<>();
-        Page<Object> page = PageHelper.startPage(pageNum, 20);
+        Page<Object> page = PageHelper.startPage(pageNum, 15);
         List<UserInfo> byUser = consoleUserDao.findByUser();
         map.put("users",byUser);
         //封装自定义的page类

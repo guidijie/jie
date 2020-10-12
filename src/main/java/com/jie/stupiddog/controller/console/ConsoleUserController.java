@@ -78,6 +78,7 @@ public class ConsoleUserController {
             return (u > 0) && (r > 0) ? ResponseMessage.success().addObject("msg", "修改成功") :
                     ResponseMessage.error().addObject("msg", "錯誤");
         }
+
         System.out.println(userInfo.toString());
         return null;
     }

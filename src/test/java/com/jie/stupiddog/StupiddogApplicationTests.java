@@ -14,12 +14,15 @@ import java.util.*;
 @SpringBootTest
 class StupiddogApplicationTests {
 
-
+    int x;
 
     @Test
     void xx(){
-        int x = 4;
-        System.out.println(x/=x*2);
+
+    }
+
+    public static void main(String[] args) {
+
     }
 
 

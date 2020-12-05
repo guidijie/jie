@@ -42,7 +42,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Map<String, Object> findIfGoodsVo(GoodsVo goodsVo, int pageNum) {
         Map<String, Object> map = new HashMap<>();
-        Page<Object> page = PageHelper.startPage(pageNum, 2);
+        Page<Object> page = PageHelper.startPage(pageNum, 6);
         List<GoodsAndImages> goodsVo1 = goodsDao.findIfGoodsVo(goodsVo);
         for (GoodsAndImages gi:goodsVo1) {
             gi.setIntroduction(gi.getIntroduction().replace("</br>",""));
@@ -62,7 +62,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Map<String, Object> searchGoods(GoodsVo goodsVo, int pageNum){
         Map<String, Object> map = new HashMap<>();
-        Page<Object> page = PageHelper.startPage(pageNum, 2);
+        Page<Object> page = PageHelper.startPage(pageNum, 6);
         List<GoodsAndImages> goods = goodsDao.searchGoods(goodsVo);
         map.put("searchGoods",goods);
         //封装自定义的page类

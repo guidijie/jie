@@ -33,6 +33,11 @@ public class OrderController {
         return "/front_desk/pay-success";
     }
 
+    @GetMapping("/pay-error.html")
+    public String toPayError() {
+        return "/front_desk/pay-error";
+    }
+
     /**
      * 新建订单
      * */

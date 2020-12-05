@@ -99,7 +99,7 @@
                 <!-- 订单 -->
                 <div class="order-info">
                     <div class="order-info-cen">
-                        <div v-if="orderGoodsList">
+                        <div v-if="orderGoodsList == null || orderGoodsList == '' ">
                             <span>您暂时还没有订单哦</span>
                         </div>
                         <div class="order-nerrong" v-for="(item,index) in orderGoodsList">

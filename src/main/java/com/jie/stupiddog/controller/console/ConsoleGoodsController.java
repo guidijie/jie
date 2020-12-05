@@ -36,7 +36,7 @@ public class ConsoleGoodsController {
         return goodsTypeAll != null ?
                 ResponseMessage.success().addObject("goodsType", goodsTypeAll) :
                 ResponseMessage.error().addObject("msg", "出错了");
-    }
+    }                                                                                                                                                                                                                                                                                                                           
 
     /**
      * 添加goods

@@ -1,0 +1,24 @@
+.pay-error{
+	width: 900px;
+	margin: auto;
+	color: #333333;
+}
+.zhuangtai{
+	margin: auto;
+	font-size: 26px;
+	color: red;
+	line-height: 90px;
+	overflow: hidden;
+	border: 1px solid #DDDDDD;
+	margin-top: 40px;
+}
+.zhuangtai img{
+	width: 60px;
+	height: 60px;
+}
+.pay-error-info{
+	margin-top: 20px;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	min-height: 400px;
+}

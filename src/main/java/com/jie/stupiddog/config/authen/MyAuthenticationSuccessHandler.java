@@ -33,18 +33,18 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 
         response.setContentType("application/json;charset=UTF-8");
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        response.getWriter().write(objectMapper.writeValueAsString(ResponseMessage.success().addObject("uname",authentication.getName())));
+//        response.getWriter().write(objectMapper.writeValueAsString(ResponseMessage.success().addObject("uname",authentication.getName())));
 
-//        if(loginType.equalsIgnoreCase("JSON")){
-//            response.setContentType("application/json;charset=UTF-8");
-//            response.getWriter().write(objectMapper.writeValueAsString(ResponseMessage.success().addObject("name",authentication.getName())));
-//
-//        }else{
-//            // 会帮我们跳转到上一次请求的页面上
-//            super.onAuthenticationSuccess(request, response, authentication);
-//        }
+        if(loginType.equalsIgnoreCase("JSON")){
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(ResponseMessage.success().addObject("uname",authentication.getName())));
+
+        }else{
+            // 会帮我们跳转到上一次请求的页面上
+            super.onAuthenticationSuccess(request, response, authentication);
+        }
 
     }
 }

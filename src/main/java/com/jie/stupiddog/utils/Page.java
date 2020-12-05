@@ -12,5 +12,5 @@ public class Page {
 
     private Long total ;  //分页总数
     private int pageNum;  //页码
-    private int pageSize = 2;  //每页显示多少条数据
+    private int pageSize = 6;  //每页显示多少条数据
 }

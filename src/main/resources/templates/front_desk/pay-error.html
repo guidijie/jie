@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="../css/front_desk/index.css"/>
+    <link href="../css/front_desk/pay-error.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/axios.js"></script>
+    <script>Vue.config.productionTip = false;</script>
+    <script type="text/javascript" src="../js/front_desk/header.js"></script>
+</head>
+<body>
+<!--<header id="header"></header>-->
+<div id="my-header">
+    <my-header></my-header>
+</div>
+<script>
+    let header = new Vue({
+        el: "#my-header"
+    })
+</script>
+
+
+<!-- 主题内容 -->
+<div class="bit_main_content">
+    <div class="pay-error">
+        <div class="zhuangtai">
+            <div style="float: left;display:flex ;">
+                <img style="margin: 15px 0 0 30px;" src="/images/front_desk/yemian/cg2.png">
+            </div>
+            <div style="float: left;margin-left: 30px;">
+                <span>交易状态：</span>
+                <span>交易失败</span>
+            </div>
+        </div>
+        <div class="pay-error-info">
+            <div>交易失败了，请重试一下，亲</div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div id="foot">
+    <my-footer></my-footer>
+</div>
+<script type="text/javascript" src="../js/front_desk/footer.js"></script>
+<script>
+    let footer = new Vue({
+        el: "#foot"
+    })
+</script>
+</body>
+<script type="text/javascript">
+
+    let successPay = new Vue({
+        el: ".pay-success",
+        data() {
+            return {
+
+            }
+        },
+        created() {
+            this.getData();
+        },
+        methods: {
+            getData(){
+
+            }
+        }
+    });
+</script>
+</html>

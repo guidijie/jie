@@ -39,6 +39,12 @@ public class IndexController {
         return "front_desk/index";
     }
 
+    /*主页*/
+//    @RequestMapping({"/index", "/", "/index.html"})
+//    public String hello() {
+//        return "front_desk/index";
+//    }
+
     /*头部*/
     @RequestMapping("/header")
     public String header() {
